@@ -4,7 +4,7 @@
     "href": "ysp_tutorial.html",
     "title": "¿Qué es el análisis de textos",
     "section": "",
-    "text": "El análisis de textos es un conjunto de técnicas y métodos utilizados para estudiar, interpretar y extrar información de grandes volúmenes de datos textuales. Estas técnicas son fundamentales en campos como las ciencias sociales, humanidades digitales, ciencias políticas, la lingüística o la educación entre muchas otras.\nA medida que el volumen de información textual digitalizada ha crecido, la necesidad de analizar textos de forma sistemática también ha aumentado. Herramientas como `Quanteda` permiten a los investigadores y analistas transformar textos en datos estructurados y cuantificables."
+    "text": "El análisis de textos es un conjunto de técnicas y métodos utilizados para estudiar, interpretar y extrar información de grandes volúmenes de datos textuales. Estas técnicas son fundamentales en campos como las ciencias sociales, humanidades digitales, ciencias políticas, la lingüística o la educación entre muchas otras.\nA medida que el volumen de información textual digitalizada ha crecido, la necesidad de analizar textos de forma sistemática también ha aumentado. Herramientas como `Quanteda` permiten a los investigadores y analistas transformar textos en datos estructurados y cuantificables.\n\nplot(cars)"
   },
   {
     "objectID": "ysp_tutorial.html#section",
@@ -60,7 +60,7 @@
     "href": "ysp_tutorial.html#introducción-al-análisis-de-textos-con-r-y-quanteda",
     "title": "¿Qué es el análisis de textos",
     "section": "",
-    "text": "El análisis de textos es un conjunto de técnicas y métodos utilizados para estudiar, interpretar y extrar información de grandes volúmenes de datos textuales. Estas técnicas son fundamentales en campos como las ciencias sociales, humanidades digitales, ciencias políticas, la lingüística o la educación entre muchas otras.\nA medida que el volumen de información textual digitalizada ha crecido, la necesidad de analizar textos de forma sistemática también ha aumentado. Herramientas como `Quanteda` permiten a los investigadores y analistas transformar textos en datos estructurados y cuantificables."
+    "text": "El análisis de textos es un conjunto de técnicas y métodos utilizados para estudiar, interpretar y extrar información de grandes volúmenes de datos textuales. Estas técnicas son fundamentales en campos como las ciencias sociales, humanidades digitales, ciencias políticas, la lingüística o la educación entre muchas otras.\nA medida que el volumen de información textual digitalizada ha crecido, la necesidad de analizar textos de forma sistemática también ha aumentado. Herramientas como `Quanteda` permiten a los investigadores y analistas transformar textos en datos estructurados y cuantificables.\n\nplot(cars)"
   },
   {
     "objectID": "ysp_tutorial.html#para-qué-se-utiliza-el-análisis-de-textos",

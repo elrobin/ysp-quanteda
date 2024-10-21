@@ -11,6 +11,10 @@ El **análisis de textos** es un conjunto de técnicas y métodos utilizados par
 
 A medida que el volumen de información textual digitalizada ha crecido, la necesidad de analizar textos de forma sistemática también ha aumentado. Herramientas como \`Quanteda\` permiten a los investigadores y analistas transformar textos en datos estructurados y cuantificables.
 
+```{r}
+plot(cars)
+```
+
 ## ¿Para qué se utiliza el análisis de textos? 🤔
 
 El análisis de textos puede tener muchos propósitos:
