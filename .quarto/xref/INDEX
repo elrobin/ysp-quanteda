@@ -1,8 +1,10 @@
 {
   "ysp_tutorial.qmd": {
-    "ysp_tutorial.html": "986b9f3b"
+    "ysp_tutorial.html": "986b9f3b",
+    "..html": "6fc00009"
   },
   "index.qmd": {
-    "index.html": "c8639a25"
+    "index.html": "c8639a25",
+    "..html": "7f14097e"
   }
 }
