@@ -1,0 +1,79 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Intro",
+    "section": "",
+    "text": "Esta web contiene los contenidos del curso de YoSigo UGR Introducción al análisis de textos con Quanteda. En esta sesión queremos iniciarte en el fantástico mundo del análisis de textos. Para ello vamos a utilizar el lenguaje de programación R y el paquete de análisis de textos Quanteda. Para ello vamos a explorar algunas cuestiones básicas para el análisis de textos como es la creación de un corpus, el proceso de tokenización y algunos análisis básicos como el sentiment analysis.\nPara poder repetir las cosas que vamos a hacer en este curso y poder realizar tus propios análisis, deberás de tener instalado en tu ordenador los siguientes programas (instálalos en el orden que te indico):\n\nR. Este es el lenguaje programación que emplearemos. Se trata de un lenguaje abierto y gratuito desarrollado específicamente para el análisis estadístico. Aunque como con cualquier otro lenguaje de programación, es muy flexible y puede emplearse para diferentes funciones. Cuenta con una amplia comunidad de usuarios que crean y mantienen sus funcionalidades creando lo que se conoce como paquetes o librerías.\nRStudio. Se trata de una interfaz de R que facilita algunas operaciones. Aunque en principio, R puede emplearse sin interfaz, RStudio incluye los principales paquetes adicionales así como algunas funcionalidades que pueden ser muy útiles para mantenernos cuerdos al adentrarnos en el mundo de la programación.\n\n\n💡 Aquí te daremos el código muy mascadito, pero si no tienes experiencia programando con R y deseas conocer las bases de su gramática, te recomiendo los siguientes recursos:\n\nEl curso de yosigo Introducción práctica a la ciencia de datos en R – REDUX by Wenceslao Arroyo-Machado\nEl libro online R for Data Science by Hadley Wickham, uno de los máximos exponentes en R"
+  },
+  {
+    "objectID": "index.html#bienvenidos",
+    "href": "index.html#bienvenidos",
+    "title": "Intro",
+    "section": "",
+    "text": "Esta web contiene los contenidos del curso de YoSigo UGR Introducción al análisis de textos con Quanteda. En esta sesión queremos iniciarte en el fantástico mundo del análisis de textos. Para ello vamos a utilizar el lenguaje de programación R y el paquete de análisis de textos Quanteda. Para ello vamos a explorar algunas cuestiones básicas para el análisis de textos como es la creación de un corpus, el proceso de tokenización y algunos análisis básicos como el sentiment analysis.\nPara poder repetir las cosas que vamos a hacer en este curso y poder realizar tus propios análisis, deberás de tener instalado en tu ordenador los siguientes programas (instálalos en el orden que te indico):\n\nR. Este es el lenguaje programación que emplearemos. Se trata de un lenguaje abierto y gratuito desarrollado específicamente para el análisis estadístico. Aunque como con cualquier otro lenguaje de programación, es muy flexible y puede emplearse para diferentes funciones. Cuenta con una amplia comunidad de usuarios que crean y mantienen sus funcionalidades creando lo que se conoce como paquetes o librerías.\nRStudio. Se trata de una interfaz de R que facilita algunas operaciones. Aunque en principio, R puede emplearse sin interfaz, RStudio incluye los principales paquetes adicionales así como algunas funcionalidades que pueden ser muy útiles para mantenernos cuerdos al adentrarnos en el mundo de la programación.\n\n\n💡 Aquí te daremos el código muy mascadito, pero si no tienes experiencia programando con R y deseas conocer las bases de su gramática, te recomiendo los siguientes recursos:\n\nEl curso de yosigo Introducción práctica a la ciencia de datos en R – REDUX by Wenceslao Arroyo-Machado\nEl libro online R for Data Science by Hadley Wickham, uno de los máximos exponentes en R"
+  },
+  {
+    "objectID": "index.html#objetivos-de-la-sesión",
+    "href": "index.html#objetivos-de-la-sesión",
+    "title": "Intro",
+    "section": "Objetivos de la sesión",
+    "text": "Objetivos de la sesión\n\nEntender los fundamentos del análisis textual.\nAprender a manejar el paquete `Quanteda`.\nRealizar un análisis práctico utilizando un corpus de texto real."
+  },
+  {
+    "objectID": "..html",
+    "href": "..html",
+    "title": "Intro",
+    "section": "",
+    "text": "Esta web contiene los contenidos del curso de YoSigo UGR Introducción al análisis de textos con Quanteda. En esta sesión queremos iniciarte en el fantástico mundo del análisis de textos. Para ello vamos a utilizar el lenguaje de programación R y el paquete de análisis de textos Quanteda. Para ello vamos a explorar algunas cuestiones básicas para el análisis de textos como es la creación de un corpus, el proceso de tokenización y algunos análisis básicos como el sentiment analysis.\nPara poder repetir las cosas que vamos a hacer en este curso y poder realizar tus propios análisis, deberás de tener instalado en tu ordenador los siguientes programas (instálalos en el orden que te indico):\n\nR. Este es el lenguaje programación que emplearemos. Se trata de un lenguaje abierto y gratuito desarrollado específicamente para el análisis estadístico. Aunque como con cualquier otro lenguaje de programación, es muy flexible y puede emplearse para diferentes funciones. Cuenta con una amplia comunidad de usuarios que crean y mantienen sus funcionalidades creando lo que se conoce como paquetes o librerías.\nRStudio. Se trata de una interfaz de R que facilita algunas operaciones. Aunque en principio, R puede emplearse sin interfaz, RStudio incluye los principales paquetes adicionales así como algunas funcionalidades que pueden ser muy útiles para mantenernos cuerdos al adentrarnos en el mundo de la programación.\n\n\n💡 Aquí te daremos el código muy mascadito, pero si no tienes experiencia programando con R y deseas conocer las bases de su gramática, te recomiendo los siguientes recursos:\n\nEl curso de yosigo Introducción práctica a la ciencia de datos en R – REDUX by Wenceslao Arroyo-Machado\nEl libro online R for Data Science by Hadley Wickham, uno de los máximos exponentes en R"
+  },
+  {
+    "objectID": "..html#bienvenidos",
+    "href": "..html#bienvenidos",
+    "title": "Intro",
+    "section": "",
+    "text": "Esta web contiene los contenidos del curso de YoSigo UGR Introducción al análisis de textos con Quanteda. En esta sesión queremos iniciarte en el fantástico mundo del análisis de textos. Para ello vamos a utilizar el lenguaje de programación R y el paquete de análisis de textos Quanteda. Para ello vamos a explorar algunas cuestiones básicas para el análisis de textos como es la creación de un corpus, el proceso de tokenización y algunos análisis básicos como el sentiment analysis.\nPara poder repetir las cosas que vamos a hacer en este curso y poder realizar tus propios análisis, deberás de tener instalado en tu ordenador los siguientes programas (instálalos en el orden que te indico):\n\nR. Este es el lenguaje programación que emplearemos. Se trata de un lenguaje abierto y gratuito desarrollado específicamente para el análisis estadístico. Aunque como con cualquier otro lenguaje de programación, es muy flexible y puede emplearse para diferentes funciones. Cuenta con una amplia comunidad de usuarios que crean y mantienen sus funcionalidades creando lo que se conoce como paquetes o librerías.\nRStudio. Se trata de una interfaz de R que facilita algunas operaciones. Aunque en principio, R puede emplearse sin interfaz, RStudio incluye los principales paquetes adicionales así como algunas funcionalidades que pueden ser muy útiles para mantenernos cuerdos al adentrarnos en el mundo de la programación.\n\n\n💡 Aquí te daremos el código muy mascadito, pero si no tienes experiencia programando con R y deseas conocer las bases de su gramática, te recomiendo los siguientes recursos:\n\nEl curso de yosigo Introducción práctica a la ciencia de datos en R – REDUX by Wenceslao Arroyo-Machado\nEl libro online R for Data Science by Hadley Wickham, uno de los máximos exponentes en R"
+  },
+  {
+    "objectID": "..html#objetivos-de-la-sesión",
+    "href": "..html#objetivos-de-la-sesión",
+    "title": "Intro",
+    "section": "Objetivos de la sesión",
+    "text": "Objetivos de la sesión\n\nEntender los fundamentos del análisis textual.\nAprender a manejar el paquete `Quanteda`.\nRealizar un análisis práctico utilizando un corpus de texto real."
+  },
+  {
+    "objectID": "..html#introducción-al-análisis-de-textos-con-r-y-quanteda",
+    "href": "..html#introducción-al-análisis-de-textos-con-r-y-quanteda",
+    "title": "¿Qué es el análisis de textos",
+    "section": "",
+    "text": "El análisis de textos es un conjunto de técnicas y métodos utilizados para estudiar, interpretar y extrar información de grandes volúmenes de datos textuales. Estas técnicas son fundamentales en campos como las ciencias sociales, humanidades digitales, ciencias políticas, la lingüística o la educación entre muchas otras.\nA medida que el volumen de información textual digitalizada ha crecido, la necesidad de analizar textos de forma sistemática también ha aumentado. Herramientas como `Quanteda` permiten a los investigadores y analistas transformar textos en datos estructurados y cuantificables.\n\nplot(cars)"
+  },
+  {
+    "objectID": "..html#para-qué-se-utiliza-el-análisis-de-textos",
+    "href": "..html#para-qué-se-utiliza-el-análisis-de-textos",
+    "title": "¿Qué es el análisis de textos",
+    "section": "¿Para qué se utiliza el análisis de textos? 🤔",
+    "text": "¿Para qué se utiliza el análisis de textos? 🤔\nEl análisis de textos puede tener muchos propósitos:\n\nAnálisis de patrones. Mediante la identificación de tendencias y patrones en grandes volúmenes de texto.\nAnálisis de sentimientos. Para evaluar el tono o sentimiento predominante en un texto (positivo, negativo o neutral).\nAnálisis de frecuencia. Contar y comparar la aparición de palabras o frases clave.\nModelado de temas. Agrupar textos en temas o categorías según su contenido."
+  },
+  {
+    "objectID": "ysp_tutorial.html",
+    "href": "ysp_tutorial.html",
+    "title": "¿Qué es el análisis de textos",
+    "section": "",
+    "text": "El análisis de textos es un conjunto de técnicas y métodos utilizados para estudiar, interpretar y extrar información de grandes volúmenes de datos textuales. Estas técnicas son fundamentales en campos como las ciencias sociales, humanidades digitales, ciencias políticas, la lingüística o la educación entre muchas otras.\nA medida que el volumen de información textual digitalizada ha crecido, la necesidad de analizar textos de forma sistemática también ha aumentado. Herramientas como `Quanteda` permiten a los investigadores y analistas transformar textos en datos estructurados y cuantificables.\n\nplot(cars)"
+  },
+  {
+    "objectID": "ysp_tutorial.html#introducción-al-análisis-de-textos-con-r-y-quanteda",
+    "href": "ysp_tutorial.html#introducción-al-análisis-de-textos-con-r-y-quanteda",
+    "title": "¿Qué es el análisis de textos",
+    "section": "",
+    "text": "El análisis de textos es un conjunto de técnicas y métodos utilizados para estudiar, interpretar y extrar información de grandes volúmenes de datos textuales. Estas técnicas son fundamentales en campos como las ciencias sociales, humanidades digitales, ciencias políticas, la lingüística o la educación entre muchas otras.\nA medida que el volumen de información textual digitalizada ha crecido, la necesidad de analizar textos de forma sistemática también ha aumentado. Herramientas como `Quanteda` permiten a los investigadores y analistas transformar textos en datos estructurados y cuantificables.\n\nplot(cars)"
+  },
+  {
+    "objectID": "ysp_tutorial.html#para-qué-se-utiliza-el-análisis-de-textos",
+    "href": "ysp_tutorial.html#para-qué-se-utiliza-el-análisis-de-textos",
+    "title": "¿Qué es el análisis de textos",
+    "section": "¿Para qué se utiliza el análisis de textos? 🤔",
+    "text": "¿Para qué se utiliza el análisis de textos? 🤔\nEl análisis de textos puede tener muchos propósitos:\n\nAnálisis de patrones. Mediante la identificación de tendencias y patrones en grandes volúmenes de texto.\nAnálisis de sentimientos. Para evaluar el tono o sentimiento predominante en un texto (positivo, negativo o neutral).\nAnálisis de frecuencia. Contar y comparar la aparición de palabras o frases clave.\nModelado de temas. Agrupar textos en temas o categorías según su contenido."
+  }
+]
