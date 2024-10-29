@@ -1,28 +1,34 @@
 ---
-title: "¿Qué es el análisis de textos"
-author: "Nicolas Robinson-Garcia"
+title: "Análisis de textos"
 format: html
 editor: visual
 ---
 
-## 🔍 Introducción al análisis de textos con R y Quanteda
+## 🔍 Introducción al análisis cuantitativo de textos
 
-El **análisis de textos** es un conjunto de técnicas y métodos utilizados para estudiar, interpretar y extrar información de grandes volúmenes de datos textuales. Estas técnicas son fundamentales en campos como las ciencias sociales, humanidades digitales, ciencias políticas, la lingüística o la educación entre muchas otras.
+El **análisis de textos** es el proceso de convertir grandes volúmenes de texto en datos estructurados que nos permitan identificar patrones, tendencias, y relaciones dentro de ese texto. Es una técnica fundamental en campos como las ciencias sociales, humanidades digitales, marketing, y política, ya que permite explorar y entender la información contenida en textos de manera cuantitativa.
 
-A medida que el volumen de información textual digitalizada ha crecido, la necesidad de analizar textos de forma sistemática también ha aumentado. Herramientas como \`Quanteda\` permiten a los investigadores y analistas transformar textos en datos estructurados y cuantificables.
+A medida que el volumen de información textual digitalizada ha crecido, la necesidad de analizar textos de forma sistemática también ha aumentado. Herramientas como `quanteda` permiten a los investigadores y analistas transformar textos en datos estructurados y cuantificables.
 
-```{r}
-plot(cars)
-```
+## 🤔 ¿Para qué se utiliza el análisis de textos?
 
-## ¿Para qué se utiliza el análisis de textos? 🤔
+|                                        |                                                                                                                                            |
+|-------------------------|----------------------------------------------|
+| **Análisis de sentimiento**            | Evaluar el tono emocional de textos, como reseñas o comentarios en redes sociales, para conocer las opiniones y actitudes de los usuarios. |
+| **Análisis de tendencias**             | Identificar la frecuencia de palabras o frases clave y su cambio a lo largo del tiempo.                                                    |
+| **Análisis del discurso**              | Explorar cómo ciertos temas o ideas son representados en la sociedad y su evolución temporal                                               |
+| **Clasificación automática de textos** | Organizar categóricamente textos y fragmentos de textos a través de técnicas como *topic modeling* o similares                             |
 
-El análisis de textos puede tener muchos propósitos:
+## ✍️ `Quanteda` como herramienta para el análisis de datos
 
--   **Análisis de patrones.** Mediante la identificación de tendencias y patrones en grandes volúmenes de texto.
+**Quanteda** es un paquete de R diseñado específicamente para el análisis cuantitativo de textos. Su valor principal radica en que ofrece una forma rápida, flexible y eficiente de transformar textos en datos estructurados, permitiendo a los investigadores trabajar con grandes volúmenes de texto de manera sistemática. Quanteda es ideal para el procesamiento inicial y análisis exploratorio de textos.
 
--   **Análisis de sentimientos.** Para evaluar el tono o sentimiento predominante en un texto (positivo, negativo o neutral).
+## ⁉️ ¿Por qué `quanteda`?
 
--   **Análisis de frecuencia.** Contar y comparar la aparición de palabras o frases clave.
-
--   **Modelado de temas.** Agrupar textos en temas o categorías según su contenido.
+|                                      |                                                                                                                        |
+|-------------------------|-----------------------------------------------|
+| **Facilidad en la preprocesamiento** | Permite realizar tareas como tokenización y limpieza de datos de forma rápida y eficiente.                             |
+| **Análisis de frecuencias**          | Facilita el cálculo de frecuencias de términos en un corpus, ideal para identificar palabras clave y patrones.         |
+| **Exploración de contexto (KWIC)**   | La función KWIC permite analizar palabras en su contexto, proporcionando insights sobre el uso de ciertos términos.    |
+| **Análisis de sentimiento y temas**  | Permite aplicar diccionarios de sentimiento y realizar análisis básico de temas mediante co-ocurrencia de palabras.    |
+| **Flexibilidad y escalabilidad**     | Optimizado para manejar grandes volúmenes de texto y se integra fácilmente con otros paquetes para análisis avanzados. |

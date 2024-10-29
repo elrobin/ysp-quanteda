@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Nicolas Robinson-Garcia">
 
-<title>Introducción al análisis de textos con Quanteda - ¿Qué es el análisis de textos</title>
+<title>Introducción al análisis de textos con Quanteda | YoSigo UGR - Análisis de textos</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,40 +19,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -105,7 +70,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">Análisis de textos</span>
+    <span class="navbar-title">Introducción al análisis de textos con Quanteda | YoSigo UGR</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -116,11 +81,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
     <a class="nav-link" href="./index.html" rel="" target="">
- <span class="menu-text">Intro</span></a>
+ <span class="menu-text">Inicio</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link active" href="./ysp_tutorial.html" rel="" target="" aria-current="page">
- <span class="menu-text">¿Qué es el análisis de textos?</span></a>
+ <span class="menu-text">Análisis de textos</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./dataprocessing.html" rel="" target="">
+ <span class="menu-text">Carga y procesamiento de textos</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./dataviz.html" rel="" target="">
+ <span class="menu-text">Análisis y visualización de datos</span></a>
   </li>  
 </ul>
             <div class="quarto-navbar-tools ms-auto">
@@ -139,19 +112,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">¿Qué es el análisis de textos</h1>
+<h1 class="title">Análisis de textos</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Nicolas Robinson-Garcia </p>
-          </div>
-  </div>
     
   
     
@@ -160,26 +127,72 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="introducción-al-análisis-de-textos-con-r-y-quanteda" class="level2">
-<h2 class="anchored" data-anchor-id="introducción-al-análisis-de-textos-con-r-y-quanteda">🔍 Introducción al análisis de textos con R y Quanteda</h2>
-<p>El <strong>análisis de textos</strong> es un conjunto de técnicas y métodos utilizados para estudiar, interpretar y extrar información de grandes volúmenes de datos textuales. Estas técnicas son fundamentales en campos como las ciencias sociales, humanidades digitales, ciencias políticas, la lingüística o la educación entre muchas otras.</p>
-<p>A medida que el volumen de información textual digitalizada ha crecido, la necesidad de analizar textos de forma sistemática también ha aumentado. Herramientas como `Quanteda` permiten a los investigadores y analistas transformar textos en datos estructurados y cuantificables.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="ysp_tutorial_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
+<section id="introducción-al-análisis-cuantitativo-de-textos" class="level2">
+<h2 class="anchored" data-anchor-id="introducción-al-análisis-cuantitativo-de-textos">🔍 Introducción al análisis cuantitativo de textos</h2>
+<p>El <strong>análisis de textos</strong> es el proceso de convertir grandes volúmenes de texto en datos estructurados que nos permitan identificar patrones, tendencias, y relaciones dentro de ese texto. Es una técnica fundamental en campos como las ciencias sociales, humanidades digitales, marketing, y política, ya que permite explorar y entender la información contenida en textos de manera cuantitativa.</p>
+<p>A medida que el volumen de información textual digitalizada ha crecido, la necesidad de analizar textos de forma sistemática también ha aumentado. Herramientas como <code>quanteda</code> permiten a los investigadores y analistas transformar textos en datos estructurados y cuantificables.</p>
 </section>
 <section id="para-qué-se-utiliza-el-análisis-de-textos" class="level2">
-<h2 class="anchored" data-anchor-id="para-qué-se-utiliza-el-análisis-de-textos">¿Para qué se utiliza el análisis de textos? 🤔</h2>
-<p>El análisis de textos puede tener muchos propósitos:</p>
-<ul>
-<li><p><strong>Análisis de patrones.</strong> Mediante la identificación de tendencias y patrones en grandes volúmenes de texto.</p></li>
-<li><p><strong>Análisis de sentimientos.</strong> Para evaluar el tono o sentimiento predominante en un texto (positivo, negativo o neutral).</p></li>
-<li><p><strong>Análisis de frecuencia.</strong> Contar y comparar la aparición de palabras o frases clave.</p></li>
-<li><p><strong>Modelado de temas.</strong> Agrupar textos en temas o categorías según su contenido.</p></li>
-</ul>
+<h2 class="anchored" data-anchor-id="para-qué-se-utiliza-el-análisis-de-textos">🤔 ¿Para qué se utiliza el análisis de textos?</h2>
+<table class="table">
+<colgroup>
+<col style="width: 35%">
+<col style="width: 64%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Análisis de sentimiento</strong></td>
+<td>Evaluar el tono emocional de textos, como reseñas o comentarios en redes sociales, para conocer las opiniones y actitudes de los usuarios.</td>
+</tr>
+<tr class="even">
+<td><strong>Análisis de tendencias</strong></td>
+<td>Identificar la frecuencia de palabras o frases clave y su cambio a lo largo del tiempo.</td>
+</tr>
+<tr class="odd">
+<td><strong>Análisis del discurso</strong></td>
+<td>Explorar cómo ciertos temas o ideas son representados en la sociedad y su evolución temporal</td>
+</tr>
+<tr class="even">
+<td><strong>Clasificación automática de textos</strong></td>
+<td>Organizar categóricamente textos y fragmentos de textos a través de técnicas como <em>topic modeling</em> o similares</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="quanteda-como-herramienta-para-el-análisis-de-datos" class="level2">
+<h2 class="anchored" data-anchor-id="quanteda-como-herramienta-para-el-análisis-de-datos">✍️ <code>Quanteda</code> como herramienta para el análisis de datos</h2>
+<p><strong>Quanteda</strong> es un paquete de R diseñado específicamente para el análisis cuantitativo de textos. Su valor principal radica en que ofrece una forma rápida, flexible y eficiente de transformar textos en datos estructurados, permitiendo a los investigadores trabajar con grandes volúmenes de texto de manera sistemática. Quanteda es ideal para el procesamiento inicial y análisis exploratorio de textos.</p>
+</section>
+<section id="por-qué-quanteda" class="level2">
+<h2 class="anchored" data-anchor-id="por-qué-quanteda">⁉️ ¿Por qué <code>quanteda</code>?</h2>
+<table class="table">
+<colgroup>
+<col style="width: 34%">
+<col style="width: 65%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Facilidad en la preprocesamiento</strong></td>
+<td>Permite realizar tareas como tokenización y limpieza de datos de forma rápida y eficiente.</td>
+</tr>
+<tr class="even">
+<td><strong>Análisis de frecuencias</strong></td>
+<td>Facilita el cálculo de frecuencias de términos en un corpus, ideal para identificar palabras clave y patrones.</td>
+</tr>
+<tr class="odd">
+<td><strong>Exploración de contexto (KWIC)</strong></td>
+<td>La función KWIC permite analizar palabras en su contexto, proporcionando insights sobre el uso de ciertos términos.</td>
+</tr>
+<tr class="even">
+<td><strong>Análisis de sentimiento y temas</strong></td>
+<td>Permite aplicar diccionarios de sentimiento y realizar análisis básico de temas mediante co-ocurrencia de palabras.</td>
+</tr>
+<tr class="odd">
+<td><strong>Flexibilidad y escalabilidad</strong></td>
+<td>Optimizado para manejar grandes volúmenes de texto y se integra fácilmente con otros paquetes para análisis avanzados.</td>
+</tr>
+</tbody>
+</table>
 
 
 </section>

@@ -1,13 +1,26 @@
 ---
-title: "Intro"
-author: "Nicolas Robinson-Garcia"
+title: "Bienvenidos"
 format: html
 editor: visual
 ---
 
-## 🫶 Bienvenidos
+::: {.callout-important appearance="simple"}
+# Datos básicos del curso
 
-Esta web contiene los contenidos del curso de **YoSigo UGR** [Introducción al análisis de textos con Quanteda](https://yosigo.ugr.es/courses/introduccion-al-analisis-de-textos-con-quanteda/). En esta sesión queremos iniciarte en el fantástico mundo del análisis de textos. Para ello vamos a utilizar el lenguaje de programación R y el paquete de análisis de textos [**Quanteda**](#0). Para ello vamos a explorar algunas cuestiones básicas para el análisis de textos como es la creación de un corpus, el proceso de tokenización y algunos análisis básicos como el *sentiment analysis*.
+Materiales preparados para el curso impartido en la plataforma [YoSigo UGR](https://yosigo.ugr.es) de la [Universidad de Granada](https://ugr.es) por [Sergio Castro-Cortacero](https://x.com/buroucratico) y [Nicolás Robinson-García](https://elrobin.github.io) el día 8 de noviembre de 2024.
+:::
+
+## 🎯Objetivos de la sesión
+
+Esta web contiene los contenidos del curso de **YoSigo UGR** [Introducción al análisis de textos con Quanteda](https://yosigo.ugr.es/courses/introduccion-al-analisis-de-textos-con-quanteda/). En esta sesión queremos iniciarte en el fantástico mundo del análisis de textos. Para ello vamos a utilizar el lenguaje de programación R y el paquete de análisis de textos [**Quanteda**](#0). Para ello vamos a explorar algunas cuestiones básicas para el análisis de textos como es la creación de un corpus, el proceso de tokenización y algunos análisis básicos. Al terminar esta sesión deberías poder hacer lo siguiente:
+
+-   Entender los fundamentos básicos de minería de datos.
+
+-   Ser capaz de importar y tokenizar un texto empleando el paquete de R `quanteda`.
+
+-   Realizar un análisis práctico utilizando un corpus de texto real.
+
+## **🫶**Antes de comenzar
 
 Para poder repetir las cosas que vamos a hacer en este curso y poder realizar tus propios análisis, deberás de tener instalado en tu ordenador los siguientes programas (instálalos en el orden que te indico):
 
@@ -21,11 +34,3 @@ Para poder repetir las cosas que vamos a hacer en este curso y poder realizar tu
 
 -   El libro online [R for Data Science](https://r4ds.hadley.nz/) by Hadley Wickham, uno de los máximos exponentes en R
 :::
-
-## Objetivos de la sesión
-
--   Entender los fundamentos del análisis textual.
-
--   Aprender a manejar el paquete \`Quanteda\`.
-
--   Realizar un análisis práctico utilizando un corpus de texto real.

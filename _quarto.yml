@@ -2,11 +2,15 @@ project:
   type: website
 
 website:
-  title: "Introducción al análisis de textos con Quanteda"
+  title: "Introducción al análisis de textos con Quanteda | YoSigo UGR"
   navbar: 
-    title: "Análisis de textos"
+    title: "Introducción al análisis de textos con Quanteda | YoSigo UGR"
     left:
-      - text: "Intro"
+      - text: "Inicio"
         href: index.html
-      - text: "¿Qué es el análisis de textos?"
+      - text: "Análisis de textos"
         href: ysp_tutorial.html
+      - text: "Carga y procesamiento de textos"
+        href: dataprocessing.html
+      - text: "Análisis y visualización de datos"
+        href: dataviz.html
