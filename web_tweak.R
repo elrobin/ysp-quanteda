@@ -1,14 +1,11 @@
 # SCRIPT PARA QUE GITHUB PILLE TODO EN SU SITIO
 
+# Renderiza el proyecto Quarto
+quarto::quarto_render()
 
-# Define los directorios
+# Define el directorio de salida y el directorio de destino (raíz)
 output_dir <- "_site"
 main_dir <- "."
 
-# Mueve todos los archivos y carpetas de `_site` a la raíz del repositorio
-file.copy(list.files(output_dir, full.names = TRUE, recursive = TRUE), 
-          main_dir, 
-          recursive = TRUE, 
-          overwrite = TRUE)
-
-
+# Mueve toda la carpeta `_site` a la raíz
+file.rename(output_dir, main_dir)
