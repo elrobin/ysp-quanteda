@@ -6,7 +6,7 @@ editor: visual
 
 ## 📦Preparando los paquetes
 
-Antes de comenzar el análisis es obligatorio instalar dos paquetes: quanteda y readtext a través del comando. En primer lugar, para poder instalar `quanteda` como cualquier otro paquete en R deberemos de seguir la terminación:
+Antes de comenzar el análisis es obligatorio instalar dos paquetes básicos: `quanteda` y `readtext` a través del comando: `installed.packages(")` . En primer lugar, para poder instalar `quanteda` , así como cualquier otro paquete en R, deberemos de de introducir en la consola el comando:
 
 ```{r}
 installed.packages("quanteda")
@@ -18,8 +18,57 @@ La misma fórmula aplicaremos para el paquete `readtext`
 installed.packages("readtext")
 ```
 
-**¿Sabías qué...?** ☝️🤓
+#### ¿Por qué lo usamos?
 
-Cuando queramos instalar un paquete en R, utiliza siempre la fórmula: installed.packages ("nombre del paquete").
+-   `quanteda` es la herramienta que nos va a proporcionar los recursos para hacer un análisis cuantitativo de un texto, incluyendo la tokenización^\[1\]^, la creación de matrices de términos y el análisis de frecuencia.
 
-Quanteda proporciona herramientas para el análisis de texto, incluyendo la tokenización[\[1\]](#_ftn1), la creación de matrices de términos y el análisis de frecuencia. Por otro lado, readtext se utiliza para cargar y leer datos textuales desde diferentes formatos (como archivos de texto, documentos de Word, etc.). Esto es crucial, ya que la capacidad de acceder a datos textuales de manera eficiente es el primer paso para cualquier análisis posterior.
+-   `readtext` se utiliza para cargar y leer datos textuales desde diferentes formatos (como archivos de texto, documentos de Word, etc.). Para evitar dolores de cabeza, nosotros recomendamos que el material que se vaya a trabajar esté en un formato plano .txt. Los formatos anteriores pueden dar problemas por la forma en que se estructuran los datos y los elementos adicionales que suelen contener, lo que requiere aplicar procesos adicionales de limpieza que puede alargar nuestro análisis.
+
+**¿Sabías qué...?** ️🤓☝
+
+::: {.tip style="background-color: #A8E6A1; border-left: 5px solid #A8E6A1; padding: 10px"}
+^~\[1\]~^ En `quanteda` hablamos de **tokenización** para referirnos a la unidad mínima de trabajo.
+
+Imaginate que tienes la siguiente oración:
+
+"Hola, ¿cómo estás?"
+
+La tokenización de esta frase podría dar como resultado los siguientes tokens: "Hola", "¿", "cómo", "estás", "?"
+:::
+
+## 🤖💬 Volcando los archivos de texto a RStudio
+
+Vamos a vincular el archivo de texto en la aplicación de RStudios. Para ello vamos a aplicar los dos paquetes que hemos instalado anteriormente con el comando `library("name")`
+
+```{r}
+library("quanteda")
+library("readtext")
+```
+
+Es importante resaltar que si no llamamos antes el paquete los comandos que introduzcamos después no funcionarán o nos darán error.
+
+Una vez cargados, el programa estará listo para leer nuestro archivo de texto. La formula que vamos a escribir para decirle a `quanteda` que archivo analizar será el siguiente:
+
+```{r}
+data_char_NALVANY <- as.character(readtext::readtext("C:/Users/sergi/Desktop/NALVANY.txt"
+))
+names(data_char_NALVANY) <- "NALVANY"
+```
+
+#### ¿Por qué lo usamos?
+
+Vamos a desgranar este prompt para que pueda entenderse más facil:
+
+-   `data_char_"TEXTO"`: La variable data_char_NALVANY es un objeto^\[2\]^ en R que almacena el texto como una cadena de caracteres (character vector).
+
+-   `as.character()`: Convierte el objeto cargado en un formato de texto sencillo, que es más fácil de manejar para el análisis.
+
+-   `names(data_char_NALVANY) <- "Nalvany"`: Asigna un nombre al objeto que contiene el texto, facilitando su identificación en futuros análisis.
+
+**¿Sabías qué...?** ️🤓☝
+
+::: {.tip style="background-color: #A8E6A1; border-left: 5px solid #A8E6A1; padding: 10px"}
+^~\[2\]~^ En `r` hablamos de **objetos** para referirnos a contenedores donde almacenar datos e información. En el caso anterior, el objeto `data_char_NALVANY` almacena el texto plano que vamos a utilizar.
+
+Existen distintos objetos con diferentes datos almacenados. A lo largo de este caso práctico trabajaremos con ellos para gestionar más facilmente el análisis cuantitativo.
+:::

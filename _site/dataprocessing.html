@@ -173,7 +173,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="preparando-los-paquetes" class="level2">
 <h2 class="anchored" data-anchor-id="preparando-los-paquetes">📦Preparando los paquetes</h2>
-<p>Antes de comenzar el análisis es obligatorio instalar dos paquetes: quanteda y readtext a través del comando. En primer lugar, para poder instalar <code>quanteda</code> como cualquier otro paquete en R deberemos de seguir la terminación:</p>
+<p>Antes de comenzar el análisis es obligatorio instalar dos paquetes básicos: <code>quanteda</code> y <code>readtext</code> a través del comando: <code>installed.packages(")</code> . En primer lugar, para poder instalar <code>quanteda</code> , así como cualquier otro paquete en R, deberemos de de introducir en la consola el comando:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">installed.packages</span>(<span class="st">"quanteda"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -191,11 +191,71 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
      MD5sum NeedsCompilation Built</code></pre>
 </div>
 </div>
-<p><strong>¿Sabías qué…?</strong> ☝️🤓</p>
-<p>Cuando queramos instalar un paquete en R, utiliza siempre la fórmula: installed.packages (“nombre del paquete”).</p>
-<p>Quanteda proporciona herramientas para el análisis de texto, incluyendo la tokenización<a href="#_ftn1">[1]</a>, la creación de matrices de términos y el análisis de frecuencia. Por otro lado, readtext se utiliza para cargar y leer datos textuales desde diferentes formatos (como archivos de texto, documentos de Word, etc.). Esto es crucial, ya que la capacidad de acceder a datos textuales de manera eficiente es el primer paso para cualquier análisis posterior.</p>
+<section id="por-qué-lo-usamos" class="level4">
+<h4 class="anchored" data-anchor-id="por-qué-lo-usamos">¿Por qué lo usamos?</h4>
+<ul>
+<li><p><code>quanteda</code> es la herramienta que nos va a proporcionar los recursos para hacer un análisis cuantitativo de un texto, incluyendo la tokenización<sup>[1]</sup>, la creación de matrices de términos y el análisis de frecuencia.</p></li>
+<li><p><code>readtext</code> se utiliza para cargar y leer datos textuales desde diferentes formatos (como archivos de texto, documentos de Word, etc.). Para evitar dolores de cabeza, nosotros recomendamos que el material que se vaya a trabajar esté en un formato plano .txt. Los formatos anteriores pueden dar problemas por la forma en que se estructuran los datos y los elementos adicionales que suelen contener, lo que requiere aplicar procesos adicionales de limpieza que puede alargar nuestro análisis.</p></li>
+</ul>
+<p><strong>¿Sabías qué…?</strong> ️🤓☝</p>
+<div class="tip" style="background-color: #A8E6A1; border-left: 5px solid #A8E6A1; padding: 10px">
+<p><sup><sub>[1]</sub></sup> En <code>quanteda</code> hablamos de <strong>tokenización</strong> para referirnos a la unidad mínima de trabajo.</p>
+<p>Imaginate que tienes la siguiente oración:</p>
+<p>“Hola, ¿cómo estás?”</p>
+<p>La tokenización de esta frase podría dar como resultado los siguientes tokens: “Hola”, “¿”, “cómo”, “estás”, “?”</p>
+</div>
+</section>
+</section>
+<section id="volcando-los-archivos-de-texto-a-rstudio" class="level2">
+<h2 class="anchored" data-anchor-id="volcando-los-archivos-de-texto-a-rstudio">🤖💬 Volcando los archivos de texto a RStudio</h2>
+<p>Vamos a vincular el archivo de&nbsp;texto en la aplicación de RStudios. Para ello vamos a aplicar los dos paquetes que hemos instalado anteriormente&nbsp;con el comando <code>library("name")</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"quanteda"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Package version: 4.1.0
+Unicode version: 15.1
+ICU version: 74.1</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Parallel computing: 4 of 4 threads used.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>See https://quanteda.io for tutorials and examples.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"readtext"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Adjuntando el paquete: 'readtext'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:quanteda':
+
+    texts</code></pre>
+</div>
+</div>
+<p>Es importante resaltar que si no llamamos antes el paquete los comandos que introduzcamos después no funcionarán o nos darán error.</p>
+<p>Una vez cargados, el programa estará listo para leer nuestro archivo de texto. La formula que vamos a escribir para decirle a <code>quanteda</code> que archivo analizar será el siguiente:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>data_char_NALVANY <span class="ot">&lt;-</span> <span class="fu">as.character</span>(readtext<span class="sc">::</span><span class="fu">readtext</span>(<span class="st">"C:/Users/sergi/Desktop/NALVANY.txt"</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>))</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(data_char_NALVANY) <span class="ot">&lt;-</span> <span class="st">"NALVANY"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="por-qué-lo-usamos-1" class="level4">
+<h4 class="anchored" data-anchor-id="por-qué-lo-usamos-1">¿Por qué lo usamos?</h4>
+<p>Vamos a desgranar este prompt para que pueda entenderse más facil:</p>
+<ul>
+<li><p><code>data_char_"TEXTO"</code>: La variable data_char_NALVANY es un objeto<sup>[2]</sup> en R que almacena el texto como una cadena de caracteres (character vector).</p></li>
+<li><p><code>as.character()</code>: Convierte el objeto cargado en un formato de texto sencillo, que es más fácil de manejar para el análisis.</p></li>
+<li><p><code>names(data_char_NALVANY) &lt;- "Nalvany"</code>: Asigna un nombre al objeto que contiene el texto, facilitando su identificación en futuros análisis.</p></li>
+</ul>
+<p><strong>¿Sabías qué…?</strong> ️🤓☝</p>
+<div class="tip" style="background-color: #A8E6A1; border-left: 5px solid #A8E6A1; padding: 10px">
+<p><sup><sub>[2]</sub></sup> En <code>r</code> hablamos de <strong>objetos</strong> para referirnos a contenedores donde almacenar datos e información. En el caso anterior, el objeto <code>data_char_NALVANY</code> almacena el texto plano que vamos a utilizar.</p>
+<p>Existen distintos objetos con diferentes datos almacenados. A lo largo de este caso práctico trabajaremos con ellos para gestionar más facilmente el análisis cuantitativo.</p>
+</div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
