@@ -1,0 +1,25 @@
+---
+title: "Carga y procesamiento de textos"
+format: html
+editor: visual
+---
+
+## 📦Preparando los paquetes
+
+Antes de comenzar el análisis es obligatorio instalar dos paquetes: quanteda y readtext a través del comando. En primer lugar, para poder instalar `quanteda` como cualquier otro paquete en R deberemos de seguir la terminación:
+
+```{r}
+installed.packages("quanteda")
+```
+
+La misma fórmula aplicaremos para el paquete `readtext`
+
+```{r}
+installed.packages("readtext")
+```
+
+**¿Sabías qué...?** ☝️🤓
+
+Cuando queramos instalar un paquete en R, utiliza siempre la fórmula: installed.packages ("nombre del paquete").
+
+Quanteda proporciona herramientas para el análisis de texto, incluyendo la tokenización[\[1\]](#_ftn1), la creación de matrices de términos y el análisis de frecuencia. Por otro lado, readtext se utiliza para cargar y leer datos textuales desde diferentes formatos (como archivos de texto, documentos de Word, etc.). Esto es crucial, ya que la capacidad de acceder a datos textuales de manera eficiente es el primer paso para cualquier análisis posterior.
