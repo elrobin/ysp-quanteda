@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Bienvenidos – Introducción al análisis de textos con Quanteda | YoSigo UGR</title>
+<title>Análisis de textos – Introducción al análisis de textos con Quanteda | YoSigo UGR</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -88,11 +88,11 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="./index.html"> 
 <span class="menu-text">Inicio</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./ysp_tutorial.html"> 
+    <a class="nav-link active" href="./ysp_tutorial.html" aria-current="page"> 
 <span class="menu-text">Análisis de textos</span></a>
   </li>  
   <li class="nav-item">
@@ -120,7 +120,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Bienvenidos</h1>
+<h1 class="title">Análisis de textos</h1>
 </div>
 
 
@@ -137,42 +137,72 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<div class="callout callout-style-simple callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Datos básicos del curso
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Materiales preparados para el curso impartido en la plataforma <a href="https://yosigo.ugr.es">YoSigo UGR</a> de la <a href="https://ugr.es">Universidad de Granada</a> por <a href="https://x.com/buroucratico">Sergio Castro-Cortacero</a> y <a href="https://elrobin.github.io">Nicolás Robinson-García</a> el día 8 de noviembre de 2024.</p>
-</div>
-</div>
-<section id="objetivos-de-la-sesión" class="level2">
-<h2 class="anchored" data-anchor-id="objetivos-de-la-sesión">🎯Objetivos de la sesión</h2>
-<p>Esta web contiene los contenidos del curso de <strong>YoSigo UGR</strong> <a href="https://yosigo.ugr.es/courses/introduccion-al-analisis-de-textos-con-quanteda/">Introducción al análisis de textos con Quanteda</a>. En esta sesión queremos iniciarte en el fantástico mundo del análisis de textos. Para ello vamos a utilizar el lenguaje de programación R y el paquete de análisis de textos <a href="#0"><strong>Quanteda</strong></a>. Para ello vamos a explorar algunas cuestiones básicas para el análisis de textos como es la creación de un corpus, el proceso de tokenización y algunos análisis básicos. Al terminar esta sesión deberías poder hacer lo siguiente:</p>
-<ul>
-<li><p>Entender los fundamentos básicos de minería de datos.</p></li>
-<li><p>Ser capaz de importar y tokenizar un texto empleando el paquete de R <code>quanteda</code>.</p></li>
-<li><p>Realizar un análisis práctico utilizando un corpus de texto real.</p></li>
-</ul>
+<section id="introducción-al-análisis-cuantitativo-de-textos" class="level2">
+<h2 class="anchored" data-anchor-id="introducción-al-análisis-cuantitativo-de-textos">🔍 Introducción al análisis cuantitativo de textos</h2>
+<p>El <strong>análisis de textos</strong> es el proceso de convertir grandes volúmenes de texto en datos estructurados que nos permitan identificar patrones, tendencias, y relaciones dentro de ese texto. Es una técnica fundamental en campos como las ciencias sociales, humanidades digitales, marketing, y política, ya que permite explorar y entender la información contenida en textos de manera cuantitativa.</p>
+<p>A medida que el volumen de información textual digitalizada ha crecido, la necesidad de analizar textos de forma sistemática también ha aumentado. Herramientas como <code>quanteda</code> permiten a los investigadores y analistas transformar textos en datos estructurados y cuantificables.</p>
 </section>
-<section id="antes-de-comenzar" class="level2">
-<h2 class="anchored" data-anchor-id="antes-de-comenzar"><strong>🫶</strong>Antes de comenzar</h2>
-<p>Para poder repetir las cosas que vamos a hacer en este curso y poder realizar tus propios análisis, deberás de tener instalado en tu ordenador los siguientes programas (instálalos en el orden que te indico):</p>
-<ol type="1">
-<li><a href="https://cran.r-project.org/"><strong>R</strong></a><strong>.</strong> Este es el lenguaje programación que emplearemos. Se trata de un lenguaje abierto y gratuito desarrollado específicamente para el análisis estadístico. Aunque como con cualquier otro lenguaje de programación, es muy flexible y puede emplearse para diferentes funciones. Cuenta con una amplia comunidad de usuarios que crean y mantienen sus funcionalidades creando lo que se conoce como paquetes o librerías.</li>
-<li><a href="https://posit.co/downloads/"><strong>RStudio</strong></a><strong>.</strong> Se trata de una interfaz de R que facilita algunas operaciones. Aunque en principio, R puede emplearse sin interfaz, RStudio incluye los principales paquetes adicionales así como algunas funcionalidades que pueden ser muy útiles para mantenernos cuerdos al adentrarnos en el mundo de la programación.</li>
-</ol>
-<div class="tip" style="background-color: #cccccc;   border-left: 5px solid #e5575b;   padding: 10px">
-<p>💡 Aquí te daremos el código muy mascadito, pero si no tienes experiencia programando con R y deseas conocer las bases de su gramática, te recomiendo los siguientes recursos:</p>
-<ul>
-<li><p>El curso de yosigo <a href="https://yosigo.ugr.es/courses/introduccion-practica-a-la-ciencia-de-datos-en-r-redux/">Introducción práctica a la ciencia de datos en R – REDUX</a> by Wenceslao Arroyo-Machado</p></li>
-<li><p>El libro online <a href="https://r4ds.hadley.nz/">R for Data Science</a> by Hadley Wickham, uno de los máximos exponentes en R</p></li>
-</ul>
-</div>
+<section id="para-qué-se-utiliza-el-análisis-de-textos" class="level2">
+<h2 class="anchored" data-anchor-id="para-qué-se-utiliza-el-análisis-de-textos">🤔 ¿Para qué se utiliza el análisis de textos?</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 36%">
+<col style="width: 63%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Análisis de sentimiento</strong></td>
+<td>Evaluar el tono emocional de textos, como reseñas o comentarios en redes sociales, para conocer las opiniones y actitudes de los usuarios.</td>
+</tr>
+<tr class="even">
+<td><strong>Análisis de tendencias</strong></td>
+<td>Identificar la frecuencia de palabras o frases clave y su cambio a lo largo del tiempo.</td>
+</tr>
+<tr class="odd">
+<td><strong>Análisis del discurso</strong></td>
+<td>Explorar cómo ciertos temas o ideas son representados en la sociedad y su evolución temporal</td>
+</tr>
+<tr class="even">
+<td><strong>Clasificación automática de textos</strong></td>
+<td>Organizar categóricamente textos y fragmentos de textos a través de técnicas como <em>topic modeling</em> o similares</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="quanteda-como-herramienta-para-el-análisis-de-datos" class="level2">
+<h2 class="anchored" data-anchor-id="quanteda-como-herramienta-para-el-análisis-de-datos">✍️ <code>Quanteda</code> como herramienta para el análisis de datos</h2>
+<p><strong>Quanteda</strong> es un paquete de R diseñado específicamente para el análisis cuantitativo de textos. Su valor principal radica en que ofrece una forma rápida, flexible y eficiente de transformar textos en datos estructurados, permitiendo a los investigadores trabajar con grandes volúmenes de texto de manera sistemática. Quanteda es ideal para el procesamiento inicial y análisis exploratorio de textos.</p>
+</section>
+<section id="por-qué-quanteda" class="level2">
+<h2 class="anchored" data-anchor-id="por-qué-quanteda">⁉️ ¿Por qué <code>quanteda</code>?</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 35%">
+<col style="width: 64%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Facilidad en la preprocesamiento</strong></td>
+<td>Permite realizar tareas como tokenización y limpieza de datos de forma rápida y eficiente.</td>
+</tr>
+<tr class="even">
+<td><strong>Análisis de frecuencias</strong></td>
+<td>Facilita el cálculo de frecuencias de términos en un corpus, ideal para identificar palabras clave y patrones.</td>
+</tr>
+<tr class="odd">
+<td><strong>Exploración de contexto (KWIC)</strong></td>
+<td>La función KWIC permite analizar palabras en su contexto, proporcionando insights sobre el uso de ciertos términos.</td>
+</tr>
+<tr class="even">
+<td><strong>Análisis de sentimiento y temas</strong></td>
+<td>Permite aplicar diccionarios de sentimiento y realizar análisis básico de temas mediante co-ocurrencia de palabras.</td>
+</tr>
+<tr class="odd">
+<td><strong>Flexibilidad y escalabilidad</strong></td>
+<td>Optimizado para manejar grandes volúmenes de texto y se integra fácilmente con otros paquetes para análisis avanzados.</td>
+</tr>
+</tbody>
+</table>
 
 
 </section>
