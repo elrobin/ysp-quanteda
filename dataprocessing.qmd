@@ -1,21 +1,25 @@
 ---
 title: "Carga y procesamiento de textos"
 format: html
+toc: true   
+toc-title: "Índice"       
+toc-depth: 4              # Por alguna razón no muestra títulos de nivel 4. Revisarlo
+code-copy: true
 editor: visual
 ---
 
 ## 📦Preparando los paquetes
 
-Antes de comenzar el análisis es obligatorio instalar dos paquetes básicos: `quanteda` y `readtext` a través del comando: `installed.packages(")` . En primer lugar, para poder instalar `quanteda` , así como cualquier otro paquete en R, deberemos de de introducir en la consola el comando:
+Antes de comenzar el análisis es obligatorio instalar dos paquetes básicos: `quanteda` y `readtext` a través del comando: `install.packages(")` . En primer lugar, para poder instalar `quanteda` , así como cualquier otro paquete en R, deberemos de de introducir en la consola el comando:
 
-```{r}
-installed.packages("quanteda")
+```{r, eval = FALSE}
+install.packages("quanteda")
 ```
 
 La misma fórmula aplicaremos para el paquete `readtext`
 
-```{r}
-installed.packages("readtext")
+```{r, eval = FALSE}
+install.packages("readtext")
 ```
 
 #### ¿Por qué lo usamos?
@@ -34,28 +38,31 @@ Imaginate que tienes la siguiente oración:
 "Hola, ¿cómo estás?"
 
 La tokenización de esta frase podría dar como resultado los siguientes tokens: "Hola", "¿", "cómo", "estás", "?"
+
+Esto es especialmente útil cuando estamos trabajando con estudios relacionados con frecuencias de palabras.
 :::
 
-## 🤖💬 Volcando los archivos de texto a RStudio
+## 📄➡️🖥️Volcando los archivos de texto a RStudio
 
 Vamos a vincular el archivo de texto en la aplicación de RStudios. Para ello vamos a aplicar los dos paquetes que hemos instalado anteriormente con el comando `library("name")`
 
-```{r}
+```{r, eval=FALSE}
 library("quanteda")
 library("readtext")
 ```
 
-Es importante resaltar que si no llamamos antes el paquete los comandos que introduzcamos después no funcionarán o nos darán error.
+Es importante resaltar que, si no llamamos antes el paquete, los comandos que introduzcamos después no funcionarán o nos darán error. Asegúrate de cargar siempre la librería antes de empezar a trabajar.
 
 Una vez cargados, el programa estará listo para leer nuestro archivo de texto. La formula que vamos a escribir para decirle a `quanteda` que archivo analizar será el siguiente:
 
-```{r}
-data_char_NALVANY <- as.character(readtext::readtext("C:/Users/sergi/Desktop/NALVANY.txt"
-))
+```{r, eval=FALSE}
+data_char_NALVANY <- as.character(readtext::readtext("G:/Mi unidad/Yo sigo/NALVANY.txt"))
 names(data_char_NALVANY) <- "NALVANY"
 ```
 
-#### ¿Por qué lo usamos?
+**❗ATENICIÓN:** Si por alguna razón hiciesemos algún cambio en el contenido del archivo, deberemos de aplicar el paso anterior de nuevo. Cuando cargamos un archivo en R, se guarda una copia y cualquier cambio en el original no se refleja automáticamente.
+
+#### 🤔¿Qué significa esta función?
 
 Vamos a desgranar este prompt para que pueda entenderse más facil:
 
@@ -63,12 +70,96 @@ Vamos a desgranar este prompt para que pueda entenderse más facil:
 
 -   `as.character()`: Convierte el objeto cargado en un formato de texto sencillo, que es más fácil de manejar para el análisis.
 
+-   `readtext::readtext`: Como véis, se ha utilizado una expresión doble del paquete `readtext`. Esto proviene de la notación `paquete::función` y se hace cuando queremos asegurarnos de utilizar una función específica. Aquí, lo que le estamos diciendo a RStudios es que, del paquete `readtext`, aplique específicamente la función lectura que casualmente también se llama `readtext`
+
+    -   Un **problema muy común** que puede surgir a la hora de introducir la URL de la ubicación del archivo es expresarlo con barras laterales izquierdas " \\ ", tal y como viene en la barra de dirección del explorador de archivos de Windows, en vez de la derecha " / ". Si tienes problemas leer tu .txt ¡prueba con hacer este cambio!
+
 -   `names(data_char_NALVANY) <- "Nalvany"`: Asigna un nombre al objeto que contiene el texto, facilitando su identificación en futuros análisis.
 
 **¿Sabías qué...?** ️🤓☝
 
 ::: {.tip style="background-color: #A8E6A1; border-left: 5px solid #A8E6A1; padding: 10px"}
-^~\[2\]~^ En `r` hablamos de **objetos** para referirnos a contenedores donde almacenar datos e información. En el caso anterior, el objeto `data_char_NALVANY` almacena el texto plano que vamos a utilizar.
+^~\[2\]~^ En `R` hablamos de **objetos** para referirnos a los contenedores donde almacenamos datos e información. En el caso anterior, el objeto `data_char_NALVANY` almacena el texto plano que vamos a utilizar.
 
-Existen distintos objetos con diferentes datos almacenados. A lo largo de este caso práctico trabajaremos con ellos para gestionar más facilmente el análisis cuantitativo.
+Existen distintos objetos con diferentes datos almacenados: matrices, números, listas jerarquizadas, así como un sin fin de combinaciones. A lo largo de este caso práctico trabajaremos con ellos para gestionar más facilmente el análisis cuantitativo.
+:::
+
+#### 🔍 Comprobaciones
+
+En el análisis cuantitativo toda precaución es poca , así que vamos a realizar una serie de comprobaciones para verificar que el texto ha sido leido por el programa. Para ello, vamos a pedirle a RStudio que nos devuelva los primeros 75 caracteres de nuestro archivo NALVANY.txt mediante el paquete: `stringi`.
+
+```{R, eval=FALSE}
+library.("stringi") #Primero llamamos al paquete
+stri_sub(data_char_NALVANY, 1, 75) #Aplicamos la función para que nos devuelva los caracteres situados entre la posición 1 y 75.
+```
+
+Si hemos hecho los pasos bien, tendréis que haber recibir este texto de vuelta:
+
+```         
+[1] "2022\nJanuary 17th\nExactly one year ago today I came home, to Russia.\nI didn"
+```
+
+## 🗃️Acotando nuestro espacio de trabajo
+
+Nuestro siguiente objetivo es seleccionar qué partes del texto vamos aplicar el análisis cuantitativo. Puede que nuestro foco de interés sea algun apartado concreto de nuestro material, por lo que vamos a crear un objeto que albergue un rango determinado dentro de nuestro "".txt . Con esto nos quitaremos toda la información innecesaria que puede ensuciar nuestros resultados.
+
+El proceso que vamos a realizar a continuación es muy útil cuando los archivos que manejamos tienen ligados metadatos. Normalmente, esta metadata suele ser más un dolor de cabeza que otra cosa y es recomendable realizar una limpieza previa para que esos datos no se mezclen con el contenido de nuestro análisis.
+
+En este apartado seguiremos trabajando con el paquete `stringi` ^\[3\]^
+
+#### PASO 1: Asignación de los rangos del texto
+
+Para crear el objeto que albergue el rango de texto a analizar deberemos empezar indicando donde empieza y termina nuestra selección. Para ello, crearemos dos valores de posición: `start_v` y `end_v`, donde `start_` será: "2023, January 12th" y `end_v` "FIN".
+
+Localizado el rango que queremos, la forma de expresarlo en el programa sería el siguiente:
+
+```{r, eval=FALSE}
+(start_v <- stri_locate_first_fixed(data_char_NALVANY, "2023\nJanuary 12th")[1])
+```
+
+```{r, eval=FALSE}
+(end_v <- stri_locate_last_fixed(data_char_NALVANY, "FIN")[1])
+```
+
+Si lo hemos aplicado bien, la función debería de devolver los siguientes resultados
+
+-   Para `start_value`
+
+    ```         
+    [1] 23653
+    ```
+
+<!-- -->
+
+-   Para `end_value`
+
+    ```         
+    [1] 44141
+    ```
+
+#### 🤔¿Qué significa esta expresión?
+
+-   Tanto `start_v` como `end_v` son nombres que hemos asignado a la posición específicas del texto. En sí, no significan nada. Solo decimos, a través de "\<- " que dichos nombres albergan una función de posicionamiento.
+
+-   Las funciones del paquete `stringi`: `stri_locate_first_fixed` y `stri_locate_last_fixed` buscan y encuentran la primera coincidencia del valor entrecomillado que precede a nuestro objeto `data_char_NALVANY`
+
+-   El \[1\] es un indicador que le estamos dando a la función para que escoja la primera posición donde aparezca el texto que hayamos escogido.
+
+-   Así, cuando vemos devuelto las respuestas `[1] 23653` y `[1] 44141` quiere decir que para `start_v` y `end_v` está asignado el primer valor donde aparece dichas expresiones , localizadas por primera vez en la posición 23653 y 44141 de nuestro texto.
+
+#### PASO 2, creando nuestro objeto 
+
+Creado nuestro punto de inicio y final de nuestra zona de trabajo, haremos un objeto que alberge dicho rango. Lo llamaremos: `diary_v`
+
+```{r, eval=FALSE}
+diary_v <- stri_sub(data_char_NALVANY, start_v, end_v)
+length(diary_v)
+```
+
+---- EXPLICAR LA FUNCION.
+
+**¿Sabías qué...?** ️🤓☝
+
+::: {.tip style="background-color: #A8E6A1; border-left: 5px solid #A8E6A1; padding: 10px"}
+^~\[3\]~^ El paquete `stringi` es una herramienta muy versatil para el manejo y procesamiento de cadenas de texto. Hemos visto como puede hacer búsquedas de posicionamiento, pero también puede servir para realizar operciones relacionadas con la manipulación de texto ya sea para remplazar partes del mismo, verificar un formato o pasar de un código a otro.
 :::

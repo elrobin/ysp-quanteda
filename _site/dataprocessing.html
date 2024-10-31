@@ -104,7 +104,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </head>
 
-<body class="nav-fixed fullcontent">
+<body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -148,7 +148,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Índice</h2>
+   
+  <ul>
+  <li><a href="#preparando-los-paquetes" id="toc-preparando-los-paquetes" class="nav-link active" data-scroll-target="#preparando-los-paquetes">📦Preparando los paquetes</a>
+  <ul>
+  <li><a href="#por-qué-lo-usamos" id="toc-por-qué-lo-usamos" class="nav-link" data-scroll-target="#por-qué-lo-usamos">¿Por qué lo usamos?</a></li>
+  </ul></li>
+  <li><a href="#volcando-los-archivos-de-texto-a-rstudio" id="toc-volcando-los-archivos-de-texto-a-rstudio" class="nav-link" data-scroll-target="#volcando-los-archivos-de-texto-a-rstudio">📄➡️🖥️Volcando los archivos de texto a RStudio</a>
+  <ul>
+  <li><a href="#qué-significa-esta-función" id="toc-qué-significa-esta-función" class="nav-link" data-scroll-target="#qué-significa-esta-función">🤔¿Qué significa esta función?</a></li>
+  <li><a href="#comprobaciones" id="toc-comprobaciones" class="nav-link" data-scroll-target="#comprobaciones">🔍 Comprobaciones</a></li>
+  </ul></li>
+  <li><a href="#acotando-nuestro-espacio-de-trabajo" id="toc-acotando-nuestro-espacio-de-trabajo" class="nav-link" data-scroll-target="#acotando-nuestro-espacio-de-trabajo">🗃️Acotando nuestro espacio de trabajo</a>
+  <ul>
+  <li><a href="#asignación-de-los-rangos-del-texto" id="toc-asignación-de-los-rangos-del-texto" class="nav-link" data-scroll-target="#asignación-de-los-rangos-del-texto">🔁Asignación de los rangos del texto</a></li>
+  <li><a href="#qué-significa-esta-expresión" id="toc-qué-significa-esta-expresión" class="nav-link" data-scroll-target="#qué-significa-esta-expresión">🤔¿Qué significa esta expresión?</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
@@ -173,23 +194,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="preparando-los-paquetes" class="level2">
 <h2 class="anchored" data-anchor-id="preparando-los-paquetes">📦Preparando los paquetes</h2>
-<p>Antes de comenzar el análisis es obligatorio instalar dos paquetes básicos: <code>quanteda</code> y <code>readtext</code> a través del comando: <code>installed.packages(")</code> . En primer lugar, para poder instalar <code>quanteda</code> , así como cualquier otro paquete en R, deberemos de de introducir en la consola el comando:</p>
+<p>Antes de comenzar el análisis es obligatorio instalar dos paquetes básicos: <code>quanteda</code> y <code>readtext</code> a través del comando: <code>install.packages(")</code> . En primer lugar, para poder instalar <code>quanteda</code> , así como cualquier otro paquete en R, deberemos de de introducir en la consola el comando:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">installed.packages</span>(<span class="st">"quanteda"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>     Package LibPath Version Priority Depends Imports LinkingTo Suggests
-     Enhances License License_is_FOSS License_restricts_use OS_type Archs
-     MD5sum NeedsCompilation Built</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"quanteda"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>La misma fórmula aplicaremos para el paquete <code>readtext</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">installed.packages</span>(<span class="st">"readtext"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>     Package LibPath Version Priority Depends Imports LinkingTo Suggests
-     Enhances License License_is_FOSS License_restricts_use OS_type Archs
-     MD5sum NeedsCompilation Built</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"readtext"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="por-qué-lo-usamos" class="level4">
 <h4 class="anchored" data-anchor-id="por-qué-lo-usamos">¿Por qué lo usamos?</h4>
@@ -203,55 +214,90 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Imaginate que tienes la siguiente oración:</p>
 <p>“Hola, ¿cómo estás?”</p>
 <p>La tokenización de esta frase podría dar como resultado los siguientes tokens: “Hola”, “¿”, “cómo”, “estás”, “?”</p>
+<p>Esto es especialmente útil cuando estamos trabajando con estudios relacionados con frecuencias de palabras.</p>
 </div>
 </section>
 </section>
 <section id="volcando-los-archivos-de-texto-a-rstudio" class="level2">
-<h2 class="anchored" data-anchor-id="volcando-los-archivos-de-texto-a-rstudio">🤖💬 Volcando los archivos de texto a RStudio</h2>
+<h2 class="anchored" data-anchor-id="volcando-los-archivos-de-texto-a-rstudio">📄➡️🖥️Volcando los archivos de texto a RStudio</h2>
 <p>Vamos a vincular el archivo de&nbsp;texto en la aplicación de RStudios. Para ello vamos a aplicar los dos paquetes que hemos instalado anteriormente&nbsp;con el comando <code>library("name")</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"quanteda"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Package version: 4.1.0
-Unicode version: 15.1
-ICU version: 74.1</code></pre>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"quanteda"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"readtext"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Parallel computing: 4 of 4 threads used.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>See https://quanteda.io for tutorials and examples.</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"readtext"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Adjuntando el paquete: 'readtext'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following object is masked from 'package:quanteda':
-
-    texts</code></pre>
-</div>
-</div>
-<p>Es importante resaltar que si no llamamos antes el paquete los comandos que introduzcamos después no funcionarán o nos darán error.</p>
+<p>Es importante resaltar que, si no llamamos antes el paquete, los comandos que introduzcamos después no funcionarán o nos darán error. Asegúrate de cargar siempre la librería antes de empezar a trabajar.</p>
 <p>Una vez cargados, el programa estará listo para leer nuestro archivo de texto. La formula que vamos a escribir para decirle a <code>quanteda</code> que archivo analizar será el siguiente:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>data_char_NALVANY <span class="ot">&lt;-</span> <span class="fu">as.character</span>(readtext<span class="sc">::</span><span class="fu">readtext</span>(<span class="st">"C:/Users/sergi/Desktop/NALVANY.txt"</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>))</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(data_char_NALVANY) <span class="ot">&lt;-</span> <span class="st">"NALVANY"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>data_char_NALVANY <span class="ot">&lt;-</span> <span class="fu">as.character</span>(readtext<span class="sc">::</span><span class="fu">readtext</span>(<span class="st">"G:/Mi unidad/Yo sigo/NALVANY.txt"</span>))</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(data_char_NALVANY) <span class="ot">&lt;-</span> <span class="st">"NALVANY"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="por-qué-lo-usamos-1" class="level4">
-<h4 class="anchored" data-anchor-id="por-qué-lo-usamos-1">¿Por qué lo usamos?</h4>
+<p><strong>❗ATENICIÓN:</strong> Si por alguna razón hiciesemos algún cambio en el contenido del archivo, deberemos de aplicar el paso anterior de nuevo. Cuando cargamos un archivo en R, se guarda una copia y cualquier cambio en el original no se refleja automáticamente.</p>
+<section id="qué-significa-esta-función" class="level4">
+<h4 class="anchored" data-anchor-id="qué-significa-esta-función">🤔¿Qué significa esta función?</h4>
 <p>Vamos a desgranar este prompt para que pueda entenderse más facil:</p>
 <ul>
 <li><p><code>data_char_"TEXTO"</code>: La variable data_char_NALVANY es un objeto<sup>[2]</sup> en R que almacena el texto como una cadena de caracteres (character vector).</p></li>
 <li><p><code>as.character()</code>: Convierte el objeto cargado en un formato de texto sencillo, que es más fácil de manejar para el análisis.</p></li>
+<li><p><code>readtext::readtext</code>: Como véis, se ha utilizado una expresión doble del paquete <code>readtext</code>. Esto proviene de la notación <code>paquete::función</code> y se hace cuando queremos asegurarnos de utilizar una función específica. Aquí, lo que le estamos diciendo a RStudios es que, del paquete <code>readtext</code>, aplique específicamente la función lectura que casualmente también se llama <code>readtext</code></p>
+<ul>
+<li>Un <strong>problema muy común</strong> que puede surgir a la hora de introducir la URL de la ubicación del archivo es expresarlo con barras laterales izquierdas ” \ “, tal y como viene en la barra de dirección del explorador de archivos de Windows, en vez de la derecha” / “. Si tienes problemas leer tu .txt ¡prueba con hacer este cambio!</li>
+</ul></li>
 <li><p><code>names(data_char_NALVANY) &lt;- "Nalvany"</code>: Asigna un nombre al objeto que contiene el texto, facilitando su identificación en futuros análisis.</p></li>
 </ul>
 <p><strong>¿Sabías qué…?</strong> ️🤓☝</p>
 <div class="tip" style="background-color: #A8E6A1; border-left: 5px solid #A8E6A1; padding: 10px">
-<p><sup><sub>[2]</sub></sup> En <code>r</code> hablamos de <strong>objetos</strong> para referirnos a contenedores donde almacenar datos e información. En el caso anterior, el objeto <code>data_char_NALVANY</code> almacena el texto plano que vamos a utilizar.</p>
-<p>Existen distintos objetos con diferentes datos almacenados. A lo largo de este caso práctico trabajaremos con ellos para gestionar más facilmente el análisis cuantitativo.</p>
+<p><sup><sub>[2]</sub></sup> En <code>R</code> hablamos de <strong>objetos</strong> para referirnos a los contenedores donde almacenamos datos e información. En el caso anterior, el objeto <code>data_char_NALVANY</code> almacena el texto plano que vamos a utilizar.</p>
+<p>Existen distintos objetos con diferentes datos almacenados: matrices, números, listas jerarquizadas, así como un sin fin de combinaciones. A lo largo de este caso práctico trabajaremos con ellos para gestionar más facilmente el análisis cuantitativo.</p>
+</div>
+</section>
+<section id="comprobaciones" class="level4">
+<h4 class="anchored" data-anchor-id="comprobaciones">🔍 Comprobaciones</h4>
+<p>En el análisis cuantitativo toda precaución es poca , así que vamos a realizar una serie de comprobaciones para verificar que el texto ha sido leido por el programa. Para ello, vamos a pedirle a RStudio que nos devuelva los primeros 75 caracteres de nuestro archivo NALVANY.txt mediante el paquete: <code>stringi</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library.</span>(<span class="st">"stringi"</span>) <span class="co">#Primero llamamos al paquete</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">stri_sub</span>(data_char_NALVANY, <span class="dv">1</span>, <span class="dv">75</span>) <span class="co">#Aplicamos la función para que nos devuelva los caracteres situados entre la posición 1 y 75.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Si hemos hecho los pasos bien, tendréis que haber recibir este texto de vuelta:</p>
+<pre><code>[1] "2022\nJanuary 17th\nExactly one year ago today I came home, to Russia.\nI didn"</code></pre>
+</section>
+</section>
+<section id="acotando-nuestro-espacio-de-trabajo" class="level2">
+<h2 class="anchored" data-anchor-id="acotando-nuestro-espacio-de-trabajo">🗃️Acotando nuestro espacio de trabajo</h2>
+<p>Nuestro siguiente objetivo es seleccionar qué partes del texto vamos aplicar el análisis cuantitativo. Puede que nuestro foco de interés sea algun apartado concreto de nuestro material, por lo que vamos a crear un objeto que albergue un rango determinado dentro de nuestro ““.txt . Con esto nos quitaremos toda la información innecesaria que puede ensuciar nuestros resultados.</p>
+<p>El proceso que vamos a realizar a continuación es muy útil cuando los archivos que manejamos tienen ligados metadatos. Normalmente, esta metadata suele ser más un dolor de cabeza que otra cosa y es recomendable realizar una limpieza previa para que esos datos no se mezclen con el contenido de nuestro análisis.</p>
+<p>En este apartado seguiremos trabajando con el paquete <code>stringi</code> <sup>[3]</sup></p>
+<section id="asignación-de-los-rangos-del-texto" class="level4">
+<h4 class="anchored" data-anchor-id="asignación-de-los-rangos-del-texto">🔁Asignación de los rangos del texto</h4>
+<p>Para crear el objeto que albergue el rango de texto a analizar deberemos empezar indicando donde empieza y termina nuestra selección. Para ello, crearemos dos valores de posición: <code>start_v</code> y <code>end_v</code>, donde <code>start_</code> será: “2023, January 12th” y <code>end_v</code> “FIN”.</p>
+<p>Localizado el rango que queremos, la forma de expresarlo en el programa sería el siguiente:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>(start_v <span class="ot">&lt;-</span> <span class="fu">stri_locate_first_fixed</span>(data_char_NALVANY, <span class="st">"2023</span><span class="sc">\n</span><span class="st">January 12th"</span>)[<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>(end_v <span class="ot">&lt;-</span> <span class="fu">stri_locate_last_fixed</span>(data_char_NALVANY, <span class="st">"FIN"</span>)[<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Si lo hemos aplicado bien, la función debería de devolver los siguientes resultados</p>
+<ul>
+<li><p>Para <code>start_value</code></p>
+<pre><code>[1] 23653</code></pre></li>
+</ul>
+<!-- -->
+<ul>
+<li><p>Para <code>end_value</code></p>
+<pre><code>[1] 44141</code></pre></li>
+</ul>
+</section>
+<section id="qué-significa-esta-expresión" class="level4">
+<h4 class="anchored" data-anchor-id="qué-significa-esta-expresión">🤔¿Qué significa esta expresión?</h4>
+<ul>
+<li><p>Tanto <code>start_v</code> como <code>end_v</code> son nombres que hemos asignado a la posición específicas del texto. En sí, no significan nada. Solo decimos, a través de “&lt;-” que dichos nombres albergan una función de posicionamiento.</p></li>
+<li><p>Las funciones del paquete <code>stringi</code>: <code>stri_locate_first_fixed</code> y <code>stri_locate_last_fixed</code> buscan y encuentran la primera coincidencia del valor entrecomillado que precede a nuestro objeto <code>data_char_NALVANY</code></p></li>
+<li><p>El [1] es un indicador que le estamos dando a la función para que escoja la primera posición donde aparezca el texto que hayamos escogido.</p></li>
+<li><p>Así, cuando vemos devuelto las respuestas <code>[1] 23653</code> y <code>[1] 44141</code> quiere decir que para <code>start_v</code> y <code>end_v</code> está asignado el primer valor donde aparece dichas expresiones , localizadas en la posición 23653 y 44141 de nuestro texto.</p></li>
+</ul>
+<p><strong>¿Sabías qué…?</strong> ️🤓☝</p>
+<div class="tip" style="background-color: #A8E6A1; border-left: 5px solid #A8E6A1; padding: 10px">
+<p><sup><sub>[3]</sub></sup> El paquete <code>stringi</code> es una herramienta muy versatil para el manejo y procesamiento de cadenas de texto. Hemos visto como puede hacer búsquedas de posicionamiento, pero también puede servir para realizar operciones relacionadas con la manipulación de texto ya sea para remplazar partes del mismo, verificar un formato o pasar de un código a otro.</p>
 </div>
 
 
