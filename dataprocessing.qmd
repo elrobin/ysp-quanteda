@@ -202,13 +202,13 @@ R es sensible a las mayúsculas y las toma como valor diferente a como sería en
 
 Para ello crearemos un nuevo objeto: `diary_v_toks_lower` que albergará los valores del objeto del paso anterior, pero con la función minúsculas aplicadas
 
-```{r}
+```{r, eval=FALSE}
 diary_v_toks_lower <- tokens_tolower(diary_v_toks)
 ```
 
 #### PASO 3: eliminación de los signos de puntuación.
 
-En nuestro texto, habrá palabras que vengan unidas a un signo de puntuación. Las comas, comillas y puntos pueden provocar que el programa identifica una misma palabra: `nalvany` y `nalvany.` como dos elementos distintos, lo que podría darnos un recuento distinto cuando hagamos búsqueda de patrones.
+En nuestro texto, habrá palabras que vengan unidas a un signo de puntuación. Las comas, comillas y puntos pueden provocar que el programa identifica una misma palabra: `nalvany` y `nalvany.` como dos elementos distintos, lo que podría darnos un recuento distinto cuando hagamos búsqueda de patrones^\[4\]^.
 
 Para realizar esta limpieza se hará un nuevo objeto que llamaremos `nalvany_word_v`
 
@@ -216,4 +216,58 @@ Para realizar esta limpieza se hará un nuevo objeto que llamaremos `nalvany_wor
  nalvany_word_v <- tokens(diary_v_toks_lower, remove_punct = TRUE)
 ```
 
-En inglés, es posible que el texto venga acompañado de apóstrofes como en los casos de `don't` y `he's`. Aquí, `quanteda` no tomará las `'t` ni las `'s` como elementos aislados, sino que lo mantendrá unida a la palabra para respetar el significado original.
+#### **🤔¿Qué significa esta expresión?**
+
+-   De nuevo el valor `nalvany_word_v` es un objeto al que se ha aplicado la función `tokens`. Lo que le estamos diciendo a R es que el valor ya tokenizado `diary_v_toks_lower` vuelva a procesarlo tomando como parámetro el valor `remove_punct=TRUE`
+
+-   `remove_punct=TRUE` es el argumento que indica a `tokens()` que elimine toda la puntuación del valor que le antecede, en este caso `diary_v_toks_lower`.
+
+#### 🔍 Comprobaciones
+
+Una vez hecho esta re-tokenización, vamos a crear un objeto que contenga la unidad total de valores que tiene el objeto `nalvany_word_v` . Esto nos ayudará a tener una idea total de la longitud del contenido, también nos dará una idea de cuánto se ha reducido el texto al quitar caracteres y nos ahorrará tiempo para no tener que calcularlo cuando lo necesitemos
+
+Aplicaremos la función `ntoken` para averiguar la extensión total de nuestro texto.
+
+```{r, eval=FALSE}
+total_lenght <- ntoken(nalvany_word_v)
+```
+
+```         
+text1 
+ 3697 #Nos tendría que devolver este valor
+```
+
+**¿Sabías qué...?** ️🤓☝
+
+::: {.tip style="background-color: #A8E6A1; border-left: 5px solid #A8E6A1; padding: 10px"}
+^~\[4\]~^ En inglés, es posible que el texto venga acompañado de apóstrofes como en los casos de `don't` y `he's`. Aquí, `quanteda` no tomará las `'t` ni las `'s` como elementos aislados, sino que lo mantendrá unida a la palabra para respetar el significado original.
+:::
+
+## ⚙️ Las utilidades 
+
+Ahora que tenemos todo nuestro texto listo para trabajar, podemos realizar operaciones sencillas, tales como:
+
+-   **Comprobar cuantas veces se repite una palabra y su localización.**
+
+Esto es especialmente util para realizar análisis de frecuencia o de sentimientos al conocer el contexto donde se menciona esa palabra.
+
+```{r, eval=FALSE}
+which(nalvany_word_v[["text1"]] == "putin") |>
++     head()
+```
+
+```         
+[1] 1735 2771
+```
+
+-   **Localizar una palabra exacta a través de su número de caracter.**
+
+Como sabemos el número total de caracteres que tiene gracias a la función `ntoken` podemos recuperar cualquier elemento con solo introducir un valor concreto
+
+```{r, eval=FALSE}
+nalvany_word_v[["text1"]][3666] 
+```
+
+```         
+[1] "it"
+```

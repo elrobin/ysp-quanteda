@@ -169,6 +169,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#paso-2-creando-nuestro-objeto" id="toc-paso-2-creando-nuestro-objeto" class="nav-link" data-scroll-target="#paso-2-creando-nuestro-objeto">PASO 2, creando nuestro objeto</a></li>
   <li><a href="#qué-significa-esta-expresión-1" id="toc-qué-significa-esta-expresión-1" class="nav-link" data-scroll-target="#qué-significa-esta-expresión-1">🤔¿Qué significa esta expresión?</a></li>
   </ul></li>
+  <li><a href="#a-la-tokenización" id="toc-a-la-tokenización" class="nav-link" data-scroll-target="#a-la-tokenización">🗿 ¡A la tokenización!</a>
+  <ul>
+  <li><a href="#paso-1-tokenización" id="toc-paso-1-tokenización" class="nav-link" data-scroll-target="#paso-1-tokenización">PASO 1: tokenización</a></li>
+  <li><a href="#qué-significa-esta-expresión-2" id="toc-qué-significa-esta-expresión-2" class="nav-link" data-scroll-target="#qué-significa-esta-expresión-2"><strong>🤔¿Qué significa esta expresión?</strong></a></li>
+  <li><a href="#paso-2-eliminación-de-las-mayúsculas." id="toc-paso-2-eliminación-de-las-mayúsculas." class="nav-link" data-scroll-target="#paso-2-eliminación-de-las-mayúsculas.">PASO 2: eliminación de las mayúsculas.</a></li>
+  <li><a href="#paso-3-eliminación-de-los-signos-de-puntuación." id="toc-paso-3-eliminación-de-los-signos-de-puntuación." class="nav-link" data-scroll-target="#paso-3-eliminación-de-los-signos-de-puntuación.">PASO 3: eliminación de los signos de puntuación.</a></li>
+  <li><a href="#qué-significa-esta-expresión-3" id="toc-qué-significa-esta-expresión-3" class="nav-link" data-scroll-target="#qué-significa-esta-expresión-3"><strong>🤔¿Qué significa esta expresión?</strong></a></li>
+  <li><a href="#comprobaciones-1" id="toc-comprobaciones-1" class="nav-link" data-scroll-target="#comprobaciones-1">🔍 Comprobaciones</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -317,6 +326,64 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>¿Sabías qué…?</strong> ️🤓☝</p>
 <div class="tip" style="background-color: #A8E6A1; border-left: 5px solid #A8E6A1; padding: 10px">
 <p><sup><sub>[3]</sub></sup> El paquete <code>stringi</code> es una herramienta muy versatil para el manejo y procesamiento de cadenas de texto. Hemos visto como puede hacer búsquedas de posicionamiento, pero también puede servir para realizar operciones relacionadas con la manipulación de texto: ya sea para remplazar partes del mismo, verificar un formato o pasar de un código a otro.</p>
+</div>
+</section>
+</section>
+<section id="a-la-tokenización" class="level2">
+<h2 class="anchored" data-anchor-id="a-la-tokenización">🗿 ¡A la tokenización!</h2>
+<p>Realizada la limpieza de datos, es hora de preparar nuestro material para convertirlo en un objeto analizable. Para ello haremos tres cosas:</p>
+<ol type="1">
+<li>Convertiremos todo el texto almacenado en <code>diary_v</code> en tokens.</li>
+<li>Pasaremos toda la información a minúsculas mediante la función <code>tolower()</code></li>
+<li>Eliminaremos los signos de puntuación con la función <code>remove_punct=TRUE</code></li>
+</ol>
+<section id="paso-1-tokenización" class="level4">
+<h4 class="anchored" data-anchor-id="paso-1-tokenización">PASO 1: tokenización</h4>
+<p>Para que el programa pueda analizar y realizar manipulaciones sobre las palabras de forma individualizada, vamos a convertir a cada una de ellas en pequeños valores que llamamos <strong>tokens.</strong></p>
+<p>La función <code>tokens()</code> del paquete <code>quanteda</code> es el que nos ayudará a realizar este trabajo.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>diary_v_toks <span class="ot">&lt;-</span> <span class="fu">tokens</span>(diary_v)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="qué-significa-esta-expresión-2" class="level4">
+<h4 class="anchored" data-anchor-id="qué-significa-esta-expresión-2"><strong>🤔¿Qué significa esta expresión?</strong></h4>
+<p>Hemos creado un nuevo objeto: <code>diary_v_toks</code> donde los valores que tiene asignado han sido convertidos en una unidad manipulable llamado <strong>token</strong>. Esto nos permitirá poder realizar los dos pasos siguientes.</p>
+</section>
+<section id="paso-2-eliminación-de-las-mayúsculas." class="level4">
+<h4 class="anchored" data-anchor-id="paso-2-eliminación-de-las-mayúsculas.">PASO 2: eliminación de las mayúsculas.</h4>
+<p>R es sensible a las mayúsculas y las toma como valor diferente a como sería en minúsculas. Por eso, para evitar errores, vamos a homogenizar el texto para que todo esté en un solo formato: minúsculas.</p>
+<p>Para ello crearemos un nuevo objeto: <code>diary_v_toks_lower</code> que albergará los valores del objeto del paso anterior, pero con la función minúsculas aplicadas</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>diary_v_toks_lower <span class="ot">&lt;-</span> <span class="fu">tokens_tolower</span>(diary_v_toks)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="paso-3-eliminación-de-los-signos-de-puntuación." class="level4">
+<h4 class="anchored" data-anchor-id="paso-3-eliminación-de-los-signos-de-puntuación.">PASO 3: eliminación de los signos de puntuación.</h4>
+<p>En nuestro texto, habrá palabras que vengan unidas a un signo de puntuación. Las comas, comillas y puntos pueden provocar que el programa identifica una misma palabra: <code>nalvany</code> y <code>nalvany.</code> como dos elementos distintos, lo que podría darnos un recuento distinto cuando hagamos búsqueda de patrones<sup>[4]</sup>.</p>
+<p>Para realizar esta limpieza se hará un nuevo objeto que llamaremos <code>nalvany_word_v</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a> nalvany_word_v <span class="ot">&lt;-</span> <span class="fu">tokens</span>(diary_v_toks_lower, <span class="at">remove_punct =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="qué-significa-esta-expresión-3" class="level4">
+<h4 class="anchored" data-anchor-id="qué-significa-esta-expresión-3"><strong>🤔¿Qué significa esta expresión?</strong></h4>
+<ul>
+<li><p>De nuevo el valor <code>nalvany_word_v</code> es un objeto al que se ha aplicado la función <code>tokens</code>. Lo que le estamos diciendo a R es que el valor ya tokenizado <code>diary_v_toks_lower</code> vuelva a procesarlo tomando como parámetro el valor <code>remove_punct=TRUE</code></p></li>
+<li><p><code>remove_punct=TRUE</code> es el argumento que indica a <code>tokens()</code> que elimine toda la puntuación del valor que le antecede, en este caso <code>diary_v_toks_lower</code>.</p></li>
+</ul>
+</section>
+<section id="comprobaciones-1" class="level4">
+<h4 class="anchored" data-anchor-id="comprobaciones-1">🔍 Comprobaciones</h4>
+<p>Una vez hecho esta re-tokenización, vamos a crear un objeto que contenga la unidad total de valores que tiene el objeto <code>nalvany_word_v</code> . Esto nos ayudará a tener una idea total de la longitud del contenido, también nos dará una idea de cuánto se ha reducido el texto al quitar caracteres y nos ahorrará tiempo para no tener que calcularlo cuando lo necesitemos</p>
+<p>Aplicaremos la función <code>ntoken</code> para averiguar la extensión total de nuestro texto.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>total_lenght <span class="ot">&lt;-</span> <span class="fu">ntoken</span>(nalvany_word_v)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<pre><code>text1 
+ 3697 #Nos tendría que devolver este valor</code></pre>
+<p><strong>¿Sabías qué…?</strong> ️🤓☝</p>
+<div class="tip" style="background-color: #A8E6A1; border-left: 5px solid #A8E6A1; padding: 10px">
+<p><sup><sub>[4]</sub></sup> En inglés, es posible que el texto venga acompañado de apóstrofes como en los casos de <code>don't</code> y <code>he's</code>. Aquí, <code>quanteda</code> no tomará las <code>'t</code> ni las <code>'s</code> como elementos aislados, sino que lo mantendrá unida a la palabra para respetar el significado original.</p>
 </div>
 
 
