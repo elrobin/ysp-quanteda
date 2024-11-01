@@ -164,8 +164,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#acotando-nuestro-espacio-de-trabajo" id="toc-acotando-nuestro-espacio-de-trabajo" class="nav-link" data-scroll-target="#acotando-nuestro-espacio-de-trabajo">🗃️Acotando nuestro espacio de trabajo</a>
   <ul>
-  <li><a href="#asignación-de-los-rangos-del-texto" id="toc-asignación-de-los-rangos-del-texto" class="nav-link" data-scroll-target="#asignación-de-los-rangos-del-texto">🔁Asignación de los rangos del texto</a></li>
+  <li><a href="#paso-1-asignación-de-los-rangos-del-texto" id="toc-paso-1-asignación-de-los-rangos-del-texto" class="nav-link" data-scroll-target="#paso-1-asignación-de-los-rangos-del-texto">PASO 1: Asignación de los rangos del texto</a></li>
   <li><a href="#qué-significa-esta-expresión" id="toc-qué-significa-esta-expresión" class="nav-link" data-scroll-target="#qué-significa-esta-expresión">🤔¿Qué significa esta expresión?</a></li>
+  <li><a href="#paso-2-creando-nuestro-objeto" id="toc-paso-2-creando-nuestro-objeto" class="nav-link" data-scroll-target="#paso-2-creando-nuestro-objeto">PASO 2, creando nuestro objeto</a></li>
+  <li><a href="#qué-significa-esta-expresión-1" id="toc-qué-significa-esta-expresión-1" class="nav-link" data-scroll-target="#qué-significa-esta-expresión-1">🤔¿Qué significa esta expresión?</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -266,8 +268,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Nuestro siguiente objetivo es seleccionar qué partes del texto vamos aplicar el análisis cuantitativo. Puede que nuestro foco de interés sea algun apartado concreto de nuestro material, por lo que vamos a crear un objeto que albergue un rango determinado dentro de nuestro ““.txt . Con esto nos quitaremos toda la información innecesaria que puede ensuciar nuestros resultados.</p>
 <p>El proceso que vamos a realizar a continuación es muy útil cuando los archivos que manejamos tienen ligados metadatos. Normalmente, esta metadata suele ser más un dolor de cabeza que otra cosa y es recomendable realizar una limpieza previa para que esos datos no se mezclen con el contenido de nuestro análisis.</p>
 <p>En este apartado seguiremos trabajando con el paquete <code>stringi</code> <sup>[3]</sup></p>
-<section id="asignación-de-los-rangos-del-texto" class="level4">
-<h4 class="anchored" data-anchor-id="asignación-de-los-rangos-del-texto">🔁Asignación de los rangos del texto</h4>
+<section id="paso-1-asignación-de-los-rangos-del-texto" class="level4">
+<h4 class="anchored" data-anchor-id="paso-1-asignación-de-los-rangos-del-texto">PASO 1: Asignación de los rangos del texto</h4>
 <p>Para crear el objeto que albergue el rango de texto a analizar deberemos empezar indicando donde empieza y termina nuestra selección. Para ello, crearemos dos valores de posición: <code>start_v</code> y <code>end_v</code>, donde <code>start_</code> será: “2023, January 12th” y <code>end_v</code> “FIN”.</p>
 <p>Localizado el rango que queremos, la forma de expresarlo en el programa sería el siguiente:</p>
 <div class="cell">
@@ -293,11 +295,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>Tanto <code>start_v</code> como <code>end_v</code> son nombres que hemos asignado a la posición específicas del texto. En sí, no significan nada. Solo decimos, a través de “&lt;-” que dichos nombres albergan una función de posicionamiento.</p></li>
 <li><p>Las funciones del paquete <code>stringi</code>: <code>stri_locate_first_fixed</code> y <code>stri_locate_last_fixed</code> buscan y encuentran la primera coincidencia del valor entrecomillado que precede a nuestro objeto <code>data_char_NALVANY</code></p></li>
 <li><p>El [1] es un indicador que le estamos dando a la función para que escoja la primera posición donde aparezca el texto que hayamos escogido.</p></li>
-<li><p>Así, cuando vemos devuelto las respuestas <code>[1] 23653</code> y <code>[1] 44141</code> quiere decir que para <code>start_v</code> y <code>end_v</code> está asignado el primer valor donde aparece dichas expresiones , localizadas en la posición 23653 y 44141 de nuestro texto.</p></li>
+<li><p>Así, cuando vemos devuelto las respuestas <code>[1] 23653</code> y <code>[1] 44141</code> quiere decir que para <code>start_v</code> y <code>end_v</code> está asignado el primer valor donde aparece dichas expresiones , localizadas por primera vez en la posición 23653 y 44141 de nuestro texto.</p></li>
+</ul>
+</section>
+<section id="paso-2-creando-nuestro-objeto" class="level4">
+<h4 class="anchored" data-anchor-id="paso-2-creando-nuestro-objeto">PASO 2, creando nuestro objeto</h4>
+<p>Creado nuestro punto de inicio y final de nuestra zona de trabajo, haremos un objeto que alberge dicho rango. Lo llamaremos: <code>diary_v</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>diary_v <span class="ot">&lt;-</span> <span class="fu">stri_sub</span>(data_char_NALVANY, start_v, end_v)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(diary_v)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Al iniciar el código el valor que os ha tenido que recuperar, además de almacenar el objeto en la pestaña <code>Environment</code> de RStuido, es:</p>
+<pre><code>[1] 1</code></pre>
+</section>
+<section id="qué-significa-esta-expresión-1" class="level4">
+<h4 class="anchored" data-anchor-id="qué-significa-esta-expresión-1">🤔¿Qué significa esta expresión?</h4>
+<ul>
+<li><p><code>diary_v</code> es el nombre del objeto que almacena la función que ha sido asignada. En este caso, a través de <code>stri_sub</code>, estamos extrayendo una parte del texto <code>data_char_NALVANY</code> . A diferencia del caso anterior, aquí le estamos pidiendo que, en vez de que recuper un número detemrinado de caracteres, escoja todos los que hay comprendidos entre las posiciones que hemos dado a <code>start_v</code> y a <code>end_v</code>. Con esto nos aseguramos que el objeto <code>diary_v</code> siempre trabaje en los rangos que nos interesa analizar.</p></li>
+<li><p><code>legth(diary_v)</code> es una expresión que usamos para comprobar cuandos valores existen en nuestro objeto. Es una forma de asegurarnos de que nuestro objeto solo tiene un vector y no es un conjunto de fragmentos de texto. Por eso, al introducirlo, el programa nos devuelve el valor 1 porque solo hay 1 valor dentro de nuestro objeto.</p></li>
 </ul>
 <p><strong>¿Sabías qué…?</strong> ️🤓☝</p>
 <div class="tip" style="background-color: #A8E6A1; border-left: 5px solid #A8E6A1; padding: 10px">
-<p><sup><sub>[3]</sub></sup> El paquete <code>stringi</code> es una herramienta muy versatil para el manejo y procesamiento de cadenas de texto. Hemos visto como puede hacer búsquedas de posicionamiento, pero también puede servir para realizar operciones relacionadas con la manipulación de texto ya sea para remplazar partes del mismo, verificar un formato o pasar de un código a otro.</p>
+<p><sup><sub>[3]</sub></sup> El paquete <code>stringi</code> es una herramienta muy versatil para el manejo y procesamiento de cadenas de texto. Hemos visto como puede hacer búsquedas de posicionamiento, pero también puede servir para realizar operciones relacionadas con la manipulación de texto: ya sea para remplazar partes del mismo, verificar un formato o pasar de un código a otro.</p>
 </div>
 
 

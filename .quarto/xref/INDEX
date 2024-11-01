@@ -6,5 +6,8 @@
   "index.qmd": {
     "index.html": "c8639a25",
     "..html": "7f14097e"
+  },
+  "dataprocessing.qmd": {
+    "dataprocessing.html": "55a0b99a"
   }
 }

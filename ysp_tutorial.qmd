@@ -12,12 +12,12 @@ A medida que el volumen de información textual digitalizada ha crecido, la nece
 
 ## 🤔 ¿Para qué se utiliza el análisis de textos?
 
-|                                        |                                                                                                                                            |
-|----------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
-| **Análisis de sentimiento**            | Evaluar el tono emocional de textos, como reseñas o comentarios en redes sociales, para conocer las opiniones y actitudes de los usuarios. |
-| **Análisis de tendencias**             | Identificar la frecuencia de palabras o frases clave y su cambio a lo largo del tiempo.                                                    |
-| **Análisis del discurso**              | Explorar cómo ciertos temas o ideas son representados en la sociedad y su evolución temporal                                               |
-| **Clasificación automática de textos** | Organizar categóricamente textos y fragmentos de textos a través de técnicas como *topic modeling* o similares                             |
+|  |  |
+|-------------------|-----------------------------------------------------|
+| **Análisis de sentimiento** | Evaluar el tono emocional de textos, como reseñas o comentarios en redes sociales, para conocer las opiniones y actitudes de los usuarios. |
+| **Análisis de tendencias** | Identificar la frecuencia de palabras o frases clave y su cambio a lo largo del tiempo. |
+| **Análisis del discurso** | Explorar cómo ciertos temas o ideas son representados en la sociedad y su evolución temporal |
+| **Clasificación automática de textos** | Organizar categóricamente textos y fragmentos de textos a través de técnicas como *topic modeling* o similares |
 
 ## ✍️ `Quanteda` como herramienta para el análisis de datos
 
@@ -25,10 +25,10 @@ A medida que el volumen de información textual digitalizada ha crecido, la nece
 
 ## ⁉️ ¿Por qué `quanteda`?
 
-|                                      |                                                                                                                        |
-|--------------------------------------|------------------------------------------------------------------------------------------------------------------------|
-| **Facilidad en la preprocesamiento** | Permite realizar tareas como tokenización y limpieza de datos de forma rápida y eficiente.                             |
-| **Análisis de frecuencias**          | Facilita el cálculo de frecuencias de términos en un corpus, ideal para identificar palabras clave y patrones.         |
-| **Exploración de contexto (KWIC)**   | La función KWIC permite analizar palabras en su contexto, proporcionando insights sobre el uso de ciertos términos.    |
-| **Análisis de sentimiento y temas**  | Permite aplicar diccionarios de sentimiento y realizar análisis básico de temas mediante co-ocurrencia de palabras.    |
-| **Flexibilidad y escalabilidad**     | Optimizado para manejar grandes volúmenes de texto y se integra fácilmente con otros paquetes para análisis avanzados. |
+|  |  |
+|-------------------|-----------------------------------------------------|
+| **Facilidad en la preprocesamiento** | Permite realizar tareas como tokenización y limpieza de datos de forma rápida y eficiente. |
+| **Análisis de frecuencias** | Facilita el cálculo de frecuencias de términos en un corpus, ideal para identificar palabras clave y patrones. |
+| **Exploración de contexto (KWIC)** | La función KWIC permite analizar palabras en su contexto, proporcionando insights sobre el uso de ciertos términos. |
+| **Análisis de sentimiento y temas** | Permite aplicar diccionarios de sentimiento y realizar análisis básico de temas mediante co-ocurrencia de palabras. |
+| **Flexibilidad y escalabilidad** | Optimizado para manejar grandes volúmenes de texto y se integra fácilmente con otros paquetes para análisis avanzados. |

@@ -147,7 +147,7 @@ Si lo hemos aplicado bien, la función debería de devolver los siguientes resul
 
 -   Así, cuando vemos devuelto las respuestas `[1] 23653` y `[1] 44141` quiere decir que para `start_v` y `end_v` está asignado el primer valor donde aparece dichas expresiones , localizadas por primera vez en la posición 23653 y 44141 de nuestro texto.
 
-#### PASO 2, creando nuestro objeto 
+#### PASO 2, creando nuestro objeto
 
 Creado nuestro punto de inicio y final de nuestra zona de trabajo, haremos un objeto que alberge dicho rango. Lo llamaremos: `diary_v`
 
@@ -156,10 +156,64 @@ diary_v <- stri_sub(data_char_NALVANY, start_v, end_v)
 length(diary_v)
 ```
 
----- EXPLICAR LA FUNCION.
+Al iniciar el código el valor que os ha tenido que recuperar, además de almacenar el objeto en la pestaña `Environment` de RStuido, es:
+
+```         
+[1] 1
+```
+
+#### 🤔¿Qué significa esta expresión?
+
+-   `diary_v` es el nombre del objeto que almacena la función que ha sido asignada. En este caso, a través de `stri_sub`, estamos extrayendo una parte del texto `data_char_NALVANY` . A diferencia del caso anterior, aquí le estamos pidiendo que, en vez de que recuper un número detemrinado de caracteres, escoja todos los que hay comprendidos entre las posiciones que hemos dado a `start_v` y a `end_v`. Con esto nos aseguramos que el objeto `diary_v` siempre trabaje en los rangos que nos interesa analizar.
+
+-   `legth(diary_v)` es una expresión que usamos para comprobar cuandos valores existen en nuestro objeto. Es una forma de asegurarnos de que nuestro objeto solo tiene un vector y no es un conjunto de fragmentos de texto. Por eso, al introducirlo, el programa nos devuelve el valor 1 porque solo hay 1 valor dentro de nuestro objeto.
 
 **¿Sabías qué...?** ️🤓☝
 
 ::: {.tip style="background-color: #A8E6A1; border-left: 5px solid #A8E6A1; padding: 10px"}
-^~\[3\]~^ El paquete `stringi` es una herramienta muy versatil para el manejo y procesamiento de cadenas de texto. Hemos visto como puede hacer búsquedas de posicionamiento, pero también puede servir para realizar operciones relacionadas con la manipulación de texto ya sea para remplazar partes del mismo, verificar un formato o pasar de un código a otro.
+^~\[3\]~^ El paquete `stringi` es una herramienta muy versatil para el manejo y procesamiento de cadenas de texto. Hemos visto como puede hacer búsquedas de posicionamiento, pero también puede servir para realizar operciones relacionadas con la manipulación de texto: ya sea para remplazar partes del mismo, verificar un formato o pasar de un código a otro.
 :::
+
+## 🗿 ¡A la tokenización!
+
+Realizada la limpieza de datos, es hora de preparar nuestro material para convertirlo en un objeto analizable. Para ello haremos tres cosas:
+
+1.  Convertiremos todo el texto almacenado en `diary_v` en tokens.
+2.  Pasaremos toda la información a minúsculas mediante la función `tolower()`
+3.  Eliminaremos los signos de puntuación con la función `remove_punct=TRUE`
+
+#### PASO 1: tokenización
+
+Para que el programa pueda analizar y realizar manipulaciones sobre las palabras de forma individualizada, vamos a convertir a cada una de ellas en pequeños valores que llamamos **tokens.**
+
+La función `tokens()` del paquete `quanteda` es el que nos ayudará a realizar este trabajo.
+
+```{r, eval=FALSE}
+diary_v_toks <- tokens(diary_v)
+```
+
+#### **🤔¿Qué significa esta expresión?**
+
+Hemos creado un nuevo objeto: `diary_v_toks` donde los valores que tiene asignado han sido convertidos en una unidad manipulable llamado **token**. Esto nos permitirá poder realizar los dos pasos siguientes.
+
+#### PASO 2: eliminación de las mayúsculas.
+
+R es sensible a las mayúsculas y las toma como valor diferente a como sería en minúsculas. Por eso, para evitar errores, vamos a homogenizar el texto para que todo esté en un solo formato: minúsculas.
+
+Para ello crearemos un nuevo objeto: `diary_v_toks_lower` que albergará los valores del objeto del paso anterior, pero con la función minúsculas aplicadas
+
+```{r}
+diary_v_toks_lower <- tokens_tolower(diary_v_toks)
+```
+
+#### PASO 3: eliminación de los signos de puntuación.
+
+En nuestro texto, habrá palabras que vengan unidas a un signo de puntuación. Las comas, comillas y puntos pueden provocar que el programa identifica una misma palabra: `nalvany` y `nalvany.` como dos elementos distintos, lo que podría darnos un recuento distinto cuando hagamos búsqueda de patrones.
+
+Para realizar esta limpieza se hará un nuevo objeto que llamaremos `nalvany_word_v`
+
+```{r, eval=FALSE}
+ nalvany_word_v <- tokens(diary_v_toks_lower, remove_punct = TRUE)
+```
+
+En inglés, es posible que el texto venga acompañado de apóstrofes como en los casos de `don't` y `he's`. Aquí, `quanteda` no tomará las `'t` ni las `'s` como elementos aislados, sino que lo mantendrá unida a la palabra para respetar el significado original.
