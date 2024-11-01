@@ -262,7 +262,9 @@ which(nalvany_word_v[["text1"]] == "putin") |>
 
 -   **Localizar una palabra exacta a través de su número de caracter.**
 
-Como sabemos el número total de caracteres que tiene gracias a la función `ntoken` podemos recuperar cualquier elemento con solo introducir un valor concreto
+Como sabemos el número total de caracteres que tiene gracias a la función `ntoken` podemos recuperar cualquier elemento con solo introducir un valor concreto.
+
+Esto nos podría ayudar para saber qué palabra se encuentra en una posición determinada para estudiar el contexto en el que aparece.
 
 ```{r, eval=FALSE}
 nalvany_word_v[["text1"]][3666] 
