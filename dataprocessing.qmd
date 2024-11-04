@@ -205,7 +205,7 @@ Aquí queda más clara la estructura del texto:
 
 A continuación lo que vamos a hacer es crear un objeto lista[^3], en la que cada elemento será una entrada del diario.
 
-[^3]: Una **lista** es una estructura de datos qeu puede contener elementos de diferentes tipos (numérico, caractéres, vectores o incluso otras listas) en un solo objecto. Cada elemento en una lista se puede acceder de forma individual usando índices. Esto se hace utilizando corchetes dobles. Por ejemplo si queremos ver el segundo elemento de la lista `lista`, lo indicaremos así: `lista[[2]]`.
+[^3]: Una **lista** es una estructura de datos que puede contener elementos de diferentes tipos (numérico, caractéres, vectores o incluso otras listas) en un solo objeto. Cada elemento en una lista se puede acceder de forma individual usando índices. Esto se hace utilizando corchetes dobles. Por ejemplo si queremos ver el segundo elemento de la lista `lista`, lo indicaremos así: `lista[[2]]`.
 
 #### PASO 2: Conversión del texto en vectores
 
