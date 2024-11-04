@@ -13,7 +13,7 @@ A medida que el volumen de información textual digitalizada ha crecido, la nece
 ## 🤔 ¿Para qué se utiliza el análisis de textos?
 
 |  |  |
-|-------------------|-----------------------------------------------------|
+|----|----|
 | **Análisis de sentimiento** | Evaluar el tono emocional de textos, como reseñas o comentarios en redes sociales, para conocer las opiniones y actitudes de los usuarios. |
 | **Análisis de tendencias** | Identificar la frecuencia de palabras o frases clave y su cambio a lo largo del tiempo. |
 | **Análisis del discurso** | Explorar cómo ciertos temas o ideas son representados en la sociedad y su evolución temporal |
@@ -26,7 +26,7 @@ A medida que el volumen de información textual digitalizada ha crecido, la nece
 ## ⁉️ ¿Por qué `quanteda`?
 
 |  |  |
-|-------------------|-----------------------------------------------------|
+|----|----|
 | **Facilidad en la preprocesamiento** | Permite realizar tareas como tokenización y limpieza de datos de forma rápida y eficiente. |
 | **Análisis de frecuencias** | Facilita el cálculo de frecuencias de términos en un corpus, ideal para identificar palabras clave y patrones. |
 | **Exploración de contexto (KWIC)** | La función KWIC permite analizar palabras en su contexto, proporcionando insights sobre el uso de ciertos términos. |

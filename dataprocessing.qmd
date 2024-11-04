@@ -10,30 +10,43 @@ editor: visual
 
 ## 📦Preparando los paquetes
 
-Antes de comenzar el análisis es obligatorio instalar dos paquetes básicos: `quanteda` y `readtext` a través del comando: `install.packages(")` . En primer lugar, para poder instalar `quanteda` , así como cualquier otro paquete en R, deberemos de de introducir en la consola el comando:
+Para seguir este tutorial por primera vez, deberás instalar una serie de paquetes[^1] que emplearemos: `quanteda`, `readtext`, `dplyr` y `stringr`. Esto se hace a través del comando: `install.packages()`:
+
+[^1]:
+    ::: {.callout-tip appearance="simple"}
+    `R` es un lenguaje de programación abierto y colaborativo que sigue una estructura totalmente descentralizada. Cuando instalamos `R` por primera vez, sólo instalamos sus funcionalidades básicas. Todas aquellas funcionalidades adicionales llevadas a cabo por terceras personas deben instalarse en lo que se denominan **paquetes** o **libraries** en inglés.
+
+    Cada vez que vayas a emplear un paquete, debes cargarlo, por defecto, cada vez que abres `R` estos paquetes no están cargados.
+    :::
 
 ```{r, eval = FALSE}
-install.packages("quanteda")
-```
-
-La misma fórmula aplicaremos para el paquete `readtext`
-
-```{r, eval = FALSE}
-install.packages("readtext")
+install.packages(c("quanteda", "readtext", "dplyr", "stringi"))
 ```
 
 #### ¿Por qué lo usamos?
 
--   `quanteda` es la herramienta que nos va a proporcionar los recursos para hacer un análisis cuantitativo de un texto, incluyendo la tokenización^\[1\]^, la creación de matrices de términos y el análisis de frecuencia.
+`quanteda`
 
--   `readtext` se utiliza para cargar y leer datos textuales desde diferentes formatos (como archivos de texto, documentos de Word, etc.). Para evitar dolores de cabeza, nosotros recomendamos que el material que se vaya a trabajar esté en un formato plano .txt. Los formatos anteriores pueden dar problemas por la forma en que se estructuran los datos y los elementos adicionales que suelen contener, lo que requiere aplicar procesos adicionales de limpieza que puede alargar nuestro análisis.
+:   Paquete de análisis de textos, incluyendo tokenización, conteo y limpieza de textos
+
+`readtext`
+
+:   Permite importar archivos de texto en varios formatos, facilitando la carga de datos
+
+`dplyr`
+
+:   Herramienta para manipulación y transformación de datos, útil para filtrar y organizar datos
+
+`stringi`
+
+:   Conjunto de funciones para trabajar con texto, especialmente útil para limpieza y manejo de expresiones regulares.[^2]
+
+[^2]: Una **expresión regular** es un patrón de búsqueda utilizado para manipular texto específico en una cadena. Facilita tareas como eliminar caracteres no deseados o extraer información específica (e.g., fechas o números). Es especialmente útil en la limpieza y preprocesamiento de datos textuales.
 
 **¿Sabías qué...?** ️🤓☝
 
 ::: {.tip style="background-color: #A8E6A1; border-left: 5px solid #A8E6A1; padding: 10px"}
-^~\[1\]~^ En `quanteda` hablamos de **tokenización** para referirnos a la unidad mínima de trabajo.
-
-Imaginate que tienes la siguiente oración:
+La **tokenización** es el proceso de dividir un texto en unidades más pequeñas llamdas *tokens*. Estas unidades pueden ser palabras, símbolos, frases o incluso caracteres dependiendo del tipo de análisis que se vaya a realizar. En `quanteda` consideramos la palabra como la unidad mínima de trabajo. Imagínate que tienes la siguiente oración:
 
 "Hola, ¿cómo estás?"
 
@@ -42,55 +55,50 @@ La tokenización de esta frase podría dar como resultado los siguientes tokens:
 Esto es especialmente útil cuando estamos trabajando con estudios relacionados con frecuencias de palabras.
 :::
 
-## 📄➡️🖥️Volcando los archivos de texto a RStudio
+## 📄➡️🖥️Importación de datos de texto
 
-Vamos a vincular el archivo de texto en la aplicación de RStudios. Para ello vamos a aplicar los dos paquetes que hemos instalado anteriormente con el comando `library("name")`
+Vamos a vincular el archivo de texto en la aplicación de RStudios. Para ello vamos a cargar los paquetes que hemos instalado anteriormente con el comando `library("name")`
 
-```{r, eval=FALSE}
-library("quanteda")
-library("readtext")
+```{r, eval=T}
+library(quanteda)
+library(readtext)
+library(dplyr)
+library(stringi)
 ```
 
 Es importante resaltar que, si no llamamos antes el paquete, los comandos que introduzcamos después no funcionarán o nos darán error. Asegúrate de cargar siempre la librería antes de empezar a trabajar.
 
 Una vez cargados, el programa estará listo para leer nuestro archivo de texto. La formula que vamos a escribir para decirle a `quanteda` que archivo analizar será el siguiente:
 
-```{r, eval=FALSE}
-data_char_NALVANY <- as.character(readtext::readtext("G:/Mi unidad/Yo sigo/NALVANY.txt"))
-names(data_char_NALVANY) <- "NALVANY"
+```{r, eval=T}
+navalny_raw <- as.character(readtext("NAVALNY.txt"))
+names(navalny_raw) <- "navalny"
 ```
 
-**❗ATENICIÓN:** Si por alguna razón hiciesemos algún cambio en el contenido del archivo, deberemos de aplicar el paso anterior de nuevo. Cuando cargamos un archivo en R, se guarda una copia y cualquier cambio en el original no se refleja automáticamente.
+**❗ATENCIÓN:** Si por alguna razón hiciesemos algún cambio en el contenido del archivo, deberemos de aplicar el paso anterior de nuevo. Cuando cargamos un archivo en R, se guarda una copia y cualquier cambio en el original no se refleja automáticamente.
 
-#### 🤔¿Qué significa esta función?
+#### 🤔¿Qué hemos hecho?
 
-Vamos a desgranar este prompt para que pueda entenderse más facil:
+Este comando carga el archivo `NAVALNY.txt` en el objeto `navalny_raw`, el cual contiene el contenido del texto. Vamos a desgranar este prompt para que pueda entenderse más facil:
 
--   `data_char_"TEXTO"`: La variable data_char_NALVANY es un objeto^\[2\]^ en R que almacena el texto como una cadena de caracteres (character vector).
+-   `navalny_raw` es un objeto en R que almacena el texto como una cadena de caracteres (character vector). En `R` hablamos de **objetos** para referirnos a los contenedores donde almacenamos datos e información. En el caso anterior, el objeto `data_char_navalny` almacena el texto plano que vamos a utilizar. Existen distintos objetos con diferentes datos almacenados: matrices, números, listas jerarquizadas, así como un sin fin de combinaciones. A lo largo de este caso práctico trabajaremos con ellos para gestionar más facilmente el análisis cuantitativo.
 
--   `as.character()`: Convierte el objeto cargado en un formato de texto sencillo, que es más fácil de manejar para el análisis.
+-   `<-` emula a una flecha y básicamente indica la dirección de la acción. Al objeto `navalny_raw` estamos aplicándole una función
 
--   `readtext::readtext`: Como véis, se ha utilizado una expresión doble del paquete `readtext`. Esto proviene de la notación `paquete::función` y se hace cuando queremos asegurarnos de utilizar una función específica. Aquí, lo que le estamos diciendo a RStudios es que, del paquete `readtext`, aplique específicamente la función lectura que casualmente también se llama `readtext`
+-   `as.character()`: Se trata de la función que estamos aplicando. Esta función convierte todo lo que se contiene dentro de ella en carácter. En `R` toda función viene seguida por unos paréntesis dentro de los cuáles se incluyen los parámetros de dicha función. Si no hay contenido, se aplican los parámetros que la función trae por defecto.
 
-    -   Un **problema muy común** que puede surgir a la hora de introducir la URL de la ubicación del archivo es expresarlo con barras laterales izquierdas " \\ ", tal y como viene en la barra de dirección del explorador de archivos de Windows, en vez de la derecha " / ". Si tienes problemas leer tu .txt ¡prueba con hacer este cambio!
+-   `readtext`: Aquí estamos empleando una función expecífica del paquete `readtext`. Si no hubiésemos cargado el paquete anteriormente, podríamos invocarlo específicamente para activar esta función con la notación `paquete::función`. Aquí, lo que le estamos diciendo a RStudio es que, del paquete `readtext`, aplique específicamente la función lectura que casualmente también se llama `readtext` . Dentro indicamos entrecomillada la ruta del archivo a importar. Un **problema muy común** que puede surgir a la hora de introducir la URL de la ubicación del archivo es expresarlo con barras laterales izquierdas " \\ ", tal y como viene en la barra de dirección del explorador de archivos de Windows, en vez de la derecha " / ". Si tienes problemas leer tu .txt ¡prueba con hacer este cambio!
 
--   `names(data_char_NALVANY) <- "Nalvany"`: Asigna un nombre al objeto que contiene el texto, facilitando su identificación en futuros análisis.
-
-**¿Sabías qué...?** ️🤓☝
-
-::: {.tip style="background-color: #A8E6A1; border-left: 5px solid #A8E6A1; padding: 10px"}
-^~\[2\]~^ En `R` hablamos de **objetos** para referirnos a los contenedores donde almacenamos datos e información. En el caso anterior, el objeto `data_char_NALVANY` almacena el texto plano que vamos a utilizar.
-
-Existen distintos objetos con diferentes datos almacenados: matrices, números, listas jerarquizadas, así como un sin fin de combinaciones. A lo largo de este caso práctico trabajaremos con ellos para gestionar más facilmente el análisis cuantitativo.
-:::
+-   `names(navalny_raw) <- "navalny"`: Asigna un nombre al objeto que contiene el texto, facilitando su identificación en futuros análisis.
 
 #### 🔍 Comprobaciones
 
-En el análisis cuantitativo toda precaución es poca , así que vamos a realizar una serie de comprobaciones para verificar que el texto ha sido leido por el programa. Para ello, vamos a pedirle a RStudio que nos devuelva los primeros 75 caracteres de nuestro archivo NALVANY.txt mediante el paquete: `stringi`.
+En el análisis cuantitativo toda precaución es poca. Vamos a verificar que el texto ha sido leído por el programa. Usaremos el paquete `stringi` para ver los primeros 75 caracteres de nuestro archivo y confirmar que los datos se cargaron bien.
 
-```{R, eval=FALSE}
-library.("stringi") #Primero llamamos al paquete
-stri_sub(data_char_NALVANY, 1, 75) #Aplicamos la función para que nos devuelva los caracteres situados entre la posición 1 y 75.
+```{R, eval=T}
+
+# Comprobar los primeros 75 caracteres del texto
+stri_sub(navalny_raw, 1, 75)
 ```
 
 Si hemos hecho los pasos bien, tendréis que haber recibir este texto de vuelta:
@@ -99,26 +107,26 @@ Si hemos hecho los pasos bien, tendréis que haber recibir este texto de vuelta:
 [1] "2022\nJanuary 17th\nExactly one year ago today I came home, to Russia.\nI didn"
 ```
 
-## 🗃️Acotando nuestro espacio de trabajo
+## 🗃️Acotando el texto a analizar
 
-Nuestro siguiente objetivo es seleccionar qué partes del texto vamos aplicar el análisis cuantitativo. Puede que nuestro foco de interés sea algun apartado concreto de nuestro material, por lo que vamos a crear un objeto que albergue un rango determinado dentro de nuestro "".txt . Con esto nos quitaremos toda la información innecesaria que puede ensuciar nuestros resultados.
+Nuestro siguiente objetivo es seleccionar qué partes del texto vamos aplicar el análisis cuantitativo. Puede que nuestro foco de interés sea algun apartado concreto de nuestro material, por lo que vamos a crear un objeto que albergue un rango determinado dentro de nuestro fichero `txt` . Con esto, nos quitaremos toda la información innecesaria que puede ensuciar nuestros resultados.
 
-El proceso que vamos a realizar a continuación es muy útil cuando los archivos que manejamos tienen ligados metadatos. Normalmente, esta metadata suele ser más un dolor de cabeza que otra cosa y es recomendable realizar una limpieza previa para que esos datos no se mezclen con el contenido de nuestro análisis.
+El proceso que vamos a realizar a continuación es muy útil cuando los archivos que manejamos tienen ligados metadatos. Normalmente, esta metadata suele ser más un dolor de cabeza que otra cosa y es recomendable realizar una limpieza previa para que esos datos no se mezclen con el contenido de nuestro análisis. En este apartado seguiremos trabajando con el paquete `stringi`.
 
-En este apartado seguiremos trabajando con el paquete `stringi` ^\[3\]^
+Si el texto contiene secciones que no necesitamos para el análisis, podemos filtrarlas o limpiarlas en esta etapa.
 
-#### PASO 1: Asignación de los rangos del texto
+#### PASO 1: Identificación de comienzo y fin del texto
 
-Para crear el objeto que albergue el rango de texto a analizar deberemos empezar indicando donde empieza y termina nuestra selección. Para ello, crearemos dos valores de posición: `start_v` y `end_v`, donde `start_` será: "2023, January 12th" y `end_v` "FIN".
+Para crear el objeto que albergue el rango de texto a analizar deberemos empezar indicando donde empieza y termina nuestra selección. Para ello, crearemos dos valores de posición: `start_v` y `end_v`, donde `start_` será: "2023, January 12th" y `end_v` "Alexei Navalny died".
 
 Localizado el rango que queremos, la forma de expresarlo en el programa sería el siguiente:
 
-```{r, eval=FALSE}
-(start_v <- stri_locate_first_fixed(data_char_NALVANY, "2023\nJanuary 12th")[1])
+```{r, eval=T}
+(start_v <- stri_locate_first_fixed(navalny_raw, "2023\nJanuary 12th")[1])
 ```
 
-```{r, eval=FALSE}
-(end_v <- stri_locate_last_fixed(data_char_NALVANY, "FIN")[1])
+```{r, eval=T}
+(end_v <- stri_locate_last_fixed(navalny_raw, "Alexei Navalny died")[1])
 ```
 
 Si lo hemos aplicado bien, la función debería de devolver los siguientes resultados
@@ -134,10 +142,10 @@ Si lo hemos aplicado bien, la función debería de devolver los siguientes resul
 -   Para `end_value`
 
     ```         
-    [1] 44141
+    [1] 44099
     ```
 
-#### 🤔¿Qué significa esta expresión?
+#### 🤔¿Qué hemos hecho?
 
 -   Tanto `start_v` como `end_v` son nombres que hemos asignado a la posición específicas del texto. En sí, no significan nada. Solo decimos, a través de "\<- " que dichos nombres albergan una función de posicionamiento.
 
@@ -147,13 +155,13 @@ Si lo hemos aplicado bien, la función debería de devolver los siguientes resul
 
 -   Así, cuando vemos devuelto las respuestas `[1] 23653` y `[1] 44141` quiere decir que para `start_v` y `end_v` está asignado el primer valor donde aparece dichas expresiones , localizadas por primera vez en la posición 23653 y 44141 de nuestro texto.
 
-#### PASO 2, creando nuestro objeto
+#### PASO 2: Nuevo objeto
 
-Creado nuestro punto de inicio y final de nuestra zona de trabajo, haremos un objeto que alberge dicho rango. Lo llamaremos: `diary_v`
+Creado nuestro punto de inicio y final de nuestra zona de trabajo, haremos un objeto que alberge dicho rango. Lo llamaremos: `navalny_fix`
 
-```{r, eval=FALSE}
-diary_v <- stri_sub(data_char_NALVANY, start_v, end_v)
-length(diary_v)
+```{r, eval=T}
+navalny_fix <- stri_sub(navalny_raw, start_v, end_v)
+length(navalny_fix)
 ```
 
 Al iniciar el código el valor que os ha tenido que recuperar, además de almacenar el objeto en la pestaña `Environment` de RStuido, es:
@@ -162,17 +170,167 @@ Al iniciar el código el valor que os ha tenido que recuperar, además de almace
 [1] 1
 ```
 
-#### 🤔¿Qué significa esta expresión?
+#### 🤔¿Qué hemos hecho?
 
--   `diary_v` es el nombre del objeto que almacena la función que ha sido asignada. En este caso, a través de `stri_sub`, estamos extrayendo una parte del texto `data_char_NALVANY` . A diferencia del caso anterior, aquí le estamos pidiendo que, en vez de que recuper un número detemrinado de caracteres, escoja todos los que hay comprendidos entre las posiciones que hemos dado a `start_v` y a `end_v`. Con esto nos aseguramos que el objeto `diary_v` siempre trabaje en los rangos que nos interesa analizar.
+-   `navalny_fix` es el nombre del objeto que almacena la función que ha sido asignada. En este caso, a través de `stri_sub`, estamos extrayendo una parte del texto `navalny_fix` . A diferencia del caso anterior, aquí le estamos pidiendo que, en vez de que recuper un número detemrinado de caracteres, escoja todos los que hay comprendidos entre las posiciones que hemos dado a `start_v` y a `end_v`. Con esto nos aseguramos que el objeto `navalny_fix` siempre trabaje en los rangos que nos interesa analizar.
 
--   `legth(diary_v)` es una expresión que usamos para comprobar cuandos valores existen en nuestro objeto. Es una forma de asegurarnos de que nuestro objeto solo tiene un vector y no es un conjunto de fragmentos de texto. Por eso, al introducirlo, el programa nos devuelve el valor 1 porque solo hay 1 valor dentro de nuestro objeto.
+-   `length(navalny_fix)` es una expresión que usamos para comprobar cuandos valores existen en nuestro objeto. Es una forma de asegurarnos de que nuestro objeto solo tiene un vector y no es un conjunto de fragmentos de texto. Por eso, al introducirlo, el programa nos devuelve el valor 1 porque solo hay 1 valor dentro de nuestro objeto.
 
-**¿Sabías qué...?** ️🤓☝
+## 🗑️ Limpiando datos
 
-::: {.tip style="background-color: #A8E6A1; border-left: 5px solid #A8E6A1; padding: 10px"}
-^~\[3\]~^ El paquete `stringi` es una herramienta muy versatil para el manejo y procesamiento de cadenas de texto. Hemos visto como puede hacer búsquedas de posicionamiento, pero también puede servir para realizar operciones relacionadas con la manipulación de texto: ya sea para remplazar partes del mismo, verificar un formato o pasar de un código a otro.
-:::
+Ya tenemos nuestro set de datos, nos toca empezar a limpiar antes de tokenizar y empezar a analizar.
+
+#### PASO 1: Comprobar la estructura del texto
+
+Vamos a abrir un momento nuestro archivo para ver lo que contiene. Aquí te enseño las primeras líneas:
+
+```{r, echo= FALSE}
+# Convertir el texto en un vector de líneas
+lines <- unlist(strsplit(navalny_fix, "\n"))
+
+# Mostrar las primeras 20 líneas del texto en formato raw
+cat(lines[1:15], sep = "\n")
+
+```
+
+Aquí queda más clara la estructura del texto:
+
+-   Cada entrada del diario empieza con el año en la primera línea
+
+-   Dentro de cada año, se dividen por días las entradas
+
+-   Los párrafos están separados por saltos de línea
+
+-   Las entradas están separadas entre sí también por una linea en blanco.
+
+A continuación lo que vamos a hacer es crear un objeto lista[^3], en la que cada elemento será una entrada del diario.
+
+[^3]: Una **lista** es una estructura de datos qeu puede contener elementos de diferentes tipos (numérico, caractéres, vectores o incluso otras listas) en un solo objecto. Cada elemento en una lista se puede acceder de forma individual usando índices. Esto se hace utilizando corchetes dobles. Por ejemplo si queremos ver el segundo elemento de la lista `lista`, lo indicaremos así: `lista[[2]]`.
+
+#### PASO 2: Conversión del texto en vectores
+
+Ahora que comprendemos la estructura, vamos a separar el texto en entradas diarias, preservando la estructura de párrafos dentro de cada entrada. Primero dividimos el texto en líneas, donde cada línea se convierte en un elemento de un vector. Esto nos permite identificar las lineas que contienen fechas y separar las entradas.
+
+```{r}
+# Convertir el texto en un vector de líneas
+lines <- unlist(strsplit(navalny_fix, '\n')) # \n indica un salto de línea
+```
+
+#### 🤔¿Qué hemos hecho?
+
+-   `strsplit()` divide el texto por saltos de línea (`"\n"`), creando un vector en el que cada línea es un elemento independiente.
+
+-   Usamos `unlist()` para simplificar la estructura y trabajar con un vector plano.
+
+```{r}
+head(lines) # Veamos las primeras seis líneas de nuestro objeto
+```
+
+#### PASO 3: Creación de índices para identificar entradas
+
+En este paso, vamos a crear los **índices** que nos permitirán identificar las líneas en el texto que corresponden a cada año y a cada día. Esto nos ayudará a estructurar las entradas en el próximo paso.
+
+1.  Utilizando expresiones regulares, vamos a identificar las líneas que contengan sólo el año. Estas líneas marcan el inicio de cada conjunto de entradas anuales
+
+```{r}
+
+year_indices <- grep("^\\d{4}$", lines)
+
+print(year_indices) # Muestra las líneas que contienen el año
+```
+
+2.  Hemos identificado dos líneas que incluyen el año. Ahora haremos lo mismo para las líneas que encuentren el mes y el día
+
+```{r}
+
+day_indices <- grep("^(January|February|March|April|May|June|July|August|September|October|November|December)\\s+\\d{1,2}(st|nd|rd|th)?$", lines)
+
+length(day_indices) # Número de entradas identificadas
+
+```
+
+#### 🤔¿Qué hemos hecho?
+
+-   `year_indices` contiene los índices de las líneas con los años, es decir, las posiciones donde comienza cada año en el texto. La expresión regular `^\\d{4}` busca cuatro dígitos al inicio de la línea.
+
+-   `month_day_indices` contiene los índices de las líneas con fechas diarias, indicando el inicio de cada día dentro de los años.
+
+    -   `(January|February|...)`: Busca un mes escrito en inglés.
+
+    -   `\\s+`: Representa uno o más espacios.
+
+    -   `\\d{1,2}(st|nd|rd|th)?$`: Busca el día, que tendrá uno o dos dígitos y que puede ir seguido de "st", "nd", "rd", o "th" al final de la línea.
+
+#### PASO 4: Creación de entradas del diario
+
+Ahora que tenemos los índices para los años y días, podemos organizar el texto en **entradas anidadas**: cada año será un grupo principal, y dentro de cada año, cada día será una entrada individual.
+
+El siguiente código es un poco tocho, te intento explicar:
+
+1.  Creamos las entradas por año. Para esto utilizamos el objeto `year_indices` que construimos antes.
+2.  Creamos sublistas dentro de cada año con nuestro objeto `month_day_indices`.
+
+```{r}
+# Dividimos el texto en entradas anidadas (por año y día)
+yearly_entries <- lapply(
+  seq_along(year_indices), 
+  function(i) {
+    start_year <- year_indices[i]
+    end_year <- if (i < length(year_indices))
+      year_indices[i + 1] - 1
+    else
+      length(lines)
+    
+    # Extraemos las líneas correspondientes al año actual
+    year_lines <- lines[start_year:end_year]
+    
+    # Encontrar las entradas diarias dentro del año actual
+    day_indices <- grep(
+      "^(January|February|March|April|May|June|July|August|September|October|November|December)\\s+\\d{1,2}(st|nd|rd|th)?$",
+      year_lines
+      )
+    
+    # Crear una sublista para cada día dentro del año
+    entries <- lapply(seq_along(day_indices), function(j) {
+      start_day <- day_indices[j]
+      end_day <- if (j < length(day_indices))
+        day_indices[j + 1] - 1
+      else
+        length(year_lines)
+      year_lines[start_day:end_day]
+      })
+  
+  # Devolver una lista con el año y sus entradas diarias
+  list(year = year_lines[1], entries = entries)
+})
+
+```
+
+#### 🤔¿Qué hemos hecho?
+
+-   Cada elemento en `yearly_entries` es un año completo
+
+    ```{r}
+    print(yearly_entries[[1]]$year) # primer año
+    ```
+
+-   Dentro de cada año, `entries` contiene las entradas diarias como sublistas, donde cada día es un vector de párrafos
+
+    ```{r}
+    length(yearly_entries[[1]]$entries)
+    ```
+
+Para ello, hemos combinado diferentes funciones en un sólo script:
+
+-   `lapply()` sirve para aplicar una función a cada elemento de un vector o lista. En nuestro caso, itera sobre cada índice de `year_indices`, procesando el texto correspondiente a cada ño. Genera una lista `yearly_indices`donde cada elemento representa un año y sus entradas diarias. La segunda vez que la empleo es para crear sublistas para cada día dentro del año, aplicándola sobre `day_indices`.
+
+-   `seq_along()` genera una secuencia de números que corresponden a la longitud de un vector o lista. Lo utilizo para generar una secuencia de índices a iterar sobre los años y sobre los días dentro de cada año.
+
+-   `grep()` busca patrones específicos dentro de un vector, tal y como hicimos antes.
+
+-   `if`dentro de `lapply()`define los límites de inicio y fin de cada año.
+
+-   `list()` crea la lista que almacena todas las entradas.
 
 ## 🗿 ¡A la tokenización!
 
@@ -243,7 +401,7 @@ text1
 ^~\[4\]~^ En inglés, es posible que el texto venga acompañado de apóstrofes como en los casos de `don't` y `he's`. Aquí, `quanteda` no tomará las `'t` ni las `'s` como elementos aislados, sino que lo mantendrá unida a la palabra para respetar el significado original.
 :::
 
-## ⚙️ Las utilidades 
+## ⚙️ Las utilidades
 
 Ahora que tenemos todo nuestro texto listo para trabajar, podemos realizar operaciones sencillas, tales como:
 
