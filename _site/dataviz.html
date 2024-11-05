@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -137,10 +171,251 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<p>En este apartado mostramos algunos análisis básicos que se pueden hacer con <code>quanteda</code>. Vamos a ir <em>in crescendo</em>, de análisis más básicos de frecuencias a técnicas avanzadas de identificación de patrones. Aquí te incluyo lo que tenemos preparado:</p>
+<ol type="1">
+<li>Análisis de frecuencias global</li>
+<li>Nube de palabras (no son muy útiles, pero siempre gustan 😏)</li>
+<li>Análisis de dispersión léxica</li>
+<li>Análisis de concordancias (KWIC)</li>
+<li>Comparación de frecuencias relativas entre términos</li>
+<li><em>Topic Modeling</em><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></li>
+</ol>
+<section id="análisis-de-frecuencia-de-datos" class="level2">
+<h2 class="anchored" data-anchor-id="análisis-de-frecuencia-de-datos">🔢Análisis de frecuencia de datos</h2>
+<p>El análisis de frecuencia de términos nos permite identificar las palabras más comunes, facilitando un primer visionado de aquellos posibles temas recurrentes que pudieran ser interesantes de analizar.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extraer el texto de cada entrada diaria y crear una lista plana </span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>unified_entries <span class="ot">&lt;-</span> <span class="fu">unlist</span>(<span class="fu">lapply</span>(yearly_entries, <span class="cf">function</span>(year) {   <span class="fu">sapply</span>(year<span class="sc">$</span>entries, <span class="cf">function</span>(entry) <span class="fu">paste</span>(entry, <span class="at">collapse =</span> <span class="st">" "</span>)) }))    <span class="co"># Crear una matriz de frecuencias de términos a partir de los textos unificados  </span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>dfm_all <span class="ot">&lt;-</span> <span class="fu">dfm</span>(<span class="fu">tokens</span>(unified_entries))    </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Mostrar las 10 palabras más frecuentes  </span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>top_words <span class="ot">&lt;-</span> <span class="fu">topfeatures</span>(dfm_all, <span class="at">n =</span> <span class="dv">15</span>)  </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>top_words</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   years     cell     like     dont      new   people      can      now 
+      16       13       12       12       11       11       11       11 
+  russia     just everyone     miss      day    night   prison 
+      11       10       10       10        9        9        9 </code></pre>
+</div>
+</div>
+<p><strong>🤔¿Qué hemos hecho?</strong></p>
+<ul>
+<li><p>Hemos unificado todo el texto en el objeto <code>unified_entries</code> de manera que ya no distinguimos por año o fecha.</p></li>
+<li><p>Hemos creado una matriz de frecuencias <code>dfm_all</code> para todo el conjunto de datos contando las veces que aparece cada palabra.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>Document-feature matrix of: 6 documents, 1,040 features (88.17% sparse) and 0 docvars.
+           features
+docs        january 12th two years behind bars truly original story one
+  entry_1_1       1    1   2     2      1    1     1        1     3   5
+  entry_1_2       1    0   3     3      0    0     0        0     0   0
+  entry_1_3       0    0   0     1      0    0     0        0     0   0
+  entry_1_4       0    0   0     0      0    0     0        0     0   0
+  entry_1_5       0    0   0     2      0    0     0        0     0   0
+  entry_1_6       0    0   0     1      0    0     0        0     0   0
+[ reached max_nfeat ... 1,030 more features ]</code></pre>
+</div>
+</div></li>
+</ul>
+<pre><code>{r, echo=FALSE} print(head(dfm_all))</code></pre>
+<p>Para lograrlo, combinamos varias funciones:</p>
+<ul>
+<li><p><code>lapply()</code>: Aplica una función a cada elemento de <code>yearly_entries</code>, en este caso, iterando sobre cada año en la lista. Dentro de esta función, procesamos cada entrada diaria para obtener un texto unificado.</p></li>
+<li><p><code>sapply()</code>: Anidado dentro de <code>lapply()</code>, <code>sapply()</code> recorre cada entrada diaria de un año específico (representada por <code>year$entries</code>). Nos permite aplicar <code>paste()</code> a cada entrada para unir todas las líneas de la entrada diaria en un solo texto, sin generar sublistas adicionales.</p></li>
+<li><p><code>unlist()</code>: Convierte el resultado de <code>lapply()</code> en un vector plano de textos diarios. Esto significa que todos los textos de <code>yearly_entries</code> se colocan en una sola estructura de lista sin anidaciones adicionales, facilitando el análisis posterior.</p></li>
+<li><p><code>tokens()</code>: Convierte cada entrada diaria unificada en tokens (es decir, en palabras individuales), lo cual es un paso necesario para aplicar <code>dfm()</code>.</p></li>
+<li><p><code>dfm()</code>: Crea una <strong>matriz de frecuencias de términos</strong> (document-feature matrix) a partir de los tokens generados en el paso anterior. En esta matriz, cada fila representa una entrada diaria y cada columna representa una palabra, con valores que indican la frecuencia de cada palabra en cada entrada.</p></li>
+<li><p><code>topfeatures(dfm_all, n = 10)</code>: Extrae y muestra las 10 palabras más frecuentes en todo el conjunto de datos.</p></li>
+</ul>
+<p>Combinando con el paquete de visualización <code>ggplot2</code> podríamos crear un gráfico de barras:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Convertir el top 10 en un dataframe</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>top_words_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">word =</span> <span class="fu">names</span>(top_words),</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">frequency =</span> <span class="fu">as.numeric</span>(top_words)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Crear el gráfico de barras</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(top_words_df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(word, frequency), <span class="at">y =</span> frequency)) <span class="sc">+</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">fill =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span> </span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Top 10 Most Frequent Words"</span>,</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Word"</span>,</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Frequency"</span>) <span class="sc">+</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="dataviz_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="nube-de-palabras" class="level2">
+<h2 class="anchored" data-anchor-id="nube-de-palabras">🌥️ Nube de palabras</h2>
+<p>Una nube de palabras permite identificar visualmente las palabras más frecuentes en el texto. Las palabras más grandes en la nube son las que aparecen con mayor frecuencia, lo cual facilita una comprensión rápida de los términos más relevantes en el contenido.</p>
+<p>Usaremos la matriz de frecuencias de términos <code>dfm_all</code> que creamos previamente para generar la nube de palabras.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quanteda.textplots)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Generar la nube de palabras a partir de la matriz de frecuencias</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">textplot_wordcloud</span>(dfm_all, <span class="at">max_words =</span> <span class="dv">100</span>, <span class="at">color =</span> <span class="st">"orange"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="dataviz_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>🤔¿Qué hemos hecho?</strong></p>
+<ul>
+<li><p><code>textplot_wordcloud()</code> genera una nube de palabras a partir de la matriz de frecuencias <code>dfm_all</code>.</p>
+<ul>
+<li><p><code>max_words = 100</code> limita la visualización a las 100 palabras más frecuentes, para que la nube sea más clara y enfocada en los términos clave.</p></li>
+<li><p><code>color =</code> asigna el color de las palabras para una visualización consistente.</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="análisis-de-dispersión-léxica" class="level2">
+<h2 class="anchored" data-anchor-id="análisis-de-dispersión-léxica">📍Análisis de dispersión léxica</h2>
+<p>La dispersión léxica nos permite ver en qué partes del texto aparecen ciertas palabras clave. Esto puede ser particularmente útil si queremos rastrear cómo cambia el uso de ciertos términos importantes a lo largo del tiempo o en diferentes contextos.</p>
+<p>Usaremos la función <code>textplot_xray()</code> de <code>quanteda.textplots</code> para generar un gráfico de dispersión de las palabras clave en el conjunto de datos. Para ello debermos instalar primero este paquete.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Librería necesaria</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quanteda.textplots)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Palabras clave para el análisis de dispersión léxica</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>keywords <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"cell"</span>, <span class="st">"russia"</span>, <span class="st">"people"</span>, <span class="st">"shizo"</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Unificar todas las entradas en un solo texto</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>full_text <span class="ot">&lt;-</span> <span class="fu">paste</span>(unified_entries, <span class="at">collapse =</span> <span class="st">" "</span>)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Crear tokens a partir del texto completo</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>tokens_full_text <span class="ot">&lt;-</span> <span class="fu">tokens</span>(full_text)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Generar gráfico de dispersión léxica para todo el texto</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="fu">textplot_xray</span>(<span class="fu">kwic</span>(tokens_full_text, <span class="at">pattern =</span> keywords))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="dataviz_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>🤔¿Qué hemos hecho?</strong></p>
+<ul>
+<li><p>Hemos seleccionado los términso a analizar basándonos en el análisis de frecuencias anterior</p></li>
+<li><p>Con la función <code>paste(..., collapse = " ")</code> hemos unido todas las entradas en el objeto <code>full_text</code>, formando un solo texto continuo sin distinguir por año o entrada.</p></li>
+<li><p>Hemos creado los tokens a partir del texto unificado con la función <code>tokens()</code> para poder trabajar a nivel de palabras</p></li>
+<li><p>La función <code>kwick()</code> nos sirve para extraer las posiciones de las palabras clave del texto completo.</p></li>
+<li><p><code>textplot_xray()</code> viene del paquete <code>quanteda.textplots</code> y nos permite visualizar la dispersión léxica.</p></li>
+</ul>
+</section>
+<section id="análisis-de-concordancias-kwic" class="level2">
+<h2 class="anchored" data-anchor-id="análisis-de-concordancias-kwic">🔍 Análisis de concordancias (KWIC)</h2>
+<p>Este análisis muestra cada aparición de las palabras clave junto con el contexto inmediato, lo que permite estudiar cómo se usan ciertos términos en diferentes partes del texto.</p>
+<p>En este ejemplo vamos a analizar las palabras que preceden y anteceden al término <code>shizo</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extraer concordancias de las palabras clave</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>concordancias <span class="ot">&lt;-</span> <span class="fu">kwic</span>(tokens_full_text, <span class="at">pattern =</span> <span class="st">"shizo"</span>, <span class="at">window =</span> <span class="dv">2</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(concordancias)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Keyword-in-context with 7 matches.                                                                
+   [text1, 47]        give idea | shizo | place sit             
+  [text1, 498]          now add | shizo | list places           
+  [text1, 532]    requires sent | shizo | must examined         
+  [text1, 554]         weve put | shizo | keep cracking         
+ [text1, 1351]     just keeping | shizo | overoptimistic also   
+ [text1, 1375]       seven days | shizo | wonderful detail      
+ [text1, 1398] warmer afternoon | shizo | howeverexercise starts</code></pre>
+</div>
+</div>
+<p><strong>🤔¿Qué hemos hecho?</strong></p>
+<ul>
+<li><p>Aplicamos la función <code>kwic()</code>para extraer las concordancias de las palabras clave. Es decir, el texto anterior y posterior a estos términos.</p></li>
+<li><p>El parámetro <code>window =</code> especifica el número de palabras que se mostrarán antes y después de cada palabra calve, l oque proporciona un contexto breve que nos permite inspeccionar de manera manual el sentido de cada palabra.</p></li>
+</ul>
+</section>
+<section id="topic-modeling" class="level2">
+<h2 class="anchored" data-anchor-id="topic-modeling">🧩 Topic Modeling</h2>
+<p>El análisis de temas, o <strong>topic modeling</strong>, es una técnica de procesamiento de lenguaje natural que identifica patrones ocultos en un conjunto de textos. Su objetivo es descubrir <strong>temas latentes</strong> que aparecen recurrentemente, agrupando palabras que suelen aparecer juntas. Cada tema representa un conjunto de palabras que tienden a co-ocurrir, permitiéndonos inferir posibles temas o conceptos sin necesidad de leer todo el texto.</p>
+<p>El modelo de temas que utilizaremos, llamado <strong>Latent Dirichlet Allocation (LDA)</strong>, funciona tratando cada documento como una combinación de varios temas, y cada tema como una combinación de palabras. Así, LDA genera temas representativos del contenido general de los textos, lo cual es útil para identificar patrones y estructura temática en grandes volúmenes de texto.</p>
+<p>En primer lugar vamos refinar nuestra matriz de frecuencias <code>dfm_all</code> eliminando términos poco frecuentes</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>dfm_topics <span class="ot">&lt;-</span> <span class="fu">dfm_trim</span>(dfm_all, <span class="at">min_termfreq =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>En este caso <code>min_termfreq = 5</code>: Elimina términos que aparecen menos de 5 veces en todo el conjunto de documentos.</p>
+<p>Vamos a ver cómo se ha reducido el set de términos:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(dfm_all) <span class="co"># total de términos</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 11440</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(dfm_topics) <span class="co"># total una vez eliminados los poco frecuentes</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 561</code></pre>
+</div>
+</div>
+<p>Ahora vamos a usar nuestra nueva matriz de frecuencias <code>dfm_topics</code> para aplicar nuestro modelo de <code>LDA</code>. Importante, aquí necesitaremos tener instalado el paquete <code>tm</code> y el paquete <code>topicmodels</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tm)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(topicmodels)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Convertir la matriz dfm a formato compatible con LDA</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>dfm_topics_lda <span class="ot">&lt;-</span> <span class="fu">convert</span>(dfm_topics, <span class="at">to =</span> <span class="st">"topicmodels"</span>)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Definir el número de temas</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>num_topics <span class="ot">&lt;-</span> <span class="dv">3</span>  <span class="co"># Ajusta el número de temas según el análisis deseado</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Ajustar el modelo LDA</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>lda_model <span class="ot">&lt;-</span> <span class="fu">LDA</span>(dfm_topics_lda, <span class="at">k =</span> num_topics, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">seed =</span> <span class="dv">1234</span>))</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Obtener las palabras clave de cada tema</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="fu">terms</span>(lda_model, <span class="dv">10</span>)  <span class="co"># Muestra las 10 palabras más representativas de cada tema</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      Topic 1    Topic 2       Topic 3 
+ [1,] "years"    "everyone"    "cell"  
+ [2,] "dont"     "like"        "night" 
+ [3,] "miss"     "theres"      "people"
+ [4,] "can"      "convictions" "just"  
+ [5,] "must"     "country"     "life"  
+ [6,] "cell"     "russia"      "can"   
+ [7,] "idea"     "day"         "now"   
+ [8,] "put"      "right"       "russia"
+ [9,] "everyone" "new"         "day"   
+[10,] "family"   "now"         "much"  </code></pre>
+</div>
+</div>
+<p><strong>🤔¿Qué hemos hecho?</strong></p>
+<ul>
+<li><p>La función <code>convert()</code> transforma nuestra matriz de frecuencias en un formato entendible por el paquete <code>topicmodels</code> para poder modelarlo.</p></li>
+<li><p>Elegimos el número de topics con los que queremos trabajar. Esta parte suele ser una decisión informada tras hacer varias pruebas. En nuestro caso, me quedaré con 3 topics.</p></li>
+<li><p>Entreno al modelo con mis datos con la función <code>LDA()</code>. Para permitir reproducibilidad del análisis utilizo el parámetro <code>control=</code> para establecer una semilla para el generador de números aleatorios que emplea el algoritmo.</p></li>
+</ul>
 
 
+</section>
 
-</main> <!-- /main -->
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><div class="callout callout-style-simple callout-tip">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>El <strong>topic modeling</strong> (modelado de tópicos) es una técnica de análisis de texto que identifica temas latentes dentro de un conjunto de documentos. Agrupa palabras que tienden a aparecer juntas, permitiendo descubrir patrones temáticos y estructuras ocultas en el texto.</p>
+</div>
+</div>
+</div>
+<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></li>
+</ol>
+</section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
