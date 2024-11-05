@@ -137,7 +137,7 @@ Si lo hemos aplicado bien, la función debería de devolver los siguientes resul
 -   Para `start_value`
 
     ```         
-    [1] 23653
+    [1] 23654
     ```
 
 <!-- -->
@@ -156,7 +156,7 @@ Si lo hemos aplicado bien, la función debería de devolver los siguientes resul
 
 -   El \[1\] es un indicador que le estamos dando a la función para que escoja la primera posición donde aparezca el texto que hayamos escogido.
 
--   Así, cuando vemos devuelto las respuestas `[1] 23653` y `[1] 44141` quiere decir que para `start_v` y `end_v` está asignado el primer valor donde aparece dichas expresiones , localizadas por primera vez en la posición 23653 y 44141 de nuestro texto.
+-   Así, cuando vemos devuelto las respuestas `[1] 23654` y `[1] 44099` quiere decir que para `start_v` y `end_v` está asignado el primer valor donde aparece dichas expresiones , localizadas por primera vez en la posición 23654 y 44099 de nuestro texto.
 
 #### PASO 2: Nuevo objeto
 
@@ -167,7 +167,7 @@ navalny_fix <- stri_sub(navalny_raw, start_v, end_v)
 length(navalny_fix)
 ```
 
-Al iniciar el código el valor que os ha tenido que recuperar, además de almacenar el objeto en la pestaña `Environment` de RStuido, es:
+Al iniciar el código el valor que os ha tenido que recuperar, además de almacenar el objeto en la pestaña `Environment` de RStudio, es:
 
 ```         
 [1] 1
@@ -297,14 +297,16 @@ yearly_entries <- lapply(
       )
     
     # Crear una sublista para cada día dentro del año
-    entries <- lapply(seq_along(day_indices), function(j) {
+    entries <- sapply(seq_along(day_indices), function(j) {
       start_day <- day_indices[j]
       end_day <- if (j < length(day_indices))
         day_indices[j + 1] - 1
       else
         length(year_lines)
-      year_lines[start_day:end_day]
-      })
+      
+      # Unir todas las líneas de la entrada diaria en un solo texto
+      paste(year_lines[start_day:end_day], collapse = " ")
+      }, simplify = TRUE)
   
   # Devolver una lista con el año y sus entradas diarias
   list(year = year_lines[1], entries = entries)
@@ -334,7 +336,9 @@ Para ello, hemos combinado diferentes funciones en un sólo script:
 
 -   `grep()` busca patrones específicos dentro de un vector, tal y como hicimos antes.
 
--   `if`dentro de `lapply()`define los límites de inicio y fin de cada año.
+-   `paste()` para unir todas las líneas del texto en una sola por entrada y separarlas por un espacio.
+
+-   `if`dentro de `sapply()`define los límites de inicio y fin de cada año y con el parámetro `simplify = TRUE` nos devolverá un vector de cadenas de texto por entrada.
 
 -   `list()` crea la lista que almacena todas las entradas.
 
@@ -421,8 +425,10 @@ Si observas las primeras líneas de una entrada, verás que todo ha funcionado t
 
 ```{r, echo=FALSE}
 
-# Aquí podemos ver qué ha pasado con las primeras 5 líneas de la primera entrada
-print(head(yearly_entries[[1]]$entries[[1]], 5))
+# Dividir la primera entrada en palabras, seleccionar las primeras 10 y unirlas en una sola cadena de texto
+first_entry_preview <- paste(head(unlist(strsplit(yearly_entries[[1]]$entries[[1]], " ")), 10), collapse = " ")
+print(first_entry_preview)
+
 
 ```
 

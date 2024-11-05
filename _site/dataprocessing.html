@@ -303,7 +303,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Si lo hemos aplicado bien, la función debería de devolver los siguientes resultados</p>
 <ul>
 <li><p>Para <code>start_value</code></p>
-<pre><code>[1] 23653</code></pre></li>
+<pre><code>[1] 23654</code></pre></li>
 </ul>
 <!-- -->
 <ul>
@@ -315,7 +315,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>Tanto <code>start_v</code> como <code>end_v</code> son nombres que hemos asignado a la posición específicas del texto. En sí, no significan nada. Solo decimos, a través de “&lt;-” que dichos nombres albergan una función de posicionamiento.</p></li>
 <li><p>Las funciones del paquete <code>stringi</code>: <code>stri_locate_first_fixed</code> y <code>stri_locate_last_fixed</code> buscan y encuentran la primera coincidencia del valor entrecomillado que precede a nuestro objeto <code>data_char_NALVANY</code></p></li>
 <li><p>El [1] es un indicador que le estamos dando a la función para que escoja la primera posición donde aparezca el texto que hayamos escogido.</p></li>
-<li><p>Así, cuando vemos devuelto las respuestas <code>[1] 23653</code> y <code>[1] 44141</code> quiere decir que para <code>start_v</code> y <code>end_v</code> está asignado el primer valor donde aparece dichas expresiones , localizadas por primera vez en la posición 23653 y 44141 de nuestro texto.</p></li>
+<li><p>Así, cuando vemos devuelto las respuestas <code>[1] 23654</code> y <code>[1] 44099</code> quiere decir que para <code>start_v</code> y <code>end_v</code> está asignado el primer valor donde aparece dichas expresiones , localizadas por primera vez en la posición 23654 y 44099 de nuestro texto.</p></li>
 </ul>
 </section>
 <section id="paso-2-nuevo-objeto" class="level4">
@@ -328,7 +328,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>[1] 1</code></pre>
 </div>
 </div>
-<p>Al iniciar el código el valor que os ha tenido que recuperar, además de almacenar el objeto en la pestaña <code>Environment</code> de RStuido, es:</p>
+<p>Al iniciar el código el valor que os ha tenido que recuperar, además de almacenar el objeto en la pestaña <code>Environment</code> de RStudio, es:</p>
 <pre><code>[1] 1</code></pre>
 <p><strong>🤔¿Qué hemos hecho?</strong></p>
 <ul>
@@ -460,18 +460,20 @@ mine, or in my entire eight-cell section. I am the only one there, and I have</c
 <span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>      )</span>
 <span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>    </span>
 <span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Crear una sublista para cada día dentro del año</span></span>
-<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>    entries <span class="ot">&lt;-</span> <span class="fu">lapply</span>(<span class="fu">seq_along</span>(day_indices), <span class="cf">function</span>(j) {</span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>    entries <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="fu">seq_along</span>(day_indices), <span class="cf">function</span>(j) {</span>
 <span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>      start_day <span class="ot">&lt;-</span> day_indices[j]</span>
 <span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a>      end_day <span class="ot">&lt;-</span> <span class="cf">if</span> (j <span class="sc">&lt;</span> <span class="fu">length</span>(day_indices))</span>
 <span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a>        day_indices[j <span class="sc">+</span> <span class="dv">1</span>] <span class="sc">-</span> <span class="dv">1</span></span>
 <span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a>      <span class="cf">else</span></span>
 <span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a>        <span class="fu">length</span>(year_lines)</span>
-<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a>      year_lines[start_day<span class="sc">:</span>end_day]</span>
-<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a>      })</span>
-<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb24-30"><a href="#cb24-30" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Devolver una lista con el año y sus entradas diarias</span></span>
-<span id="cb24-31"><a href="#cb24-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(<span class="at">year =</span> year_lines[<span class="dv">1</span>], <span class="at">entries =</span> entries)</span>
-<span id="cb24-32"><a href="#cb24-32" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Unir todas las líneas de la entrada diaria en un solo texto</span></span>
+<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a>      <span class="fu">paste</span>(year_lines[start_day<span class="sc">:</span>end_day], <span class="at">collapse =</span> <span class="st">" "</span>)</span>
+<span id="cb24-30"><a href="#cb24-30" aria-hidden="true" tabindex="-1"></a>      }, <span class="at">simplify =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb24-31"><a href="#cb24-31" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb24-32"><a href="#cb24-32" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Devolver una lista con el año y sus entradas diarias</span></span>
+<span id="cb24-33"><a href="#cb24-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(<span class="at">year =</span> year_lines[<span class="dv">1</span>], <span class="at">entries =</span> entries)</span>
+<span id="cb24-34"><a href="#cb24-34" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>🤔¿Qué hemos hecho?</strong></p>
 <ul>
@@ -495,7 +497,8 @@ mine, or in my entire eight-cell section. I am the only one there, and I have</c
 <li><p><code>lapply()</code> sirve para aplicar una función a cada elemento de un vector o lista. En nuestro caso, itera sobre cada índice de <code>year_indices</code>, procesando el texto correspondiente a cada ño. Genera una lista <code>yearly_indices</code>donde cada elemento representa un año y sus entradas diarias. La segunda vez que la empleo es para crear sublistas para cada día dentro del año, aplicándola sobre <code>day_indices</code>.</p></li>
 <li><p><code>seq_along()</code> genera una secuencia de números que corresponden a la longitud de un vector o lista. Lo utilizo para generar una secuencia de índices a iterar sobre los años y sobre los días dentro de cada año.</p></li>
 <li><p><code>grep()</code> busca patrones específicos dentro de un vector, tal y como hicimos antes.</p></li>
-<li><p><code>if</code>dentro de <code>lapply()</code>define los límites de inicio y fin de cada año.</p></li>
+<li><p><code>paste()</code> para unir todas las líneas del texto en una sola por entrada y separarlas por un espacio.</p></li>
+<li><p><code>if</code>dentro de <code>sapply()</code>define los límites de inicio y fin de cada año y con el parámetro <code>simplify = TRUE</code> nos devolverá un vector de cadenas de texto por entrada.</p></li>
 <li><p><code>list()</code> crea la lista que almacena todas las entradas.</p></li>
 </ul>
 </section>
@@ -563,11 +566,7 @@ mine, or in my entire eight-cell section. I am the only one there, and I have</c
 <p>Si observas las primeras líneas de una entrada, verás que todo ha funcionado tal y como esperábamos:</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "january 12th"                                                                   
-[2] "in my two years behind bars my only truly original story is the one about the"  
-[3] "psycho everything else has been told and described numerous times if you"       
-[4] "open any book by a soviet dissident there will be endless stories of punishment"
-[5] "cells hunger strikes violence provocations lack of medical care nothing new"    </code></pre>
+<pre><code>[1] "january 12th in my two years behind bars my only"</code></pre>
 </div>
 </div>
 </section>
@@ -591,19 +590,11 @@ mine, or in my entire eight-cell section. I am the only one there, and I have</c
 <p>Ahora en lugar de contener un listado de filas por entrada, lo que tengo es una bolsa de palabras:</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>Tokens consisting of 3 documents.
+<pre><code>Tokens consisting of 1 document.
 text1 :
-[1] "january" "12th"   
-
-text2 :
- [1] "in"       "my"       "two"      "years"    "behind"   "bars"    
- [7] "my"       "only"     "truly"    "original" "story"    "is"      
-[ ... and 4 more ]
-
-text3 :
- [1] "psycho"     "everything" "else"       "has"        "been"      
- [6] "told"       "and"        "described"  "numerous"   "times"     
-[11] "if"         "you"       </code></pre>
+ [1] "january"  "12th"     "in"       "my"       "two"      "years"   
+ [7] "behind"   "bars"     "my"       "only"     "truly"    "original"
+[ ... and 750 more ]</code></pre>
 </div>
 </div>
 </section>
@@ -626,17 +617,12 @@ text3 :
 <p>Fíjate cómo, en comparación con el fragmento anterior, se han eliminado palabras como “in”, “my” u “only”.</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>Tokens consisting of 3 documents.
+<pre><code>Tokens consisting of 1 document.
 text1 :
-[1] "january" "12th"   
-
-text2 :
-[1] "two"      "years"    "behind"   "bars"     "truly"    "original" "story"   
-[8] "one"     
-
-text3 :
-[1] "psycho"     "everything" "else"       "told"       "described" 
-[6] "numerous"   "times"     </code></pre>
+ [1] "january"    "12th"       "two"        "years"      "behind"    
+ [6] "bars"       "truly"      "original"   "story"      "one"       
+[11] "psycho"     "everything"
+[ ... and 371 more ]</code></pre>
 </div>
 </div>
 <div class="callout callout-style-simple callout-important">
