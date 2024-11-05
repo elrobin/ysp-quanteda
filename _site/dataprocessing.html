@@ -172,6 +172,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#paso-2-conversión-del-texto-en-vectores" id="toc-paso-2-conversión-del-texto-en-vectores" class="nav-link" data-scroll-target="#paso-2-conversión-del-texto-en-vectores">PASO 2: Conversión del texto en vectores</a></li>
   <li><a href="#paso-3-creación-de-índices-para-identificar-entradas" id="toc-paso-3-creación-de-índices-para-identificar-entradas" class="nav-link" data-scroll-target="#paso-3-creación-de-índices-para-identificar-entradas">PASO 3: Creación de índices para identificar entradas</a></li>
   <li><a href="#paso-4-creación-de-entradas-del-diario" id="toc-paso-4-creación-de-entradas-del-diario" class="nav-link" data-scroll-target="#paso-4-creación-de-entradas-del-diario">PASO 4: Creación de entradas del diario</a></li>
+  <li><a href="#paso-5-asignación-de-nombres-a-entradas" id="toc-paso-5-asignación-de-nombres-a-entradas" class="nav-link" data-scroll-target="#paso-5-asignación-de-nombres-a-entradas">PASO 5: Asignación de nombres a entradas</a></li>
   </ul></li>
   <li><a href="#a-la-tokenización" id="toc-a-la-tokenización" class="nav-link" data-scroll-target="#a-la-tokenización">🗿 ¡A la tokenización!</a>
   <ul>
@@ -498,6 +499,37 @@ mine, or in my entire eight-cell section. I am the only one there, and I have</c
 <li><p><code>list()</code> crea la lista que almacena todas las entradas.</p></li>
 </ul>
 </section>
+<section id="paso-5-asignación-de-nombres-a-entradas" class="level4">
+<h4 class="anchored" data-anchor-id="paso-5-asignación-de-nombres-a-entradas">PASO 5: Asignación de nombres a entradas</h4>
+<p>De cara al análisis de datos global, deberemos nombrar cada una de las entradas para que luego seamos capaces de identificarlas.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Asignar nombres únicos a cada entrada en yearly_entries</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>yearly_entries <span class="ot">&lt;-</span> <span class="fu">lapply</span>(<span class="fu">seq_along</span>(yearly_entries), <span class="cf">function</span>(i) {</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  year <span class="ot">&lt;-</span> yearly_entries[[i]]</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Asignar nombres únicos a cada entrada diaria</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>(year<span class="sc">$</span>entries) <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"entry_"</span>, i, <span class="st">"_"</span>, <span class="fu">seq_along</span>(year<span class="sc">$</span>entries))</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>  year  <span class="co"># Devolver el año con las entradas renombradas</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>🤔¿Qué hemos hecho?</strong></p>
+<ul>
+<li><p>Hemos aplicado la función <code>names()</code>a cada entrada del diario dentro de cada año. Esta función asigna un nombre a cada elemento dentro de un objeto. En una tabla de <em>Excel</em> sería lo equivalente a ponerle un nombre a cada columna de nuestro set de datos.</p></li>
+<li><p>Para asignar los nombres de manera automática y que estos sean únicos empleamos la función <code>paste0()</code> que concatena diferentes secuencias de texto, en nuestro caso concatenamos cuatro elementos:</p>
+<ul>
+<li><p>Un texto: <code>"entry_"</code>.</p></li>
+<li><p>El índice del año <code>i</code>.</p></li>
+<li><p>El índice de la entrada, en este caso lo determinamos con la función <code>seq_along()</code> que va contando la posición de cada uno de los elementos <code>entries</code> dentro de la lista <code>year</code>.</p></li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "entry_1_1" "entry_1_2" "entry_1_3" "entry_1_4" "entry_1_5" "entry_1_6"
+[7] "entry_1_7" "entry_1_8" "entry_1_9"</code></pre>
+</div>
+</div>
+</section>
 </section>
 <section id="a-la-tokenización" class="level2">
 <h2 class="anchored" data-anchor-id="a-la-tokenización">🗿 ¡A la tokenización!</h2>
@@ -511,16 +543,16 @@ mine, or in my entire eight-cell section. I am the only one there, and I have</c
 <h4 class="anchored" data-anchor-id="paso-1-texto-en-minúscula-y-puntuación-fuera">PASO 1: Texto en minúscula y puntuación fuera</h4>
 <p>Para asegurarnos que palabras idénticas no se traten como diferentes por su formato, converitmos todo el texto a minúsculas y eliminamos puntuación.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convertir cada entrada diaria a minúsculas y eliminar signos de puntuación</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>yearly_entries <span class="ot">&lt;-</span> <span class="fu">lapply</span>(yearly_entries, <span class="cf">function</span>(year) {</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  year<span class="sc">$</span>entries <span class="ot">&lt;-</span> <span class="fu">lapply</span>(year<span class="sc">$</span>entries, <span class="cf">function</span>(entry) {</span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Convertir el texto a minúsculas y eliminar puntuación</span></span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    entry <span class="ot">&lt;-</span> <span class="fu">char_tolower</span>(entry)</span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    entry <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">"[[:punct:]]"</span>, <span class="st">""</span>, entry)</span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>    entry</span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>  year  <span class="co"># Devolver la lista de año modificada</span></span>
-<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convertir cada entrada diaria a minúsculas y eliminar signos de puntuación</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>yearly_entries <span class="ot">&lt;-</span> <span class="fu">lapply</span>(yearly_entries, <span class="cf">function</span>(year) {</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  year<span class="sc">$</span>entries <span class="ot">&lt;-</span> <span class="fu">lapply</span>(year<span class="sc">$</span>entries, <span class="cf">function</span>(entry) {</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Convertir el texto a minúsculas y eliminar puntuación</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>    entry <span class="ot">&lt;-</span> <span class="fu">char_tolower</span>(entry)</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>    entry <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">"[[:punct:]]"</span>, <span class="st">""</span>, entry)</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>    entry</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>  year  <span class="co"># Devolver la lista de año modificada</span></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>🤔¿Qué hemos hecho?</strong></p>
 <ul>
@@ -543,13 +575,13 @@ mine, or in my entire eight-cell section. I am the only one there, and I have</c
 <h4 class="anchored" data-anchor-id="paso-2-tokenización">PASO 2: Tokenización</h4>
 <p>Para que el programa pueda analizar y realizar manipulaciones sobre las palabras de forma individualizada, vamos a convertir a cada una de ellas en pequeños valores que llamamos <strong>tokens.</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Tokenizar cada entrada diaria dentro de cada año</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>yearly_entries <span class="ot">&lt;-</span> <span class="fu">lapply</span>(yearly_entries, <span class="cf">function</span>(year) {</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  year<span class="sc">$</span>entries <span class="ot">&lt;-</span> <span class="fu">lapply</span>(year<span class="sc">$</span>entries, <span class="cf">function</span>(entry) {</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tokens</span>(entry, <span class="at">what =</span> <span class="st">"word"</span>)</span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  year  <span class="co"># Devolver la lista de año modificada</span></span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Tokenizar cada entrada diaria dentro de cada año</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>yearly_entries <span class="ot">&lt;-</span> <span class="fu">lapply</span>(yearly_entries, <span class="cf">function</span>(year) {</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  year<span class="sc">$</span>entries <span class="ot">&lt;-</span> <span class="fu">lapply</span>(year<span class="sc">$</span>entries, <span class="cf">function</span>(entry) {</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tokens</span>(entry, <span class="at">what =</span> <span class="st">"word"</span>)</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  year  <span class="co"># Devolver la lista de año modificada</span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>🤔¿Qué hemos hecho?</strong></p>
 <ul>
@@ -579,13 +611,13 @@ text3 :
 <h4 class="anchored" data-anchor-id="paso-3-eliminación-de-palabras-vacías">PASO 3: Eliminación de palabras vacías</h4>
 <p>Para centrarnos en las palabras significativas, eliminamos las <strong>palabras vacías</strong> (stopwords), que suelen ser términos comunes y poco informativos, como “el”, “de”, “y”. Esto permite que el análisis se centre en términos con más contenido semántico.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Eliminar palabras vacías en inglés en cada entrada diaria</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>yearly_entries <span class="ot">&lt;-</span> <span class="fu">lapply</span>(yearly_entries, <span class="cf">function</span>(year) {</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  year<span class="sc">$</span>entries <span class="ot">&lt;-</span> <span class="fu">lapply</span>(year<span class="sc">$</span>entries, <span class="cf">function</span>(entry) {</span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tokens_remove</span>(entry, <span class="at">pattern =</span> <span class="fu">stopwords</span>(<span class="st">"en"</span>)) </span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  year  <span class="co"># Devolver la lista de año modificada</span></span>
-<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Eliminar palabras vacías en inglés en cada entrada diaria</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>yearly_entries <span class="ot">&lt;-</span> <span class="fu">lapply</span>(yearly_entries, <span class="cf">function</span>(year) {</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  year<span class="sc">$</span>entries <span class="ot">&lt;-</span> <span class="fu">lapply</span>(year<span class="sc">$</span>entries, <span class="cf">function</span>(entry) {</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tokens_remove</span>(entry, <span class="at">pattern =</span> <span class="fu">stopwords</span>(<span class="st">"en"</span>)) </span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>  year  <span class="co"># Devolver la lista de año modificada</span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>🤔¿Qué hemos hecho?</strong></p>
 <ul>

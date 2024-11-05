@@ -338,6 +338,41 @@ Para ello, hemos combinado diferentes funciones en un sólo script:
 
 -   `list()` crea la lista que almacena todas las entradas.
 
+#### PASO 5: Asignación de nombres a entradas
+
+De cara al análisis de datos global, deberemos nombrar cada una de las entradas para que luego seamos capaces de identificarlas.
+
+```{r}
+# Asignar nombres únicos a cada entrada en yearly_entries
+yearly_entries <- lapply(seq_along(yearly_entries), function(i) {
+  year <- yearly_entries[[i]]
+  
+  # Asignar nombres únicos a cada entrada diaria
+  names(year$entries) <- paste0("entry_", i, "_", seq_along(year$entries))
+  
+  year  # Devolver el año con las entradas renombradas
+})
+
+```
+
+**🤔¿Qué hemos hecho?**
+
+-   Hemos aplicado la función `names()`a cada entrada del diario dentro de cada año. Esta función asigna un nombre a cada elemento dentro de un objeto. En una tabla de *Excel* sería lo equivalente a ponerle un nombre a cada columna de nuestro set de datos.
+
+-   Para asignar los nombres de manera automática y que estos sean únicos empleamos la función `paste0()` que concatena diferentes secuencias de texto, en nuestro caso concatenamos cuatro elementos:
+
+    -   Un texto: `"entry_"`.
+
+    -   El índice del año `i`.
+
+    -   El índice de la entrada, en este caso lo determinamos con la función `seq_along()` que va contando la posición de cada uno de los elementos `entries` dentro de la lista `year`.
+
+```{r, echo=FALSE}
+# Verificar los nombres de las entradas en el primer año
+print(names(yearly_entries[[1]]$entries))
+
+```
+
 ## 🗿 ¡A la tokenización!
 
 Ya tenemos nuestro texto bien organizado y estructurado. Toca dividir aún más y limpiar. Para ello vamos a hacer lo siguiente:
