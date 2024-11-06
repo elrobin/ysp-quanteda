@@ -35,11 +35,15 @@ library(stringi)
 El análisis de frecuencia de términos nos permite identificar las palabras más comunes, facilitando un primer visionado de aquellos posibles temas recurrentes que pudieran ser interesantes de analizar.
 
 ```{r}
-# Extraer el texto de cada entrada diaria y crear una lista plana 
-unified_entries <- unlist(lapply(yearly_entries, function(year) {   sapply(year$entries, function(entry) paste(entry, collapse = " ")) }))    # Crear una matriz de frecuencias de términos a partir de los textos unificados  
-dfm_all <- dfm(tokens(unified_entries))    
-# Mostrar las 10 palabras más frecuentes  
-top_words <- topfeatures(dfm_all, n = 15)  
+# Extraer el texto de cada entrada diaria y crear una lista plana
+unified_entries <-
+  unlist(lapply(yearly_entries, function(year) {
+    sapply(year$entries, function(entry)
+      paste(entry, collapse = " "))
+  }))    # Crear una matriz de frecuencias de términos a partir de los textos unificados
+dfm_all <- dfm(tokens(unified_entries))
+# Mostrar las 10 palabras más frecuentes
+top_words <- topfeatures(dfm_all, n = 15)
 top_words
 ```
 
