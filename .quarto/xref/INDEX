@@ -9,5 +9,8 @@
   },
   "dataprocessing.qmd": {
     "dataprocessing.html": "55a0b99a"
+  },
+  "dataviz.qmd": {
+    "dataviz.html": "bf02482d"
   }
 }
