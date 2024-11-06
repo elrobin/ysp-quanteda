@@ -53,10 +53,6 @@ top_words
     print(head(dfm_all))
     ```
 
-```         
-{r, echo=FALSE} print(head(dfm_all))
-```
-
 Para lograrlo, combinamos varias funciones:
 
 -   `lapply()`: Aplica una función a cada elemento de `yearly_entries`, en este caso, iterando sobre cada año en la lista. Dentro de esta función, procesamos cada entrada diaria para obtener un texto unificado.
