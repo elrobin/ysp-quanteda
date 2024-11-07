@@ -46,7 +46,7 @@
     "href": "ysp_tutorial.html#quanteda-como-herramienta-para-el-análisis-de-datos",
     "title": "Análisis de textos",
     "section": "✍️ Quanteda como herramienta para el análisis de datos",
-    "text": "✍️ Quanteda como herramienta para el análisis de datos\nQuanteda es un paquete de R diseñado específicamente para el análisis cuantitativo de textos. Su valor principal radica en que ofrece una forma rápida, flexible y eficiente de transformar textos en datos estructurados, permitiendo a los investigadores trabajar con grandes volúmenes de texto de manera sistemática. Quanteda es ideal para el procesamiento inicial y análisis exploratorio de textos."
+    "text": "✍️ Quanteda como herramienta para el análisis de datos\nQuanteda es un paquete de R diseñado específicamente para el análisis cuantitativo de textos. Su valor principal radica en que ofrece una forma rápida, flexible y eficiente de transformar textos en datos estructurados, permitiendo a los investigadores trabajar con grandes volúmenes de texto de manera sistemática. Es ideal para el procesamiento inicial y análisis exploratorio de textos.\nEl paquete fue creado y es mantenido por Kenneth Benoit y Kohei Watanabe, con el apoyo inicial del European Research Council a través de la subvención ERC-2011-StG 283794-QUANTESS. Además, su desarrollo continuo está respaldado por la Quanteda Initiative CIC. Aunque el uso de quanteda requiere conocimientos de programación en R, su API está diseñada para permitir análisis potentes y eficientes con el mínimo de pasos, lo que facilita el aprendizaje y uso de NLP (Procesamiento de Lenguaje Natural) y análisis cuantitativo de texto incluso para programadores R experimentados."
   },
   {
     "objectID": "ysp_tutorial.html#por-qué-quanteda",
@@ -180,5 +180,19 @@
     "title": "Análisis y visualización de datos",
     "section": "Footnotes",
     "text": "Footnotes\n\n\n\n\n\n\n\n\nEl topic modeling (modelado de tópicos) es una técnica de análisis de texto que identifica temas latentes dentro de un conjunto de documentos. Agrupa palabras que tienden a aparecer juntas, permitiendo descubrir patrones temáticos y estructuras ocultas en el texto.\n\n\n\n↩︎"
+  },
+  {
+    "objectID": "index.html#material-necesarios",
+    "href": "index.html#material-necesarios",
+    "title": "Bienvenidos",
+    "section": "🎒 Material necesarios",
+    "text": "🎒 Material necesarios\nEl texto al que vamos aplicar el análisis cuantitativo procede del diario escrito por el opositor ruso Navalni durante su encarcelamiento entre 2021 y 2024. Este no es el diario completo, sino fragmentos que hemos extraido de una publicación del diario “The New Yorker” el 11 octubre de 2024.\n\n⬇️ Descárgate el archivo con los fragmentos del diario. Una vez en la página cliquea con el botón derecho sobre ella &gt; Selecciona “guardar como” y ubícalo en un lugar de fácil acceso. Recomendamos que lo guardes en el propio escritorio.\n\nSi quieres saber más sobre este tema también te facilitamos el artículo que hemos tenido como referencia.\n\n📰 Artículo The New Yorker: Alexei Navalny’s Prison Diaries\n📰 Artículo El País: Los (inéditos) diarios de prisión de Navalni\n📖 Libro original con los diarios: Patriota, de Alexéi Navalni\n\nSobre Navalni\n\n\n\n\nAlekséi Navalni fue un abogado y político condenado a 19 años de prisión por varios delitos relacionados con su activismo opositor al gobierno de Putin. Estas entradas reflejan los pensamientos y reflexiones que Navalni expresó durante su encarcelamiento, que comenzó el 28 de febrero de 2021 y continuó hasta el 16 de febrero de 2024, año en el que se informó su muerte en extrañas circunstancias en la prisión IK-3 de Jarp, en Yamalia-Nenetsia, también conocida como “Lobo Polar” por su ubicación en las cercanías del círculo polar ártico."
+  },
+  {
+    "objectID": "ysp_tutorial.html#otros-paquetes-relacionados",
+    "href": "ysp_tutorial.html#otros-paquetes-relacionados",
+    "title": "Análisis de textos",
+    "section": "📦 Otros paquetes relacionados",
+    "text": "📦 Otros paquetes relacionados\nquanteda no es la única librería que permite trabajar con análisis de texto y NLP. Según el tipo de análisis que queramos aplicar pueden darse otras alternativas igual de válidas. Te dejamos unos cuantos como muestra:\n\n\n\n\n\n\n\ntm\nPaquete conocido para el análisis de texto, permite limpiar, transformar y manipular texto eficientemente.\n\n\ntidytext\nBasado en el paradigma tidyverse, proporciona herramientas para trabajar con texto en formato tidy y realizar tareas como tokenización y análisis de frecuencias.\n\n\ntext\nOfrece herramientas para trabajar con modelos de lenguaje, vectores de palabras y embeddings, permitiendo análisis a gran escala.\n\n\ntextTinyR\nPaquete optimizado para realizar procesamiento de texto a gran escala de manera eficiente. Soporta vectorización y análisis de similitud semántica.\n\n\nspacyr\nInterfaz en R para spaCy, que permite realizar tareas avanzadas de procesamiento de lenguaje natural, como etiquetado POS y extracción de entidades.\n\n\nwordcloud\nPaquete para generar nubes de palabras visualmente atractivas, útil para representar la frecuencia de palabras.\n\n\ntext2vec\nPaquete eficiente para trabajar con representaciones vectoriales de texto y realizar modelado de tópicos y análisis de similitud.\n\n\nword2vec\nPermite trabajar con representaciones de palabras basadas en vectores, útil para análisis semántico y aprendizaje automático."
   }
 ]

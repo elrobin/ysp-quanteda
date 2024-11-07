@@ -34,3 +34,23 @@ Para poder repetir las cosas que vamos a hacer en este curso y poder realizar tu
 
 -   El libro online [R for Data Science](https://r4ds.hadley.nz/) by Hadley Wickham, uno de los máximos exponentes en R
 :::
+
+## 🎒 Material necesarios
+
+El texto al que vamos aplicar el análisis cuantitativo procede del diario escrito por el opositor ruso Navalni durante su encarcelamiento entre 2021 y 2024. Este no es el diario completo, sino fragmentos que hemos extraido de una publicación del diario "The New Yorker" el 11 octubre de 2024.
+
+-   ⬇️ Descárgate el archivo con los [fragmentos del diario](https://raw.githubusercontent.com/elrobin/ysp-quanteda/refs/heads/main/NAVALNY.txt). Una vez en la página cliquea con el botón derecho sobre ella \> Selecciona "guardar como" y ubícalo en un lugar de fácil acceso. Recomendamos que lo guardes en el propio escritorio.
+
+Si quieres saber más sobre este tema también te facilitamos el artículo que hemos tenido como referencia.
+
+-   📰 Artículo The New Yorker: [Alexei Navalny's Prison Diaries](https://www.newyorker.com/magazine/2024/10/21/alexei-navalny-patriot-memoir)
+
+-   📰 Artículo El País: [Los (inéditos) diarios de prisión de Navalni](https://elpais.com/ideas/2024-10-12/los-ineditos-diarios-de-prision-de-navalni.html)
+
+-   📖 Libro original con los diarios: [Patriota](https://www.todostuslibros.com/libros/patriota_978-84-1100-294-3), de Alexéi Navalni
+
+[Sobre Navalni]{style="font-size: 22px; font-weight: bold;"}
+
+|                                                                                                      |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+|------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ![](https://media.newyorker.com/photos/6706f18745e53709f422034e/master/w_1920,c_limit/r44999web.jpg) | [Alekséi Navalni](https://es.wikipedia.org/wiki/Aleks%C3%A9i_Navalni) fue un abogado y político condenado a 19 años de prisión por varios delitos relacionados con su activismo opositor al gobierno de Putin. Estas entradas reflejan los pensamientos y reflexiones que Navalni expresó durante su encarcelamiento, que comenzó el 28 de febrero de 2021 y continuó hasta el 16 de febrero de 2024, año en el que se informó su muerte en extrañas circunstancias en la prisión IK-3 de Jarp, en Yamalia-Nenetsia, también conocida como "Lobo Polar" por su ubicación en las cercanías del círculo polar ártico. |

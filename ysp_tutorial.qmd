@@ -12,23 +12,40 @@ A medida que el volumen de información textual digitalizada ha crecido, la nece
 
 ## 🤔 ¿Para qué se utiliza el análisis de textos?
 
-|  |  |
-|----|----|
-| **Análisis de sentimiento** | Evaluar el tono emocional de textos, como reseñas o comentarios en redes sociales, para conocer las opiniones y actitudes de los usuarios. |
-| **Análisis de tendencias** | Identificar la frecuencia de palabras o frases clave y su cambio a lo largo del tiempo. |
-| **Análisis del discurso** | Explorar cómo ciertos temas o ideas son representados en la sociedad y su evolución temporal |
-| **Clasificación automática de textos** | Organizar categóricamente textos y fragmentos de textos a través de técnicas como *topic modeling* o similares |
+|                                        |                                                                                                                                            |
+|----------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
+| **Análisis de sentimiento**            | Evaluar el tono emocional de textos, como reseñas o comentarios en redes sociales, para conocer las opiniones y actitudes de los usuarios. |
+| **Análisis de tendencias**             | Identificar la frecuencia de palabras o frases clave y su cambio a lo largo del tiempo.                                                    |
+| **Análisis del discurso**              | Explorar cómo ciertos temas o ideas son representados en la sociedad y su evolución temporal                                               |
+| **Clasificación automática de textos** | Organizar categóricamente textos y fragmentos de textos a través de técnicas como *topic modeling* o similares                             |
 
 ## ✍️ `Quanteda` como herramienta para el análisis de datos
 
-**Quanteda** es un paquete de R diseñado específicamente para el análisis cuantitativo de textos. Su valor principal radica en que ofrece una forma rápida, flexible y eficiente de transformar textos en datos estructurados, permitiendo a los investigadores trabajar con grandes volúmenes de texto de manera sistemática. Quanteda es ideal para el procesamiento inicial y análisis exploratorio de textos.
+**Quanteda** es un paquete de R diseñado específicamente para el análisis cuantitativo de textos. Su valor principal radica en que ofrece una forma rápida, flexible y eficiente de transformar textos en datos estructurados, permitiendo a los investigadores trabajar con grandes volúmenes de texto de manera sistemática. Es ideal para el procesamiento inicial y análisis exploratorio de textos.
+
+El paquete fue creado y es mantenido por **Kenneth Benoit** y **Kohei Watanabe**, con el apoyo inicial del **European Research Council** a través de la subvención **ERC-2011-StG 283794-QUANTESS**. Además, su desarrollo continuo está respaldado por la **Quanteda Initiative CIC**. Aunque el uso de **quanteda** requiere conocimientos de programación en R, su API está diseñada para permitir análisis potentes y eficientes con el mínimo de pasos, lo que facilita el aprendizaje y uso de NLP (Procesamiento de Lenguaje Natural) y análisis cuantitativo de texto incluso para programadores R experimentados.
 
 ## ⁉️ ¿Por qué `quanteda`?
 
-|  |  |
-|----|----|
-| **Facilidad en la preprocesamiento** | Permite realizar tareas como tokenización y limpieza de datos de forma rápida y eficiente. |
-| **Análisis de frecuencias** | Facilita el cálculo de frecuencias de términos en un corpus, ideal para identificar palabras clave y patrones. |
-| **Exploración de contexto (KWIC)** | La función KWIC permite analizar palabras en su contexto, proporcionando insights sobre el uso de ciertos términos. |
-| **Análisis de sentimiento y temas** | Permite aplicar diccionarios de sentimiento y realizar análisis básico de temas mediante co-ocurrencia de palabras. |
-| **Flexibilidad y escalabilidad** | Optimizado para manejar grandes volúmenes de texto y se integra fácilmente con otros paquetes para análisis avanzados. |
+|                                      |                                                                                                                        |
+|--------------------------------------|------------------------------------------------------------------------------------------------------------------------|
+| **Facilidad en la preprocesamiento** | Permite realizar tareas como tokenización y limpieza de datos de forma rápida y eficiente.                             |
+| **Análisis de frecuencias**          | Facilita el cálculo de frecuencias de términos en un corpus, ideal para identificar palabras clave y patrones.         |
+| **Exploración de contexto (KWIC)**   | La función KWIC permite analizar palabras en su contexto, proporcionando insights sobre el uso de ciertos términos.    |
+| **Análisis de sentimiento y temas**  | Permite aplicar diccionarios de sentimiento y realizar análisis básico de temas mediante co-ocurrencia de palabras.    |
+| **Flexibilidad y escalabilidad**     | Optimizado para manejar grandes volúmenes de texto y se integra fácilmente con otros paquetes para análisis avanzados. |
+
+## 📦 Otros paquetes relacionados
+
+`quanteda` no es la única librería que permite trabajar con análisis de texto y NLP. Según el tipo de análisis que queramos aplicar pueden darse otras alternativas igual de válidas. Te dejamos unos cuantos como muestra:
+
+|               |                                                                                                                                                                   |
+|---------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **tm**        | Paquete conocido para el análisis de texto, permite limpiar, transformar y manipular texto eficientemente.                                                        |
+| **tidytext**  | Basado en el paradigma tidyverse, proporciona herramientas para trabajar con texto en formato tidy y realizar tareas como tokenización y análisis de frecuencias. |
+| **text**      | Ofrece herramientas para trabajar con modelos de lenguaje, vectores de palabras y embeddings, permitiendo análisis a gran escala.                                 |
+| **textTinyR** | Paquete optimizado para realizar procesamiento de texto a gran escala de manera eficiente. Soporta vectorización y análisis de similitud semántica.               |
+| **spacyr**    | Interfaz en R para spaCy, que permite realizar tareas avanzadas de procesamiento de lenguaje natural, como etiquetado POS y extracción de entidades.              |
+| **wordcloud** | Paquete para generar nubes de palabras visualmente atractivas, útil para representar la frecuencia de palabras.                                                   |
+| **text2vec**  | Paquete eficiente para trabajar con representaciones vectoriales de texto y realizar modelado de tópicos y análisis de similitud.                                 |
+| **word2vec**  | Permite trabajar con representaciones de palabras basadas en vectores, útil para análisis semántico y aprendizaje automático.                                     |
