@@ -20,28 +20,27 @@ Para seguir este tutorial por primera vez, deberás instalar una serie de paquet
     :::
 
 ```{r, eval = FALSE}
-install.packages(c("quanteda", "readtext", "dplyr", "stringi"))
+install.packages(c("quanteda", "readtext", "dplyr", "stringi", "quanteda.textplots", "ggplot2", "stringr", "tm", "topicmodels"))
 ```
 
-#### ¿Por qué lo usamos?
+#### ¿Para qué sirve cada uno?
 
-`quanteda`
+| **Paquete**                                                                                         | **Descripción**                                                                                                                                              |
+|---------------------------|---------------------------------------------|
+| [**`quanteda`**](https://quanteda.io/)                                                              | Paquete de análisis de textos, incluyendo tokenización, conteo y limpieza de textos                                                                          |
+| [**`readtext`**](https://cran.r-project.org/web/packages/readtext/vignettes/readtext_vignette.html) | Permite importar archivos de texto en varios formatos, facilitando la carga de datos                                                                         |
+| [**`dplyr`**](https://dplyr.tidyverse.org/)                                                         | Herramienta para manipulación y transformación de datos, útil para filtrar y organizar datos                                                                 |
+| [**`stringi`**](https://stringi.gagolewski.com/)                                                    | Conjunto de funciones para trabajar con texto, especialmente útil para limpieza y manejo de expresiones regulares[^2]                                        |
+| [**`quanteda.textplots`**](https://quanteda.io/reference/textplots.html)                            | Extensión de `quanteda` para crear visualizaciones como nubes de palabras y gráficos de dispersión léxica.                                                   |
+| [**`ggplot2`**](https://ggplot2.tidyverse.org/)                                                     | Paquete de visualización de datos que permite crear gráficos personalizados y atractivos.                                                                    |
+| [**`stringr`**](https://stringr.tidyverse.org/)                                                     | Facilita la manipulación de cadenas de texto con funciones simples y potentes, parte del `tidyverse`.                                                        |
+| [**`tm`**](https://tm.r-forge.r-project.org/)                                                       | Paquete clásico para el análisis de texto y minería de textos, incluye herramientas para el procesamiento de textos y la creación de matrices de documentos. |
+| [**`topicmodels`**](https://rbasics.org/packages/topicmodels-package-in-r/)                         | Se utiliza para el modelado de temas latentes, permitiendo ajustar modelos como LDA para identificar patrones temáticos.                                     |
 
-:   Paquete de análisis de textos, incluyendo tokenización, conteo y limpieza de textos
-
-`readtext`
-
-:   Permite importar archivos de texto en varios formatos, facilitando la carga de datos
-
-`dplyr`
-
-:   Herramienta para manipulación y transformación de datos, útil para filtrar y organizar datos
-
-`stringi`
-
-:   Conjunto de funciones para trabajar con texto, especialmente útil para limpieza y manejo de expresiones regulares.[^2]
-
-[^2]: Una **expresión regular** es un patrón de búsqueda utilizado para manipular texto específico en una cadena. Facilita tareas como eliminar caracteres no deseados o extraer información específica (e.g., fechas o números). Es especialmente útil en la limpieza y preprocesamiento de datos textuales.
+[^2]:
+    ::: {.callout-tip appearance="simple"}
+    Una **expresión regular** es un patrón de búsqueda utilizado para manipular texto específico en una cadena. Facilita tareas como eliminar caracteres no deseados o extraer información específica (e.g., fechas o números). Es especialmente útil en la limpieza y preprocesamiento de datos textuales.
+    :::
 
 **¿Sabías qué...?** ️🤓☝
 
@@ -72,12 +71,11 @@ Una vez cargados, el programa estará listo para leer nuestro archivo de texto. 
 
 ```{r, eval=T}
 navalny_raw <- as.character(readtext("NAVALNY.txt"))
-names(navalny_raw) <- "navalny"
 ```
 
 **❗ATENCIÓN:** Si por alguna razón hiciesemos algún cambio en el contenido del archivo, deberemos de aplicar el paso anterior de nuevo. Cuando cargamos un archivo en R, se guarda una copia y cualquier cambio en el original no se refleja automáticamente.
 
-#### 🤔¿Qué hemos hecho?
+**🤔¿Qué hemos hecho?**
 
 Este comando carga el archivo `NAVALNY.txt` en el objeto `navalny_raw`, el cual contiene el contenido del texto. Vamos a desgranar este prompt para que pueda entenderse más facil:
 
@@ -87,7 +85,7 @@ Este comando carga el archivo `NAVALNY.txt` en el objeto `navalny_raw`, el cual 
 
 -   `as.character()`: Se trata de la función que estamos aplicando. Esta función convierte todo lo que se contiene dentro de ella en carácter. En `R` toda función viene seguida por unos paréntesis dentro de los cuáles se incluyen los parámetros de dicha función. Si no hay contenido, se aplican los parámetros que la función trae por defecto.
 
--   `readtext`: Aquí estamos empleando una función expecífica del paquete `readtext`. Si no hubiésemos cargado el paquete anteriormente, podríamos invocarlo específicamente para activar esta función con la notación `paquete::función`. Aquí, lo que le estamos diciendo a RStudio es que, del paquete `readtext`, aplique específicamente la función lectura que casualmente también se llama `readtext` . Dentro indicamos entrecomillada la ruta del archivo a importar. Un **problema muy común** que puede surgir a la hora de introducir la URL de la ubicación del archivo es expresarlo con barras laterales izquierdas " \\ ", tal y como viene en la barra de dirección del explorador de archivos de Windows, en vez de la derecha " / ". Si tienes problemas leer tu .txt ¡prueba con hacer este cambio!
+-   `readtext`: Aquí estamos empleando una función expecífica del paquete `readtext`. Si no hubiésemos cargado el paquete anteriormente, podríamos invocarlo específicamente para activar esta función con la notación `paquete::función`. Aquí, lo que le estamos diciendo a RStudio es que, del paquete `readtext`, aplique específicamente la función lectura que casualmente también se llama `readtext` . Dentro indicamos entrecomillada la ruta del archivo a importar. Un **problema muy común** que puede surgir a la hora de introducir la URL de la ubicación del archivo es expresarlo con barras laterales izquierdas " \\ ", tal y como viene en la barra de dirección del explorador de archivos de Windows, en vez de la derecha" / ". Si tienes problemas leer tu .txt ¡prueba con hacer este cambio!
 
 -   `names(navalny_raw) <- "navalny"`: Asigna un nombre al objeto que contiene el texto, facilitando su identificación en futuros análisis.
 
@@ -117,7 +115,7 @@ Si el texto contiene secciones que no necesitamos para el análisis, podemos fil
 
 #### PASO 1: Identificación de comienzo y fin del texto
 
-Para crear el objeto que albergue el rango de texto a analizar deberemos empezar indicando donde empieza y termina nuestra selección. Para ello, crearemos dos valores de posición: `start_v` y `end_v`, donde `start_` será: "2023, January 12th" y `end_v` "Alexei Navalny died".
+Para crear el objeto que albergue el rango de texto a analizar deberemos empezar indicando donde empieza y termina nuestra selección. Imaginemos que sólo nos interesa analizar los últimos años de vida de Navalny. Para ello, crearemos dos valores de posición: `start_v` y `end_v`, donde `start_` será: "2023, January 12th" y `end_v` "Alexei Navalny died".
 
 Localizado el rango que queremos, la forma de expresarlo en el programa sería el siguiente:
 
@@ -134,7 +132,7 @@ Si lo hemos aplicado bien, la función debería de devolver los siguientes resul
 -   Para `start_value`
 
     ```         
-    [1] 23653
+    [1] 23654
     ```
 
 <!-- -->
@@ -145,9 +143,9 @@ Si lo hemos aplicado bien, la función debería de devolver los siguientes resul
     [1] 44099
     ```
 
-#### 🤔¿Qué hemos hecho?
+**🤔¿Qué hemos hecho?**
 
--   Tanto `start_v` como `end_v` son nombres que hemos asignado a la posición específicas del texto. En sí, no significan nada. Solo decimos, a través de "\<- " que dichos nombres albergan una función de posicionamiento.
+-   Tanto `start_v` como `end_v` son nombres que hemos asignado a la posición específicas del texto. En sí, no significan nada. Solo decimos, a través de "\<-" que dichos nombres albergan una función de posicionamiento.
 
 -   Las funciones del paquete `stringi`: `stri_locate_first_fixed` y `stri_locate_last_fixed` buscan y encuentran la primera coincidencia del valor entrecomillado que precede a nuestro objeto `data_char_NALVANY`
 
@@ -170,13 +168,17 @@ Al iniciar el código el valor que os ha tenido que recuperar, además de almace
 [1] 1
 ```
 
-#### 🤔¿Qué hemos hecho?
+**🤔¿Qué hemos hecho?**
 
 -   `navalny_fix` es el nombre del objeto que almacena la función que ha sido asignada. En este caso, a través de `stri_sub`, estamos extrayendo una parte del texto `navalny_fix` . A diferencia del caso anterior, aquí le estamos pidiendo que, en vez de que recuper un número detemrinado de caracteres, escoja todos los que hay comprendidos entre las posiciones que hemos dado a `start_v` y a `end_v`. Con esto nos aseguramos que el objeto `navalny_fix` siempre trabaje en los rangos que nos interesa analizar.
 
 -   `length(navalny_fix)` es una expresión que usamos para comprobar cuandos valores existen en nuestro objeto. Es una forma de asegurarnos de que nuestro objeto solo tiene un vector y no es un conjunto de fragmentos de texto. Por eso, al introducirlo, el programa nos devuelve el valor 1 porque solo hay 1 valor dentro de nuestro objeto.
 
 ## 🗑️ Limpiando datos
+
+::: {.callout-caution appearance="simple"}
+El fichero de texto con el que estamos trabajando ya está libre de ruido, por lo que continuaremos el resto del ejemplo trabajando con el objeto `navalny_raw`.
+:::
 
 Ya tenemos nuestro set de datos, nos toca empezar a limpiar antes de tokenizar y empezar a analizar.
 
@@ -186,7 +188,7 @@ Vamos a abrir un momento nuestro archivo para ver lo que contiene. Aquí te ense
 
 ```{r, echo= FALSE}
 # Convertir el texto en un vector de líneas
-lines <- unlist(strsplit(navalny_fix, "\n"))
+lines <- unlist(strsplit(navalny_raw, "\n"))
 
 # Mostrar las primeras 20 líneas del texto en formato raw
 cat(lines[1:15], sep = "\n")
@@ -205,18 +207,21 @@ Aquí queda más clara la estructura del texto:
 
 A continuación lo que vamos a hacer es crear un objeto lista[^3], en la que cada elemento será una entrada del diario.
 
-[^3]: Una **lista** es una estructura de datos que puede contener elementos de diferentes tipos (numérico, caractéres, vectores o incluso otras listas) en un solo objeto. Cada elemento en una lista se puede acceder de forma individual usando índices. Esto se hace utilizando corchetes dobles. Por ejemplo si queremos ver el segundo elemento de la lista `lista`, lo indicaremos así: `lista[[2]]`.
+[^3]:
+    ::: {.callout-tip appearance="simple"}
+    Una **lista** es una estructura de datos que puede contener elementos de diferentes tipos (numérico, caractéres, vectores o incluso otras listas) en un solo objeto. Cada elemento en una lista se puede acceder de forma individual usando índices. Esto se hace utilizando corchetes dobles. Por ejemplo si queremos ver el segundo elemento de la lista `lista`, lo indicaremos así: `lista[[2]]`.
+    :::
 
 #### PASO 2: Conversión del texto en vectores
 
-Ahora que comprendemos la estructura, vamos a separar el texto en entradas diarias, preservando la estructura de párrafos dentro de cada entrada. Primero dividimos el texto en líneas, donde cada línea se convierte en un elemento de un vector. Esto nos permite identificar las lineas que contienen fechas y separar las entradas.
+Ahora que comprendemos la estructura, vamos a separar el texto en entradas diarias. Primero dividimos el texto en líneas, donde cada línea se convierte en un elemento de un vector. Esto nos permite identificar las líneas que contienen fechas y separar las entradas.
 
 ```{r}
 # Convertir el texto en un vector de líneas
-lines <- unlist(strsplit(navalny_fix, '\n')) # \n indica un salto de línea
+lines <- unlist(strsplit(navalny_raw, '\n')) # \n indica un salto de línea
 ```
 
-#### 🤔¿Qué hemos hecho?
+**🤔¿Qué hemos hecho?**
 
 -   `strsplit()` divide el texto por saltos de línea (`"\n"`), creando un vector en el que cada línea es un elemento independiente.
 
@@ -230,7 +235,7 @@ head(lines) # Veamos las primeras seis líneas de nuestro objeto
 
 En este paso, vamos a crear los **índices** que nos permitirán identificar las líneas en el texto que corresponden a cada año y a cada día. Esto nos ayudará a estructurar las entradas en el próximo paso.
 
-1.  Utilizando expresiones regulares, vamos a identificar las líneas que contengan sólo el año. Estas líneas marcan el inicio de cada conjunto de entradas anuales
+1.  Utilizando [expresiones regulares](https://es.wikipedia.org/wiki/Expresi%C3%B3n_regular), vamos a identificar las líneas que contengan sólo el año. Estas líneas marcan el inicio de cada conjunto de entradas anuales
 
 ```{r}
 
@@ -239,7 +244,7 @@ year_indices <- grep("^\\d{4}$", lines)
 print(year_indices) # Muestra las líneas que contienen el año
 ```
 
-2.  Hemos identificado dos líneas que incluyen el año. Ahora haremos lo mismo para las líneas que encuentren el mes y el día
+2.  Hemos identificado tres líneas que incluyen el año. Ahora haremos lo mismo para las líneas que encuentren el mes y el día
 
 ```{r}
 
@@ -249,7 +254,7 @@ length(day_indices) # Número de entradas identificadas
 
 ```
 
-#### 🤔¿Qué hemos hecho?
+**🤔¿Qué hemos hecho?**
 
 -   `year_indices` contiene los índices de las líneas con los años, es decir, las posiciones donde comienza cada año en el texto. La expresión regular `^\\d{4}` busca cuatro dígitos al inicio de la línea.
 
@@ -306,7 +311,7 @@ yearly_entries <- lapply(
 
 ```
 
-#### 🤔¿Qué hemos hecho?
+**🤔¿Qué hemos hecho?**
 
 -   Cada elemento en `yearly_entries` es un año completo
 
@@ -334,100 +339,115 @@ Para ello, hemos combinado diferentes funciones en un sólo script:
 
 ## 🗿 ¡A la tokenización!
 
-Realizada la limpieza de datos, es hora de preparar nuestro material para convertirlo en un objeto analizable. Para ello haremos tres cosas:
+Ya tenemos nuestro texto bien organizado y estructurado. Toca dividir aún más y limpiar. Para ello vamos a hacer lo siguiente:
 
-1.  Convertiremos todo el texto almacenado en `diary_v` en tokens.
-2.  Pasaremos toda la información a minúsculas mediante la función `tolower()`
-3.  Eliminaremos los signos de puntuación con la función `remove_punct=TRUE`
+1.  Convertimos el texto en minúsculas y eliminamos los signos de puntuación
+2.  Tokenizamos el texto dividiéndolo en palabras. De manera que nuestra unidad de análisis será la palabra[^4].
+3.  Eliminamos todas las palabras vacías[^5] para quedarnos sólo con aquellas relevantes para nuestro análisis.
 
-#### PASO 1: tokenización
+[^4]:
+    ::: {.callout-tip appearance="simple"}
+    Aquí es importante diferenciar entre análisis textual y un análisis semántico. En el análisis de textos examinamos cuestiones como la frecuencia de las palabras, patrones o estructura, sin considerar el significado de cada palabra. Se trataría de un paso previo al análisis semántico donde nos centramos en el significado y el contexto de las palabras.
+    :::
+
+[^5]:
+    ::: {.callout-tip appearance="simple"}
+    Las **palabras vacías** son términos comunes (como "el", "de", "y") que suelen aparecer con mucha frecuencia en el texto, pero aportan poco significado o valor informativo al análisis. Estas palabras se eliminan generalmente para centrar el análisis en los términos más relevantes.
+    :::
+
+#### PASO 1: Texto en minúscula y puntuación fuera
+
+Para asegurarnos que palabras idénticas no se traten como diferentes por su formato, converitmos todo el texto a minúsculas y eliminamos puntuación.
+
+```{r}
+# Convertir cada entrada diaria a minúsculas y eliminar signos de puntuación
+yearly_entries <- lapply(yearly_entries, function(year) {
+  year$entries <- lapply(year$entries, function(entry) {
+    # Convertir el texto a minúsculas y eliminar puntuación
+    entry <- char_tolower(entry)
+    entry <- gsub("[[:punct:]]", "", entry)
+    entry
+  })
+  year  # Devolver la lista de año modificada
+})
+
+```
+
+**🤔¿Qué hemos hecho?**
+
+-   La función `char_tolower()` convierte el texto en minúsculas.
+
+-   La función `gsub()` sustituye un patrón de texto por otro. En nuestro caso, le hemos pedido que busque cualquier signo de puntuación empleando la expresión regular `[[:punct:]]` y la reemplace por nada.
+
+-   Después hemos pedido que incluya estos cambios nuevamente en nuestro objeto `yearly_entries`.
+
+Si observas las primeras líneas de una entrada, verás que todo ha funcionado tal y como esperábamos:
+
+```{r, echo=FALSE}
+
+# Aquí podemos ver qué ha pasado con las primeras 5 líneas de la primera entrada
+print(head(yearly_entries[[1]]$entries[[1]], 5))
+
+```
+
+#### PASO 2: Tokenización
 
 Para que el programa pueda analizar y realizar manipulaciones sobre las palabras de forma individualizada, vamos a convertir a cada una de ellas en pequeños valores que llamamos **tokens.**
 
-La función `tokens()` del paquete `quanteda` es el que nos ayudará a realizar este trabajo.
+```{r}
+# Tokenizar cada entrada diaria dentro de cada año
+yearly_entries <- lapply(yearly_entries, function(year) {
+  year$entries <- lapply(year$entries, function(entry) {
+    tokens(entry, what = "word")
+  })
+  year  # Devolver la lista de año modificada
+})
 
-```{r, eval=FALSE}
-diary_v_toks <- tokens(diary_v)
 ```
 
-#### **🤔¿Qué significa esta expresión?**
+**🤔¿Qué hemos hecho?**
 
-Hemos creado un nuevo objeto: `diary_v_toks` donde los valores que tiene asignado han sido convertidos en una unidad manipulable llamado **token**. Esto nos permitirá poder realizar los dos pasos siguientes.
+-   Siguiendo la misma estructura de la vez anterior, hemos incorporado la función `tokens()` y lo hemos aplicado al objeto `entry`
 
-#### PASO 2: eliminación de las mayúsculas.
+-   Además, hemos utilizado el parámetro `what=` en el que indicamos el nivel. En nuestro caso tokenizamos por palabras. Otras opciones son por caracteres (`character`) y frases (`sentence`).
 
-R es sensible a las mayúsculas y las toma como valor diferente a como sería en minúsculas. Por eso, para evitar errores, vamos a homogenizar el texto para que todo esté en un solo formato: minúsculas.
+Ahora en lugar de contener un listado de filas por entrada, lo que tengo es una bolsa de palabras:
 
-Para ello crearemos un nuevo objeto: `diary_v_toks_lower` que albergará los valores del objeto del paso anterior, pero con la función minúsculas aplicadas
-
-```{r, eval=FALSE}
-diary_v_toks_lower <- tokens_tolower(diary_v_toks)
+```{r, echo=FALSE}
+print(head(yearly_entries[[1]]$entries[[1]], 3)) 
 ```
 
-#### PASO 3: eliminación de los signos de puntuación.
+#### PASO 3: Eliminación de palabras vacías
 
-En nuestro texto, habrá palabras que vengan unidas a un signo de puntuación. Las comas, comillas y puntos pueden provocar que el programa identifica una misma palabra: `nalvany` y `nalvany.` como dos elementos distintos, lo que podría darnos un recuento distinto cuando hagamos búsqueda de patrones^\[4\]^.
+Para centrarnos en las palabras significativas, eliminamos las **palabras vacías** (stopwords), que suelen ser términos comunes y poco informativos, como "el", "de", "y". Esto permite que el análisis se centre en términos con más contenido semántico.
 
-Para realizar esta limpieza se hará un nuevo objeto que llamaremos `nalvany_word_v`
+```{r}
+# Eliminar palabras vacías en inglés en cada entrada diaria
+yearly_entries <- lapply(yearly_entries, function(year) {
+  year$entries <- lapply(year$entries, function(entry) {
+    tokens_remove(entry, pattern = stopwords("en")) 
+  })
+  year  # Devolver la lista de año modificada
+})
 
-```{r, eval=FALSE}
- nalvany_word_v <- tokens(diary_v_toks_lower, remove_punct = TRUE)
 ```
 
-#### **🤔¿Qué significa esta expresión?**
+**🤔¿Qué hemos hecho?**
 
--   De nuevo el valor `nalvany_word_v` es un objeto al que se ha aplicado la función `tokens`. Lo que le estamos diciendo a R es que el valor ya tokenizado `diary_v_toks_lower` vuelva a procesarlo tomando como parámetro el valor `remove_punct=TRUE`
+-   Aquí empleamos la función `tokens_remove()` otra vez aplicada al objeto `entry`, en este caso empleamos el parámetro `pattern =` para indicar que eliminaremos los tokens que representen palabras vacías, en paréntesis incluimos la lengua a través de su código ISO, en nuestro caso el inglés. [Aquí tienes el listado completo de idiomas](https://www.rdocumentation.org/packages/stopwords/versions/2.3). El paquete `stopwords` permite asimismo crear y/o añadir tus propias palabras vacías.
 
--   `remove_punct=TRUE` es el argumento que indica a `tokens()` que elimine toda la puntuación del valor que le antecede, en este caso `diary_v_toks_lower`.
+Fíjate cómo, en comparación con el fragmento anterior, se han eliminado palabras como "in", "my" u "only".
 
-#### 🔍 Comprobaciones
-
-Una vez hecho esta re-tokenización, vamos a crear un objeto que contenga la unidad total de valores que tiene el objeto `nalvany_word_v` . Esto nos ayudará a tener una idea total de la longitud del contenido, también nos dará una idea de cuánto se ha reducido el texto al quitar caracteres y nos ahorrará tiempo para no tener que calcularlo cuando lo necesitemos
-
-Aplicaremos la función `ntoken` para averiguar la extensión total de nuestro texto.
-
-```{r, eval=FALSE}
-total_lenght <- ntoken(nalvany_word_v)
+```{r, echo=FALSE}
+print(head(yearly_entries[[1]]$entries[[1]], 3))
 ```
 
-```         
-text1 
- 3697 #Nos tendría que devolver este valor
-```
+::: {.callout-important appearance="simple"}
+Como habrás notado, es posible juntar todos estos pasos en uno sólo. Aquí lo mostramos por trozos para que vayas comprendiendo el proceso, pero podríamos hacer todo esto de una vez.
+:::
 
 **¿Sabías qué...?** ️🤓☝
 
 ::: {.tip style="background-color: #A8E6A1; border-left: 5px solid #A8E6A1; padding: 10px"}
-^~\[4\]~^ En inglés, es posible que el texto venga acompañado de apóstrofes como en los casos de `don't` y `he's`. Aquí, `quanteda` no tomará las `'t` ni las `'s` como elementos aislados, sino que lo mantendrá unida a la palabra para respetar el significado original.
+En inglés, es posible que el texto venga acompañado de apóstrofes como en los casos de `don't` y `he's`. Aquí, `quanteda` no tomará las `'t` ni las `'s` como elementos aislados, sino que lo mantendrá unida a la palabra para respetar el significado original.
 :::
-
-## ⚙️ Las utilidades
-
-Ahora que tenemos todo nuestro texto listo para trabajar, podemos realizar operaciones sencillas, tales como:
-
--   **Comprobar cuantas veces se repite una palabra y su localización.**
-
-Esto es especialmente util para realizar análisis de frecuencia o de sentimientos al conocer el contexto donde se menciona esa palabra.
-
-```{r, eval=FALSE}
-which(nalvany_word_v[["text1"]] == "putin") |>
-+     head()
-```
-
-```         
-[1] 1735 2771
-```
-
--   **Localizar una palabra exacta a través de su número de caracter.**
-
-Como sabemos el número total de caracteres que tiene gracias a la función `ntoken` podemos recuperar cualquier elemento con solo introducir un valor concreto.
-
-Esto nos podría ayudar para saber qué palabra se encuentra en una posición determinada para estudiar el contexto en el que aparece.
-
-```{r, eval=FALSE}
-nalvany_word_v[["text1"]][3666] 
-```
-
-```         
-[1] "it"
-```

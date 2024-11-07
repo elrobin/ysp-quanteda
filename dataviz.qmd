@@ -1,7 +1,7 @@
 ---
 title: "Análisis y visualización de datos"
 format: html
-toc: TRUE
+toc: true
 toc-title: "Índice"
 toc-depth: 4
 code-copy: true
@@ -42,7 +42,7 @@ unified_entries <-
       paste(entry, collapse = " "))
   }))    # Crear una matriz de frecuencias de términos a partir de los textos unificados
 dfm_all <- dfm(tokens(unified_entries))
-# Mostrar las 10 palabras más frecuentes
+# Mostrar las 15 palabras más frecuentes
 top_words <- topfeatures(dfm_all, n = 15)
 top_words
 ```
@@ -69,7 +69,7 @@ Para lograrlo, combinamos varias funciones:
 
 -   `dfm()`: Crea una **matriz de frecuencias de términos** (document-feature matrix) a partir de los tokens generados en el paso anterior. En esta matriz, cada fila representa una entrada diaria y cada columna representa una palabra, con valores que indican la frecuencia de cada palabra en cada entrada.
 
--   `topfeatures(dfm_all, n = 10)`: Extrae y muestra las 10 palabras más frecuentes en todo el conjunto de datos.
+-   `topfeatures(dfm_all, n = 15)`: Extrae y muestra las 15 palabras más frecuentes en todo el conjunto de datos.
 
 Combinando con el paquete de visualización `ggplot2` podríamos crear un gráfico de barras:
 
@@ -86,7 +86,7 @@ top_words_df <- data.frame(
 ggplot(top_words_df, aes(x = reorder(word, frequency), y = frequency)) +
   geom_bar(stat = "identity", fill = "black") +
   coord_flip() + 
-  labs(title = "Top 10 Most Frequent Words",
+  labs(title = "Top 15 Most Frequent Words",
        x = "Word",
        y = "Frequency") +
   theme_minimal()
@@ -125,7 +125,7 @@ Usaremos la función `textplot_xray()` de `quanteda.textplots` para generar un g
 library(quanteda.textplots)
 
 # Palabras clave para el análisis de dispersión léxica
-keywords <- c("cell", "russia", "people", "shizo")
+keywords <- c("prison", "russia", "people", "shizo")
 
 # Unificar todas las entradas en un solo texto
 full_text <- paste(unified_entries, collapse = " ")
@@ -134,7 +134,8 @@ full_text <- paste(unified_entries, collapse = " ")
 tokens_full_text <- tokens(full_text)
 
 # Generar gráfico de dispersión léxica para todo el texto
-textplot_xray(kwic(tokens_full_text, pattern = keywords))
+textplot_xray(kwic(tokens_full_text, pattern = keywords)) +
+  labs(title = "Dispersión léxica")
 
 ```
 
@@ -200,7 +201,7 @@ library(topicmodels)
 dfm_topics_lda <- convert(dfm_topics, to = "topicmodels")
 
 # Definir el número de temas
-num_topics <- 3  # Ajusta el número de temas según el análisis deseado
+num_topics <- 4  # Ajusta el número de temas según el análisis deseado
 
 # Ajustar el modelo LDA
 lda_model <- LDA(dfm_topics_lda, k = num_topics, control = list(seed = 1234))
